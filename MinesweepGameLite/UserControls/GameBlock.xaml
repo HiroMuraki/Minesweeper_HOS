@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="MinesweepGameLite.GameBlock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MinesweepGameLite"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="50" Name="UserControl">
+    <UserControl.Resources>
+        <Style TargetType="Label" x:Key="Base">
+            <Setter Property="Background" Value="{StaticResource BlockBase}"/>
+        </Style>
+        <Style TargetType="Label" x:Key="Flag">
+            <Setter Property="Background" Value="{StaticResource FlagMark}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsFlaged}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsFlaged}" Value="False">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Label" x:Key="Cover">
+            <Setter Property="Background" Value="{StaticResource BlockCover}"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsOpen}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 To="0"
+                                                 AccelerationRatio="0.2"
+                                                 DecelerationRatio="0.8"
+                                                 Duration="00:00:0.1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 To="1"
+                                                 Duration="0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.ExitActions>
+                    <Setter Property="IsHitTestVisible" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsOpen}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Label" x:Key="Mine">
+            <Setter Property="Background" Value="{StaticResource MineMark}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsMineBlock}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsMineBlock}" Value="False">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Label" x:Key="MinesCount">
+            <Setter Property="Content" Value="{Binding ElementName=UserControl,Path=NearMinesCount}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsMineBlock}" Value="True">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="0">
+                    <Setter Property="Foreground" Value="Transparent"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="1">
+                    <Setter Property="Foreground" Value="#FF5A3B10"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="2">
+                    <Setter Property="Foreground" Value="#FF425A10"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="3">
+                    <Setter Property="Foreground" Value="#FF10415A"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="4">
+                    <Setter Property="Foreground" Value="#FF10235A"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="5">
+                    <Setter Property="Foreground" Value="#FFA2731D"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="6">
+                    <Setter Property="Foreground" Value="#FF9CA21D"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="7">
+                    <Setter Property="Foreground" Value="#FF5EA21D"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="8">
+                    <Setter Property="Foreground" Value="#FF1D83A2"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="9">
+                    <Setter Property="Foreground" Value="#FFA21D8B"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Label Style="{StaticResource ResourceKey=Base}" MouseDoubleClick="OnDoubleOpenBlock"/>
+        <Viewbox IsHitTestVisible="False">
+            <Label Style="{StaticResource ResourceKey=MinesCount}"/>
+        </Viewbox>
+        <Label Style="{StaticResource ResourceKey=Mine}" IsHitTestVisible="False"/>
+        <Label Style="{StaticResource ResourceKey=Cover}"
+               MouseLeftButtonDown="OnOpenBlock"
+               MouseRightButtonDown="OnFlagBlock"/>
+        <Label Style="{StaticResource ResourceKey=Flag}" IsHitTestVisible="False"/>
+    </Grid>
+</UserControl>

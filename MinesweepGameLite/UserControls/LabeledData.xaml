@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="MinesweepGameLite.LabeledData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MinesweepGameLite"
+             mc:Ignorable="d" 
+             Name="UserControl">
+    <Grid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Label Content="{Binding ElementName=UserControl,Path=DataHeader}" FontSize="16"/>
+            <TextBlock Style="{StaticResource TextBlockNormal}"
+                       Text="{Binding ElementName=UserControl,Path=DataDetails}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

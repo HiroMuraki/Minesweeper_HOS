@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MinesweepGameLite">
+    <SolidColorBrush x:Key="BlockBase" Color="#FFd8b687"/>
+    <ImageBrush x:Key="BlockCover" ImageSource="/MinesweepGameLite;component/Resources/BlockCover.png"/>
+    <ImageBrush x:Key="FlagMark" ImageSource="/MinesweepGameLite;component/Resources/FlagMark.png"/>
+    <ImageBrush x:Key="MineMark" ImageSource="/MinesweepGameLite;component/Resources/MineMark.png"/>
+
+    <ImageBrush x:Key="ToggleDetectorOff" ImageSource="/MinesweepGameLite;component/Resources/ToggleDetectorOff.png"/>
+    <ImageBrush x:Key="ToggleDetectorOn" ImageSource="/MinesweepGameLite;component/Resources/ToggleDetectorOn.png"/>
+    <ImageBrush x:Key="ToggleDetectorStatic" ImageSource="/MinesweepGameLite;component/Resources/ToggleDetectorStatic.png"/>
+    <ImageBrush x:Key="ToggleDetectorFocusRing" ImageSource="/MinesweepGameLite;component/Resources/ToggleDetectorFocusRing.png"/>
+    
+    <ImageBrush x:Key="StatusButtonR" ImageSource="/MinesweepGameLite;component/Resources/StatusButtonR.png"/>
+    <ImageBrush x:Key="StatusButtonB" ImageSource="/MinesweepGameLite;component/Resources/StatusButtonB.png"/>
+    <ImageBrush x:Key="StatusButtonFocus" ImageSource="/MinesweepGameLite;component/Resources/StatusButtonFocus.png"/>
+    <ImageBrush x:Key="StatusButtonStatic" ImageSource="/MinesweepGameLite;component/Resources/StatusButtonStatic.png"/>
+
+    <ImageBrush x:Key="SeekBarSlider" ImageSource="/MinesweepGameLite;component/Resources/SeekBarSlider_2.png"/>
+    <ImageBrush x:Key="SeekBarThumb" ImageSource="/MinesweepGameLite;component/Resources/SeekBarThumb.png"/>
+    <ImageBrush x:Key="SeekBarThumbFocus" ImageSource="/MinesweepGameLite;component/Resources/SeekBarThumbFocus.png"/>
+
+    <Image x:Key="MenuShow" Source="/MinesweepGameLite;component/Resources/MenuShow.png"/>
+    <Image x:Key="MenuHidden" Source="/MinesweepGameLite;component/Resources/MenuHidden.png"/>
+
+    <ImageBrush x:Key="SettingBorderA" ImageSource="/MinesweepGameLite;component/Resources/SettingBorderA.png"/>
+    <ImageBrush x:Key="SettingBorderB" ImageSource="/MinesweepGameLite;component/Resources/SettingBorderB.png"/>
+    <ImageBrush x:Key="BorderedButtonSlot" ImageSource="/MinesweepGameLite;component/Resources/BorderdButtonSlot.png"/>
+
+    <ImageBrush x:Key="GameCompletedBar" ImageSource="/MinesweepGameLite;component/Resources/GameCompletedBar.png"/>
+    
+    <SolidColorBrush x:Key="ColorLightWhite" Color="#FFFAFAFA"/>
+    <SolidColorBrush x:Key="ColorLightBlack" Color="#5a3b10"/>
+    <SolidColorBrush x:Key="ColorBorderBlack" Color="#2c2926"/>
+    <SolidColorBrush x:Key="ColorLightYellow" Color="#fad36c"/>
+</ResourceDictionary>

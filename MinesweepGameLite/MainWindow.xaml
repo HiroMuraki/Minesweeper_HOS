@@ -1,0 +1,210 @@
+﻿<Window x:Class="MinesweepGameLite.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MinesweepGameLite"
+        mc:Ignorable="d" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="600" Width="800" KeyDown="Window_KeyDown"
+        MouseDown="Window_MouseDown" MouseUp="Window_MouseUp" FontFamily="/MinesweepGameLite;component/Resources/#Belwe Bd BT"
+        MinHeight="500" MinWidth="600">
+    <WindowChrome.WindowChrome>
+        <WindowChrome UseAeroCaptionButtons="False" CaptionHeight="0" ResizeBorderThickness="10"/>
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Style x:Key="MenuSwitcherButton" TargetType="Button">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#FF363431"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border CornerRadius="10,0,0,10" Background="{TemplateBinding Background}"/>
+                            <Label Content="{TemplateBinding Content}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF866e51"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=SettingMenu,Path=Visibility}" Value="Collapsed">
+                    <Setter Property="Content" Value="{StaticResource MenuShow}"/>
+                    <Setter Property="ToolTip" Value="显示菜单"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=SettingMenu,Path=Visibility}" Value="Visible">
+                    <Setter Property="Content" Value="{StaticResource MenuHidden}"/>
+                    <Setter Property="ToolTip" Value="隐藏菜单"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="GameCompleteBarStyle" TargetType="Label">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         To="1"
+                                                         AccelerationRatio="0.2"
+                                                         DecelerationRatio="0.8"
+                                                         Duration="0:0:0.2"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                         To="100"
+                                                         AccelerationRatio="0.2"
+                                                         DecelerationRatio="0.8"
+                                                         Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         To="0"
+                                                         AccelerationRatio="0.2"
+                                                         DecelerationRatio="0.8"
+                                                         Duration="0:0:0.1"/>
+                                <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                         To="0"
+                                                         AccelerationRatio="0.2"
+                                                         DecelerationRatio="0.8"
+                                                         Duration="0:0:0.1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <!--#region  方格区域 -->
+        <Border MouseLeftButtonDown="Window_Move" Background="{StaticResource SettingBorderB}"
+                BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
+        <Viewbox Margin="35">
+            <Grid x:Name="gameBlocksGrid">
+                <Border BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="1">
+                    <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="{Binding CurrentGame.RowSize,Mode=OneWay}"
+                                             Columns="{Binding CurrentGame.ColumnSize,Mode=OneWay}">
+
+                                </UniformGrid>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Border>
+                <Border Background="Transparent" x:Name="borderGamePanelCover" 
+                        MouseLeftButtonDown="borderGamePanelCover_MouseLeftButtonDown"/>
+            </Grid>
+        </Viewbox>
+        <Label x:Name="gameCompleteBarImage" Background="{StaticResource GameCompletedBar}" Width="200" Height="0"
+               IsEnabled="False" IsHitTestVisible="False" Opacity="0" Style="{StaticResource GameCompleteBarStyle}"/>
+        <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}"
+                VerticalAlignment="Center" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
+        <ToggleButton x:Name="toggleDetector" Margin="2" Style="{StaticResource DectectorToggleButton}" ToolTip="使用嗅探猫"
+                      VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Height="60"
+                      MouseEnter="MenuButton_MouseEnter" Click="toggleDetector_Click"/>
+        <!--#endregion-->
+        <!--#region 设置区域 -->
+        <Grid Width="160" Grid.Column="1" x:Name="SettingMenu">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--窗口操作-->
+            <Border Grid.Row="0" Background="{StaticResource ColorBorderBlack}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="━" Click="Window_Minimized" Style="{StaticResource ButtonWindow}"/>
+                    <Button Grid.Column="1" Content="&#x2610;" Click="Window_Maximized" Style="{StaticResource ButtonWindow}"/>
+                    <Button Grid.Column="2" Content="&#x2573;" Click="Window_Close" Style="{StaticResource ButtonWindow}"/>
+                </Grid>
+            </Border>
+            <!--设置栏-->
+            <Border Grid.Row="1" Background="{StaticResource SettingBorderA}">
+                <Grid Margin="10,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Slider Orientation="Vertical" Width="30" Grid.Column="0"
+                                Style="{StaticResource HOSSliderBar}"
+                                Maximum="{Binding Path=MaximumRows}" 
+                                Minimum="{Binding Path=MinimumRows}" 
+                                Value="{Binding Path=RowsSet,Mode=TwoWay}"
+                                ToolTip="{Binding Path=RowsSet,Mode=OneWay}"/>
+
+                    <Slider  Orientation="Vertical" Width="30" Grid.Column="1"
+                                 Style="{StaticResource HOSSliderBar}"
+                                 Maximum="{Binding Path=MaximumColumns}"
+                                 Minimum="{Binding Path=MinimumColumns}" 
+                                 Value="{Binding Path=ColumnsSet,Mode=TwoWay}"
+                                 ToolTip="{Binding Path=ColumnsSet,Mode=OneWay}"/>
+
+                    <Slider Orientation="Vertical" Width="30" Grid.Column="2"
+                                Style="{StaticResource HOSSliderBar}"
+                                Minimum="{Binding Path=MinimumMines}"
+                                Maximum="{Binding Path=MaximumMines}"
+                                Value="{Binding Path=MinesSet,Mode=TwoWay}"
+                                ToolTip="{Binding Path=MinesSet,Mode=OneWay}"/>
+                </Grid>
+            </Border>
+            <!--信息栏-->
+            <Border Grid.Row="2" Background="{StaticResource SettingBorderA}">
+                <StackPanel Margin="10,5">
+                    <local:LabeledData Grid.Row="0" DataHeader="大小:"
+                                       DataDetails="{Binding Path=GameSizeStatus}"/>
+                    <local:LabeledData Grid.Row="1" DataHeader="进度:"
+                                       DataDetails="{Binding Path=ProcessStatus}"/>
+                    <local:LabeledData Grid.Row="2" DataHeader="用时:"
+                                       DataDetails="{Binding Path=UsingTimeStatus}"/>
+                </StackPanel>
+            </Border>
+            <!--开始按钮 - 快捷-->
+            <Border Grid.Row="3" Background="{StaticResource BorderedButtonSlot}" Height="54">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="1,0,0,0">
+                    <local:StatusButton x:Name="btnQuickStartA" Width="48" Height="48"
+                                        ToolTip="简单(9x9)" ButtonClick="btnStartGame_ButtonClick"
+                                        MouseEnter="MenuButton_MouseEnter"/>
+                    <local:StatusButton x:Name="btnQuickStartB" Width="48" Height="48"
+                                        ToolTip="普通(16x16)" ButtonClick="btnStartGame_ButtonClick"
+                                        MouseEnter="MenuButton_MouseEnter"/>
+                    <local:StatusButton x:Name="btnQuickStartC" Width="48" Height="48"
+                                        ToolTip="专家(30x16)" ButtonClick="btnStartGame_ButtonClick"
+                                        MouseEnter="MenuButton_MouseEnter"/>
+                </StackPanel>
+            </Border>
+            <!--开始按钮 - 大-->
+            <Grid Background="{StaticResource SettingBorderA}" Grid.Row="4">
+                <local:StatusButton Width="150" Height="150" ToolTip="左键:自定义游戏&#x0a;右键:随机模式" Margin="5"
+                                    x:Name="btnStartGame" ButtonClick="btnStartGame_ButtonClick"
+                                    ButtonRightClick="btnStartGame_ButtonRightClick"
+                                    MouseEnter="MenuButton_MouseEnter"/>
+            </Grid>
+        </Grid>
+        <!--#endregion-->
+    </Grid>
+</Window>

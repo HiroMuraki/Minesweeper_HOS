@@ -309,7 +309,7 @@ namespace MinesweepGameLite {
                     Radius = 0
                 };
                 this.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, blurAnimation);
-                // MessageBox.Show("YZTXDY"); ;
+                //MessageBox.Show("YZTXDY"); ;
             } else {
                 this.CurrentGame.OpenAllBlocks();
             }

@@ -92,10 +92,10 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <!--#region  方格区域 -->
-        <Border MouseLeftButtonDown="Window_Move" Background="{StaticResource SettingBorderB}"
+        <Grid Grid.Column="0"  x:Name="gamePlayAreaGrid">
+            <Border MouseLeftButtonDown="Window_Move" Background="{StaticResource SettingBorderB}"
                 BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
-        <Viewbox Margin="35">
-            <Grid x:Name="gameBlocksGrid">
+            <Viewbox Margin="35">
                 <Border BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="1">
                     <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
                         <ItemsControl.ItemsPanel>
@@ -108,10 +108,10 @@
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
                 </Border>
-                <Border Background="Transparent" x:Name="borderGamePanelCover" 
+            </Viewbox>
+            <Border Background="Transparent" x:Name="borderGamePanelCover" 
                         MouseLeftButtonDown="borderGamePanelCover_MouseLeftButtonDown"/>
-            </Grid>
-        </Viewbox>
+        </Grid>
         <Label x:Name="gameCompleteBarImage" Background="{StaticResource GameCompletedBar}" Width="200" Height="0"
                IsEnabled="False" IsHitTestVisible="False" Opacity="0" Style="{StaticResource GameCompleteBarStyle}"/>
         <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}"

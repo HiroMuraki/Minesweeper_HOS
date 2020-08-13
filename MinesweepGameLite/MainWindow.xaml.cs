@@ -279,7 +279,7 @@ namespace MinesweepGameLite {
             this.CurrentGame.StartGame();
             //重置统计
             this.borderGamePanelCover.IsHitTestVisible = false;
-            this.gameBlocksGrid.Effect = null;
+            this.gamePlayAreaGrid.Effect = null;
             this.gameCompleteBarImage.IsEnabled = false;
             this.toggleDetector.IsEnabled = true;
             this.btnStartGame.IsOn = null;
@@ -304,11 +304,11 @@ namespace MinesweepGameLite {
             if (isGameCompleted == true) {
                 this.btnStartGame.IsOn = true;
                 this.gameCompleteBarImage.IsEnabled = true;
-                this.gameBlocksGrid.Effect = new BlurEffect {
+                this.gamePlayAreaGrid.Effect = new BlurEffect {
                     KernelType = KernelType.Gaussian,
                     Radius = 0
                 };
-                this.gameBlocksGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, blurAnimation);
+                this.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, blurAnimation);
                 // MessageBox.Show("YZTXDY"); ;
             } else {
                 this.CurrentGame.OpenAllBlocks();
@@ -330,7 +330,9 @@ namespace MinesweepGameLite {
         private static readonly SoundPlayer MenuButtonClickSound = new SoundPlayer(Properties.Resources.MenuButtonClick);
         private static readonly DoubleAnimation blurAnimation = new DoubleAnimation {
             From = 0,
-            To = 25,
+            To = 20,
+            AccelerationRatio = 0.2,
+            DecelerationRatio = 0.8,
             Duration = TimeSpan.FromMilliseconds(200)
         };
         #endregion

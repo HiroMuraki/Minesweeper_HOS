@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MainCodes\GameBlockCoordinated.cs" />
+    <Compile Include="MainCodes\GeneralAction.cs" />
     <Compile Include="MainCodes\IGameBlock.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -158,10 +159,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Belwe-Bold-BT.ttf" />
-    <None Include="Resources\BlockClick.wav" />
+    <EmbeddedResource Include="Resources\BlockClick.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BlockFlag.wav" />
+    <EmbeddedResource Include="Resources\BlockFlag.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CursorClicked.cur" />
@@ -170,10 +171,10 @@
     <None Include="Resources\CursorStatic.cur" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MenuButtonClick.wav" />
+    <EmbeddedResource Include="Resources\MenuButtonClick.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MenuMouseHover.wav" />
+    <EmbeddedResource Include="Resources\MenuMouseHover.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LoadingGame.cur" />

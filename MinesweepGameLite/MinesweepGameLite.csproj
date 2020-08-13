@@ -159,10 +159,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Belwe-Bold-BT.ttf" />
-    <EmbeddedResource Include="Resources\BlockClick.wav" />
+    <EmbeddedResource Include="Resources\BlockClickSound.wav" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\BlockFlag.wav" />
+    <EmbeddedResource Include="Resources\BlockFlagSound.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CursorClicked.cur" />
@@ -171,10 +171,10 @@
     <None Include="Resources\CursorStatic.cur" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\MenuButtonClick.wav" />
+    <EmbeddedResource Include="Resources\MenuButtonClickSound.wav" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\MenuMouseHover.wav" />
+    <EmbeddedResource Include="Resources\MenuMouseHoverSound.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LoadingGame.cur" />

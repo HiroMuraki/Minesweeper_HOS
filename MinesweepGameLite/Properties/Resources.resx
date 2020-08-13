@@ -118,12 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BlockClick" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlockClick.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="BlockFlag" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BlockFlag.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="CursorClicked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CursorClicked.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -135,11 +129,5 @@
   </data>
   <data name="LoadingGame" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LoadingGame.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MenuButtonClick" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MenuButtonClick.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MenuMouseHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MenuMouseHover.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

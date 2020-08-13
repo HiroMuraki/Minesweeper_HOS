@@ -16,7 +16,7 @@ namespace MinesweepGameLite.MainCodes {
             BufferedStream fileReader = new BufferedStream(insertedResource);
             FileStream fileWritter = File.OpenWrite($"{targetPath}");
 
-            byte[] buffer = new byte[512];
+            byte[] buffer = new byte[128];
             int length;
             do {
                 length = fileReader.Read(buffer, 0, buffer.Length);

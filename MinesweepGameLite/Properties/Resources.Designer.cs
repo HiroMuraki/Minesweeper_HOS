@@ -61,24 +61,6 @@ namespace MinesweepGameLite.Properties {
         }
         
         /// <summary>
-        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream BlockClick {
-            get {
-                return ResourceManager.GetStream("BlockClick", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream BlockFlag {
-            get {
-                return ResourceManager.GetStream("BlockFlag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
         internal static byte[] CursorClicked {
@@ -115,24 +97,6 @@ namespace MinesweepGameLite.Properties {
             get {
                 object obj = ResourceManager.GetObject("LoadingGame", resourceCulture);
                 return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream MenuButtonClick {
-            get {
-                return ResourceManager.GetStream("MenuButtonClick", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream MenuMouseHover {
-            get {
-                return ResourceManager.GetStream("MenuMouseHover", resourceCulture);
             }
         }
     }

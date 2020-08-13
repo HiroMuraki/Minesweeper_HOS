@@ -180,14 +180,6 @@ namespace MinesweepGameLite {
             this.CurrentGame.OpenBlock(coordinate);
             CalGame(this.CurrentGame.IsGameCompleted);
         }
-        private void toggleDetector_Click(object sender, RoutedEventArgs e) {
-            MenuButtonClickSound.Play();
-            if (this.toggleDetector.IsChecked == true) {
-                this.Cursor = DetectorAimerCursor;
-            } else {
-                this.Cursor = CursorStaticCursor;
-            }
-        }
         private void GameBlock_FlagBlock(object sender, RoutedEventArgs e) {
             BlockFlagSound.Play();
             this.CurrentGame.FlagBlock((sender as GameBlockCoordinated).Coordinate);
@@ -197,6 +189,14 @@ namespace MinesweepGameLite {
             BlockClickSound.Play();
             this.CurrentGame.OpenNearBlocks((sender as GameBlockCoordinated).Coordinate);
             CalGame(this.CurrentGame.IsGameCompleted);
+        }
+        private void toggleDetector_Click(object sender, RoutedEventArgs e) {
+            MenuButtonClickSound.Play();
+            if (this.toggleDetector.IsChecked == true) {
+                this.Cursor = DetectorAimerCursor;
+            } else {
+                this.Cursor = CursorStaticCursor;
+            }
         }
         private void MenuButton_MouseEnter(object sender, MouseEventArgs e) {
             MenuMouseHoverSound.Play();

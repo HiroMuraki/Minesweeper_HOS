@@ -104,10 +104,10 @@ namespace MinesweepGameLite {
             }
         }
         #endregion
-        string tempPath;
+        
         #region 按钮与控件
         public MainWindow() {
-            tempPath = Environment.GetEnvironmentVariable("TEMP");
+            userTempFilePath = Environment.GetEnvironmentVariable("TEMP");
             InitializeComponent();
             InitializeResources();
             this.Cursor = CursorStaticCursor;
@@ -233,7 +233,7 @@ namespace MinesweepGameLite {
         }
         private void Window_Closed(object sender, EventArgs e) {
             foreach (string soundName in SoundResources) {
-                string file = $@"{tempPath}\{soundName}";
+                string file = $@"{userTempFilePath}\{soundName}";
                 if (File.Exists(file)) {
                     File.Delete(file);
                 }
@@ -308,11 +308,11 @@ namespace MinesweepGameLite {
         }
         private void InitializeResources() {
             foreach (string soundName in SoundResources) {
-                CopyInsertedFileToPath($"Resources.{soundName}", $@"{tempPath}\{soundName}");
+                CopyInsertedFileToPath($"Resources.{soundName}", $@"{userTempFilePath}\{soundName}");
             }
         }
         private void SoundPlay(string soundName) {
-            FXSoundPlayer.Open(new Uri($@"{tempPath}\{soundName}", UriKind.Absolute));
+            FXSoundPlayer.Open(new Uri($@"{userTempFilePath}\{soundName}", UriKind.Absolute));
             FXSoundPlayer.Play();
         }
         private void CalGame(bool? isGameCompleted) {
@@ -340,6 +340,7 @@ namespace MinesweepGameLite {
         #endregion
 
         #region 自定义光标与音频
+        static string userTempFilePath;
         private static readonly string[] SoundResources = new string[] {
             "BlockClick.wav",
             "BlockFlag.wav",

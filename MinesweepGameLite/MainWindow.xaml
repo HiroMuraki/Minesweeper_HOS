@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MinesweepGameLite"
         mc:Ignorable="d" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="600" Width="800" KeyDown="Window_KeyDown"
+        Title="MainWindow" Height="600" Width="800" KeyDown="Window_KeyDown" Closed="Window_Closed"
         MouseDown="Window_MouseDown" MouseUp="Window_MouseUp" FontFamily="/MinesweepGameLite;component/Resources/#Belwe Bd BT"
-        MinHeight="500" MinWidth="600">
+        MinHeight="425" MinWidth="425">
     <WindowChrome.WindowChrome>
         <WindowChrome UseAeroCaptionButtons="False" CaptionHeight="0" ResizeBorderThickness="10"/>
     </WindowChrome.WindowChrome>
@@ -92,33 +92,39 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <!--#region  方格区域 -->
-        <Grid Grid.Column="0"  x:Name="gamePlayAreaGrid">
-            <Border MouseLeftButtonDown="Window_Move" Background="{StaticResource SettingBorderB}"
-                BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
-            <Viewbox Margin="35">
-                <Border BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="1">
-                    <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Rows="{Binding CurrentGame.RowSize,Mode=OneWay}"
+        <Grid Grid.Column="0">
+            <Grid>
+                <Border IsHitTestVisible="False" Background="{StaticResource SettingBorderB}"
+                        BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
+                <Grid x:Name="gamePlayAreaGrid">
+                    <Border MouseLeftButtonDown="Window_Move" Background="{StaticResource SettingBorderB}"
+                            BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
+                    <Viewbox Margin="35">
+                        <Border BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="1">
+                            <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Rows="{Binding CurrentGame.RowSize,Mode=OneWay}"
                                              Columns="{Binding CurrentGame.ColumnSize,Mode=OneWay}">
 
-                                </UniformGrid>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </Border>
-            </Viewbox>
-            <Border Background="Transparent" x:Name="borderGamePanelCover" 
-                        MouseLeftButtonDown="borderGamePanelCover_MouseLeftButtonDown"/>
-        </Grid>
-        <Label x:Name="gameCompleteBarImage" Background="{StaticResource GameCompletedBar}" Width="200" Height="0"
+                                        </UniformGrid>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Border>
+                    </Viewbox>
+                    <Border Background="Transparent" x:Name="borderGamePanelCover" 
+                            MouseLeftButtonDown="borderGamePanelCover_MouseLeftButtonDown"/>
+                </Grid>
+            </Grid>
+            <Label x:Name="gameCompleteBarImage" Background="{StaticResource GameCompletedBar}" Width="200" Height="0"
                IsEnabled="False" IsHitTestVisible="False" Opacity="0" Style="{StaticResource GameCompleteBarStyle}"/>
-        <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}"
+            <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}"
                 VerticalAlignment="Center" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
-        <ToggleButton x:Name="toggleDetector" Margin="2" Style="{StaticResource DectectorToggleButton}" ToolTip="使用嗅探猫"
+            <ToggleButton x:Name="toggleDetector" Margin="2" Style="{StaticResource DectectorToggleButton}" ToolTip="使用嗅探猫"
                       VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Height="60"
                       MouseEnter="MenuButton_MouseEnter" Click="toggleDetector_Click"/>
+        </Grid>
         <!--#endregion-->
         <!--#region 设置区域 -->
         <Grid Width="160" Grid.Column="1" x:Name="SettingMenu">
@@ -150,21 +156,21 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Slider Orientation="Vertical" Width="30" Grid.Column="0"
+                    <Slider Orientation="Vertical" Width="35" Grid.Column="0"
                                 Style="{StaticResource HOSSliderBar}"
                                 Maximum="{Binding Path=MaximumRows}" 
                                 Minimum="{Binding Path=MinimumRows}" 
                                 Value="{Binding Path=RowsSet,Mode=TwoWay}"
                                 ToolTip="{Binding Path=RowsSet,Mode=OneWay}"/>
 
-                    <Slider  Orientation="Vertical" Width="30" Grid.Column="1"
+                    <Slider  Orientation="Vertical" Width="35" Grid.Column="1"
                                  Style="{StaticResource HOSSliderBar}"
                                  Maximum="{Binding Path=MaximumColumns}"
                                  Minimum="{Binding Path=MinimumColumns}" 
                                  Value="{Binding Path=ColumnsSet,Mode=TwoWay}"
                                  ToolTip="{Binding Path=ColumnsSet,Mode=OneWay}"/>
 
-                    <Slider Orientation="Vertical" Width="30" Grid.Column="2"
+                    <Slider Orientation="Vertical" Width="35" Grid.Column="2"
                                 Style="{StaticResource HOSSliderBar}"
                                 Minimum="{Binding Path=MinimumMines}"
                                 Maximum="{Binding Path=MaximumMines}"

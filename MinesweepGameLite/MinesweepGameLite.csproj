@@ -15,6 +15,21 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,6 +53,9 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\ICO.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>MinesweepGameLite.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -60,6 +78,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MainCodes\GameBlockCoordinated.cs" />
+    <Compile Include="MainCodes\GeneralAction.cs" />
     <Compile Include="MainCodes\IGameBlock.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -135,33 +154,29 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\MenuHidden.png" />
-    <Resource Include="Resources\MenuShow.png" />
+    <Resource Include="Resources\Images\MenuHidden.png" />
+    <Resource Include="Resources\Images\MenuShow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\BlockCover.png" />
-    <Resource Include="Resources\BorderdButtonSlot.png" />
-    <Resource Include="Resources\FlagMark.png" />
+    <Resource Include="Resources\Images\BlockCover.png" />
+    <Resource Include="Resources\Images\BorderdButtonSlot.png" />
+    <Resource Include="Resources\Images\FlagMark.png" />
     <Resource Include="Resources\ICO.ico" />
-    <Resource Include="Resources\MineMark.png" />
-    <Resource Include="Resources\SeekBarSlider_2.png" />
-    <Resource Include="Resources\SeekBarThumb.png" />
-    <Resource Include="Resources\SeekBarThumbFocus.png" />
-    <Resource Include="Resources\SettingBorderA.png" />
-    <Resource Include="Resources\SettingBorderB.png" />
-    <Resource Include="Resources\StatusButtonB.png" />
-    <Resource Include="Resources\StatusButtonFocus.png" />
-    <Resource Include="Resources\StatusButtonR.png" />
-    <Resource Include="Resources\StatusButtonStatic.png" />
-    <Resource Include="Resources\ToggleDetectorOff.png" />
-    <Resource Include="Resources\ToggleDetectorOn.png" />
+    <Resource Include="Resources\Images\MineMark.png" />
+    <Resource Include="Resources\Images\SeekBarSlider_2.png" />
+    <Resource Include="Resources\Images\SeekBarThumb.png" />
+    <Resource Include="Resources\Images\SeekBarThumbFocus.png" />
+    <Resource Include="Resources\Images\SettingBorderA.png" />
+    <Resource Include="Resources\Images\SettingBorderB.png" />
+    <Resource Include="Resources\Images\StatusButtonB.png" />
+    <Resource Include="Resources\Images\StatusButtonFocus.png" />
+    <Resource Include="Resources\Images\StatusButtonR.png" />
+    <Resource Include="Resources\Images\StatusButtonStatic.png" />
+    <Resource Include="Resources\Images\ToggleDetectorOff.png" />
+    <Resource Include="Resources\Images\ToggleDetectorOn.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Belwe-Bold-BT.ttf" />
-    <None Include="Resources\BlockClick.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BlockFlag.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CursorClicked.cur" />
@@ -170,25 +185,37 @@
     <None Include="Resources\CursorStatic.cur" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MenuButtonClick.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MenuMouseHover.wav" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\LoadingGame.cur" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ToggleDetectorStatic.png" />
+    <Resource Include="Resources\Images\ToggleDetectorStatic.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ToggleDetectorFocusRing.png" />
+    <Resource Include="Resources\Images\ToggleDetectorFocusRing.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DetectorAimer.cur" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\GameCompletedBar.png" />
+    <Resource Include="Resources\Images\GameCompletedBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Sound\BlockClickSound.wav" />
+    <EmbeddedResource Include="Resources\Sound\BlockFlagSound.wav" />
+    <EmbeddedResource Include="Resources\Sound\MenuButtonClickSound.wav" />
+    <EmbeddedResource Include="Resources\Sound\MenuMouseHoverSound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

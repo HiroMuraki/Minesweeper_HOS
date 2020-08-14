@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Media;
 using System.Runtime.CompilerServices;
@@ -11,7 +12,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
+using System.Windows.Navigation;
 using System.Windows.Threading;
+using System.Xml.Serialization.Configuration;
+using static MinesweepGameLite.MainCodes.GeneralAction;
 
 namespace MinesweepGameLite {
     public partial class MainWindow : Window, INotifyPropertyChanged {
@@ -106,7 +110,9 @@ namespace MinesweepGameLite {
 
         #region 按钮与控件
         public MainWindow() {
+            userTempFilePath = Environment.GetEnvironmentVariable("TEMP");
             InitializeComponent();
+            InitializeResources();
             this.Cursor = CursorStaticCursor;
             this.CurrentGame = new MinesweeperGame(BlockCreateAction);
             this.DataContext = this;
@@ -115,7 +121,7 @@ namespace MinesweepGameLite {
             btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
         }
         private void btnStartGame_ButtonClick(object sender, RoutedEventArgs e) {
-            MenuButtonClickSound.Play();
+            PlayFXSound(nameof(MenuButtonClickSound));
             StatusButton currentButton = sender as StatusButton;
             if (currentButton == null) {
                 return;
@@ -140,11 +146,11 @@ namespace MinesweepGameLite {
             StartCurrentGame();
         }
         private void btnStartGame_ButtonRightClick(object sender, RoutedEventArgs e) {
-            MenuButtonClickSound.Play();
+            PlayFXSound(nameof(MenuButtonClickSound));
             RandomMode();
         }
         private void HiddenSettingMenuButton_Click(object sender, RoutedEventArgs e) {
-            MenuButtonClickSound.Play();
+            PlayFXSound(nameof(MenuButtonClickSound));
             if (this.SettingMenu.Visibility == Visibility.Visible) {
                 this.SettingMenu.Visibility = Visibility.Collapsed;
             } else {
@@ -152,11 +158,11 @@ namespace MinesweepGameLite {
             }
         }
         private void borderGamePanelCover_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-            MenuButtonClickSound.Play();
+            PlayFXSound(nameof(MenuButtonClickSound));
             StartCurrentGame();
         }
         private void GameBlock_OpenBlock(object sender, RoutedEventArgs e) {
-            BlockClickSound.Play();
+            PlayFXSound(nameof(BlockClickSound));
             BlockCoordinate coordinate = (sender as GameBlockCoordinated).Coordinate;
             //嗅探猫
             if (this.toggleDetector.IsChecked == true) {
@@ -181,17 +187,17 @@ namespace MinesweepGameLite {
             CalGame(this.CurrentGame.IsGameCompleted);
         }
         private void GameBlock_FlagBlock(object sender, RoutedEventArgs e) {
-            BlockFlagSound.Play();
+            PlayFXSound(nameof(BlockFlagSound));
             this.CurrentGame.FlagBlock((sender as GameBlockCoordinated).Coordinate);
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ProcessStatus)));
         }
         private void GameBlock_QuickOpen(object sender, RoutedEventArgs e) {
-            BlockClickSound.Play();
+            PlayFXSound(nameof(BlockClickSound));
             this.CurrentGame.OpenNearBlocks((sender as GameBlockCoordinated).Coordinate);
             CalGame(this.CurrentGame.IsGameCompleted);
         }
         private void toggleDetector_Click(object sender, RoutedEventArgs e) {
-            MenuButtonClickSound.Play();
+            PlayFXSound(nameof(MenuButtonClickSound));
             if (this.toggleDetector.IsChecked == true) {
                 this.Cursor = DetectorAimerCursor;
             } else {
@@ -199,7 +205,7 @@ namespace MinesweepGameLite {
             }
         }
         private void MenuButton_MouseEnter(object sender, MouseEventArgs e) {
-            MenuMouseHoverSound.Play();
+            PlayFXSound(nameof(MenuMouseHoverSound));
         }
         #endregion
 
@@ -227,6 +233,9 @@ namespace MinesweepGameLite {
         }
         private void Window_Close(object sender, RoutedEventArgs e) {
             Application.Current.Shutdown();
+        }
+        private void Window_Closed(object sender, EventArgs e) {
+
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) {
             switch (e.Key) {
@@ -295,6 +304,34 @@ namespace MinesweepGameLite {
             this.MinesSet = rnd.Next(MinimumMines, MaximumMines);
             StartCurrentGame();
         }
+        private void InitializeResources() {
+            foreach (string soundName in SoundResources) {
+                string fileFullPath = $@"{userTempFilePath}\{soundName}";
+                CopyInsertedFileToPath($"Resources.Sound.{soundName}", fileFullPath);
+            }
+        }
+        private void PlayFXSound(string soundName) {
+            Uri path = new Uri($@"{userTempFilePath}\{soundName}.wav", UriKind.Absolute);
+            switch (soundName) {
+                case nameof(BlockClickSound):
+                    BlockClickSound.Open(path);
+                    BlockClickSound.Play();
+                    break;
+                case nameof(BlockFlagSound):
+                    BlockFlagSound.Open(path);
+                    BlockFlagSound.Play();
+                    break;
+                case nameof(MenuMouseHoverSound):
+                    MenuMouseHoverSound.Open(path);
+                    MenuMouseHoverSound.Play();
+                    break;
+                case nameof(MenuButtonClickSound):
+                    MenuButtonClickSound.Open(path);
+                    MenuButtonClickSound.Play();
+                    break;
+            }
+
+        }
         private void CalGame(bool? isGameCompleted) {
             if (isGameCompleted == null) {
                 return;
@@ -320,14 +357,21 @@ namespace MinesweepGameLite {
         #endregion
 
         #region 自定义光标与音频
+        static string userTempFilePath;
+        private static readonly string[] SoundResources = new string[] {
+            "BlockClickSound.wav",
+            "BlockFlagSound.wav",
+            "MenuMouseHoverSound.wav",
+            "MenuButtonClickSound.wav"
+        };
+        private static readonly MediaPlayer BlockClickSound = new MediaPlayer();
+        private static readonly MediaPlayer BlockFlagSound = new MediaPlayer();
+        private static readonly MediaPlayer MenuMouseHoverSound = new MediaPlayer();
+        private static readonly MediaPlayer MenuButtonClickSound = new MediaPlayer();
         private static readonly Cursor CursorStaticCursor = new Cursor(new MemoryStream(Properties.Resources.CursorStatic));
         private static readonly Cursor CursorClickedCursor = new Cursor(new MemoryStream(Properties.Resources.CursorClicked));
         private static readonly Cursor LoadingGameCursor = new Cursor(new MemoryStream(Properties.Resources.LoadingGame));
         private static readonly Cursor DetectorAimerCursor = new Cursor(new MemoryStream(Properties.Resources.DetectorAimer));
-        private static readonly SoundPlayer BlockClickSound = new SoundPlayer(Properties.Resources.BlockClick);
-        private static readonly SoundPlayer BlockFlagSound = new SoundPlayer(Properties.Resources.BlockFlag);
-        private static readonly SoundPlayer MenuMouseHoverSound = new SoundPlayer(Properties.Resources.MenuMouseHover);
-        private static readonly SoundPlayer MenuButtonClickSound = new SoundPlayer(Properties.Resources.MenuButtonClick);
         private static readonly DoubleAnimation blurAnimation = new DoubleAnimation {
             From = 0,
             To = 20,

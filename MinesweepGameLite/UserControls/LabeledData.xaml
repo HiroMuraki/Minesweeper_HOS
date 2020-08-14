@@ -8,7 +8,7 @@
              Name="UserControl">
     <Grid>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Label Content="{Binding ElementName=UserControl,Path=DataHeader}" FontSize="16"/>
+            <Label Content="{Binding ElementName=UserControl,Path=DataHeader}" FontSize="16" FontWeight="Bold"/>
             <TextBlock Style="{StaticResource TextBlockNormal}"
                        Text="{Binding ElementName=UserControl,Path=DataDetails}"/>
         </StackPanel>

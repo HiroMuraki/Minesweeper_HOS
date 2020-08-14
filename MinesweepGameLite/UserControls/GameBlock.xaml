@@ -65,6 +65,7 @@
             </Style.Triggers>
         </Style>
         <Style TargetType="Label" x:Key="MinesCount">
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="Content" Value="{Binding ElementName=UserControl,Path=NearMinesCount}"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsMineBlock}" Value="True">

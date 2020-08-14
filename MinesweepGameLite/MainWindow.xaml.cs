@@ -307,11 +307,11 @@ namespace MinesweepGameLite {
         private void InitializeResources() {
             foreach (string soundName in SoundResources) {
                 string fileFullPath = $@"{userTempFilePath}\{soundName}";
-                CopyInsertedFileToPath($"Resources.{soundName}", fileFullPath);
+                CopyInsertedFileToPath($"Resources.Sound.{soundName}", fileFullPath);
             }
         }
         private void PlayFXSound(string soundName) {
-            Uri path = new Uri($@"{userTempFilePath}\{soundName}.mp3", UriKind.Absolute);
+            Uri path = new Uri($@"{userTempFilePath}\{soundName}.wav", UriKind.Absolute);
             switch (soundName) {
                 case nameof(BlockClickSound):
                     BlockClickSound.Open(path);
@@ -359,10 +359,10 @@ namespace MinesweepGameLite {
         #region 自定义光标与音频
         static string userTempFilePath;
         private static readonly string[] SoundResources = new string[] {
-            "BlockClickSound.mp3",
-            "BlockFlagSound.mp3",
-            "MenuMouseHoverSound.mp3",
-            "MenuButtonClickSound.mp3"
+            "BlockClickSound.wav",
+            "BlockFlagSound.wav",
+            "MenuMouseHoverSound.wav",
+            "MenuButtonClickSound.wav"
         };
         private static readonly MediaPlayer BlockClickSound = new MediaPlayer();
         private static readonly MediaPlayer BlockFlagSound = new MediaPlayer();

@@ -136,26 +136,26 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\MenuHidden.png" />
-    <Resource Include="Resources\MenuShow.png" />
+    <Resource Include="Resources\Images\MenuHidden.png" />
+    <Resource Include="Resources\Images\MenuShow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\BlockCover.png" />
-    <Resource Include="Resources\BorderdButtonSlot.png" />
-    <Resource Include="Resources\FlagMark.png" />
+    <Resource Include="Resources\Images\BlockCover.png" />
+    <Resource Include="Resources\Images\BorderdButtonSlot.png" />
+    <Resource Include="Resources\Images\FlagMark.png" />
     <Resource Include="Resources\ICO.ico" />
-    <Resource Include="Resources\MineMark.png" />
-    <Resource Include="Resources\SeekBarSlider_2.png" />
-    <Resource Include="Resources\SeekBarThumb.png" />
-    <Resource Include="Resources\SeekBarThumbFocus.png" />
-    <Resource Include="Resources\SettingBorderA.png" />
-    <Resource Include="Resources\SettingBorderB.png" />
-    <Resource Include="Resources\StatusButtonB.png" />
-    <Resource Include="Resources\StatusButtonFocus.png" />
-    <Resource Include="Resources\StatusButtonR.png" />
-    <Resource Include="Resources\StatusButtonStatic.png" />
-    <Resource Include="Resources\ToggleDetectorOff.png" />
-    <Resource Include="Resources\ToggleDetectorOn.png" />
+    <Resource Include="Resources\Images\MineMark.png" />
+    <Resource Include="Resources\Images\SeekBarSlider_2.png" />
+    <Resource Include="Resources\Images\SeekBarThumb.png" />
+    <Resource Include="Resources\Images\SeekBarThumbFocus.png" />
+    <Resource Include="Resources\Images\SettingBorderA.png" />
+    <Resource Include="Resources\Images\SettingBorderB.png" />
+    <Resource Include="Resources\Images\StatusButtonB.png" />
+    <Resource Include="Resources\Images\StatusButtonFocus.png" />
+    <Resource Include="Resources\Images\StatusButtonR.png" />
+    <Resource Include="Resources\Images\StatusButtonStatic.png" />
+    <Resource Include="Resources\Images\ToggleDetectorOff.png" />
+    <Resource Include="Resources\Images\ToggleDetectorOn.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Belwe-Bold-BT.ttf" />
@@ -170,22 +170,22 @@
     <None Include="Resources\LoadingGame.cur" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ToggleDetectorStatic.png" />
+    <Resource Include="Resources\Images\ToggleDetectorStatic.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ToggleDetectorFocusRing.png" />
+    <Resource Include="Resources\Images\ToggleDetectorFocusRing.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DetectorAimer.cur" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\GameCompletedBar.png" />
+    <Resource Include="Resources\Images\GameCompletedBar.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\BlockClickSound.mp3" />
-    <EmbeddedResource Include="Resources\BlockFlagSound.mp3" />
-    <EmbeddedResource Include="Resources\MenuButtonClickSound.mp3" />
-    <EmbeddedResource Include="Resources\MenuMouseHoverSound.mp3" />
+    <EmbeddedResource Include="Resources\Sound\BlockClickSound.wav" />
+    <EmbeddedResource Include="Resources\Sound\BlockFlagSound.wav" />
+    <EmbeddedResource Include="Resources\Sound\MenuButtonClickSound.wav" />
+    <EmbeddedResource Include="Resources\Sound\MenuMouseHoverSound.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

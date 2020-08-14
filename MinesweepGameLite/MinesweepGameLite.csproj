@@ -159,22 +159,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Belwe-Bold-BT.ttf" />
-    <EmbeddedResource Include="Resources\BlockClickSound.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\BlockFlagSound.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CursorClicked.cur" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CursorStatic.cur" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\MenuButtonClickSound.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\MenuMouseHoverSound.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LoadingGame.cur" />
@@ -190,6 +180,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\GameCompletedBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\BlockClickSound.mp3" />
+    <EmbeddedResource Include="Resources\BlockFlagSound.mp3" />
+    <EmbeddedResource Include="Resources\MenuButtonClickSound.mp3" />
+    <EmbeddedResource Include="Resources\MenuMouseHoverSound.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -88,7 +88,7 @@
     <Compile Include="UserControls\GameBlock.xaml.cs" />
     <Compile Include="UserControls\LabeledData.xaml.cs" />
     <Compile Include="UserControls\StatusButton.xaml.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="MinesweeperGameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -98,8 +98,8 @@
     </Compile>
     <Compile Include="MainCodes\BlockCoordinate.cs" />
     <Compile Include="MainCodes\MinesweeperGame.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="MinesweeperGameWindow.xaml.cs">
+      <DependentUpon>MinesweeperGameWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Styles\GeneralStyle.xaml">

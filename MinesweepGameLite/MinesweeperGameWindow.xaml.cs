@@ -1,24 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
-using System.Media;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
-using System.Windows.Navigation;
 using System.Windows.Threading;
-using System.Xml.Serialization.Configuration;
-using static MinesweepGameLite.MainCodes.GeneralAction;
 
 namespace MinesweepGameLite {
-    public partial class MainWindow : Window, INotifyPropertyChanged {
+    public partial class MinesweeperGameWindow : Window, INotifyPropertyChanged {
         #region 字段与属性
         public event PropertyChangedEventHandler PropertyChanged;
         public MinesweeperGame CurrentGame { get; set; }
@@ -109,10 +100,9 @@ namespace MinesweepGameLite {
         #endregion
 
         #region 按钮与控件
-        public MainWindow() {
-            userTempFilePath = Environment.GetEnvironmentVariable("TEMP");
+        public MinesweeperGameWindow() {
+           
             InitializeComponent();
-            InitializeResources();
             this.Cursor = CursorStaticCursor;
             this.CurrentGame = new MinesweeperGame(BlockCreateAction);
             this.DataContext = this;
@@ -234,9 +224,6 @@ namespace MinesweepGameLite {
         private void Window_Close(object sender, RoutedEventArgs e) {
             Application.Current.Shutdown();
         }
-        private void Window_Closed(object sender, EventArgs e) {
-
-        }
         private void Window_KeyDown(object sender, KeyEventArgs e) {
             switch (e.Key) {
                 case Key.Space:
@@ -304,14 +291,11 @@ namespace MinesweepGameLite {
             this.MinesSet = rnd.Next(MinimumMines, MaximumMines);
             StartCurrentGame();
         }
-        private void InitializeResources() {
-            foreach (string soundName in SoundResources) {
-                string fileFullPath = $@"{userTempFilePath}\{soundName}";
-                CopyInsertedFileToPath($"Resources.Sound.{soundName}", fileFullPath);
-            }
-        }
         private void PlayFXSound(string soundName) {
-            Uri path = new Uri($@"{userTempFilePath}\{soundName}.wav", UriKind.Absolute);
+            if (!App.IsSoundEnabled) {
+                return;
+            }
+            Uri path = new Uri($@"{App.UserTempFilePath}\{soundName}.wav", UriKind.Absolute);
             switch (soundName) {
                 case nameof(BlockClickSound):
                     BlockClickSound.Open(path);
@@ -357,13 +341,6 @@ namespace MinesweepGameLite {
         #endregion
 
         #region 自定义光标与音频
-        static string userTempFilePath;
-        private static readonly string[] SoundResources = new string[] {
-            "BlockClickSound.wav",
-            "BlockFlagSound.wav",
-            "MenuMouseHoverSound.wav",
-            "MenuButtonClickSound.wav"
-        };
         private static readonly MediaPlayer BlockClickSound = new MediaPlayer();
         private static readonly MediaPlayer BlockFlagSound = new MediaPlayer();
         private static readonly MediaPlayer MenuMouseHoverSound = new MediaPlayer();

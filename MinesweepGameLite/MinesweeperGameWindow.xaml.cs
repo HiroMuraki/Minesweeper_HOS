@@ -103,7 +103,7 @@ namespace MinesweepGameLite {
         public MinesweeperGameWindow() {
            
             InitializeComponent();
-            this.Cursor = CursorStaticCursor;
+            this.Cursor = NormalCursor;
             this.CurrentGame = new MinesweeperGame(BlockCreateAction);
             this.DataContext = this;
             this.usingTimeTimer.Interval = TimeSpan.FromSeconds(1);
@@ -191,7 +191,7 @@ namespace MinesweepGameLite {
             if (this.toggleDetector.IsChecked == true) {
                 this.Cursor = DetectorAimerCursor;
             } else {
-                this.Cursor = CursorStaticCursor;
+                this.Cursor = NormalCursor;
             }
         }
         private void MenuButton_MouseEnter(object sender, MouseEventArgs e) {
@@ -244,11 +244,11 @@ namespace MinesweepGameLite {
             }
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
-            this.Cursor = CursorClickedCursor;
+            this.Cursor = ClickedCursor;
             this.toggleDetector.IsChecked = false;
         }
         private void Window_MouseUp(object sender, MouseButtonEventArgs e) {
-            this.Cursor = CursorStaticCursor;
+            this.Cursor = NormalCursor;
         }
         #endregion
 
@@ -281,7 +281,7 @@ namespace MinesweepGameLite {
             this.btnStartGame.IsOn = null;
             this.UsingTime = 0;
             this.usingTimeTimer.Start();
-            this.Cursor = CursorStaticCursor;
+            this.Cursor = NormalCursor;
             OnPropertyChanged(nameof(ProcessStatus));
         }
         private void RandomMode() {
@@ -329,7 +329,7 @@ namespace MinesweepGameLite {
                     KernelType = KernelType.Gaussian,
                     Radius = 0
                 };
-                this.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, blurAnimation);
+                this.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
                 //MessageBox.Show("YZTXDY"); ;
             } else {
                 this.CurrentGame.OpenAllBlocks();
@@ -345,11 +345,11 @@ namespace MinesweepGameLite {
         private static readonly MediaPlayer BlockFlagSound = new MediaPlayer();
         private static readonly MediaPlayer MenuMouseHoverSound = new MediaPlayer();
         private static readonly MediaPlayer MenuButtonClickSound = new MediaPlayer();
-        private static readonly Cursor CursorStaticCursor = new Cursor(new MemoryStream(Properties.Resources.CursorStatic));
-        private static readonly Cursor CursorClickedCursor = new Cursor(new MemoryStream(Properties.Resources.CursorClicked));
+        private static readonly Cursor NormalCursor = new Cursor(new MemoryStream(Properties.Resources.CursorStatic));
+        private static readonly Cursor ClickedCursor = new Cursor(new MemoryStream(Properties.Resources.CursorClicked));
         private static readonly Cursor LoadingGameCursor = new Cursor(new MemoryStream(Properties.Resources.LoadingGame));
         private static readonly Cursor DetectorAimerCursor = new Cursor(new MemoryStream(Properties.Resources.DetectorAimer));
-        private static readonly DoubleAnimation blurAnimation = new DoubleAnimation {
+        private static readonly DoubleAnimation AnimationForBlurEffect = new DoubleAnimation {
             From = 0,
             To = 20,
             AccelerationRatio = 0.2,

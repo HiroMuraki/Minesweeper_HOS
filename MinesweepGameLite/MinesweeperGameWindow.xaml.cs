@@ -1,25 +1,19 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 using System.Windows.Threading;
 
 namespace MinesweepGameLite {
+    /// <summary>
+    /// 扫雷游戏
+    /// </summary>
     public partial class MinesweeperGameWindow : Window, INotifyPropertyChanged {
         #region 字段与属性
         public event PropertyChangedEventHandler PropertyChanged;
         public MinesweeperGame CurrentGame { get; set; }
         private DispatcherTimer usingTimeTimer = new DispatcherTimer();
-        #region 后备字段
-        private int usingTime;
-        private int rowsSet;
-        private int columnsSet;
-        private int minesSet;
-        #endregion
         public int RowsSet {
             get {
                 return this.rowsSet;
@@ -70,7 +64,6 @@ namespace MinesweepGameLite {
                 OnPropertyChanged(nameof(UsingTimeStatus));
             }
         }
-
         public string GameSizeStatus {
             get {
                 return $"{this.rowsSet} x {this.columnsSet}";
@@ -86,7 +79,15 @@ namespace MinesweepGameLite {
                 return $"{UsingTime}秒";
             }
         }
+        #endregion
+        #region 后备字段
+        private int usingTime;
+        private int rowsSet;
+        private int columnsSet;
+        private int minesSet;
+        #endregion
 
+        #region 常量-用于xaml绑定
         public int MaximumRows { get { return 18; } }
         public int MinimumRows { get { return 6; } }
         public int MaximumColumns { get { return 30; } }
@@ -101,9 +102,8 @@ namespace MinesweepGameLite {
 
         #region 按钮与控件
         public MinesweeperGameWindow() {
-           
             InitializeComponent();
-            this.Cursor = NormalCursor;
+            this.Cursor = App.NormalCursor;
             this.CurrentGame = new MinesweeperGame(BlockCreateAction);
             this.DataContext = this;
             this.usingTimeTimer.Interval = TimeSpan.FromSeconds(1);
@@ -111,7 +111,7 @@ namespace MinesweepGameLite {
             btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
         }
         private void btnStartGame_ButtonClick(object sender, RoutedEventArgs e) {
-            PlayFXSound(nameof(MenuButtonClickSound));
+            App.PlayFXSound(nameof(App.MenuButtonClickSound));
             StatusButton currentButton = sender as StatusButton;
             if (currentButton == null) {
                 return;
@@ -136,11 +136,11 @@ namespace MinesweepGameLite {
             StartCurrentGame();
         }
         private void btnStartGame_ButtonRightClick(object sender, RoutedEventArgs e) {
-            PlayFXSound(nameof(MenuButtonClickSound));
+            App.PlayFXSound(nameof(App.MenuButtonClickSound));
             RandomMode();
         }
         private void HiddenSettingMenuButton_Click(object sender, RoutedEventArgs e) {
-            PlayFXSound(nameof(MenuButtonClickSound));
+            App.PlayFXSound(nameof(App.MenuButtonClickSound));
             if (this.SettingMenu.Visibility == Visibility.Visible) {
                 this.SettingMenu.Visibility = Visibility.Collapsed;
             } else {
@@ -148,11 +148,11 @@ namespace MinesweepGameLite {
             }
         }
         private void borderGamePanelCover_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-            PlayFXSound(nameof(MenuButtonClickSound));
+            App.PlayFXSound(nameof(App.MenuButtonClickSound));
             StartCurrentGame();
         }
         private void GameBlock_OpenBlock(object sender, RoutedEventArgs e) {
-            PlayFXSound(nameof(BlockClickSound));
+            App.PlayFXSound(nameof(App.BlockClickSound));
             BlockCoordinate coordinate = (sender as GameBlockCoordinated).Coordinate;
             //嗅探猫
             if (this.toggleDetector.IsChecked == true) {
@@ -177,25 +177,25 @@ namespace MinesweepGameLite {
             CalGame(this.CurrentGame.IsGameCompleted);
         }
         private void GameBlock_FlagBlock(object sender, RoutedEventArgs e) {
-            PlayFXSound(nameof(BlockFlagSound));
+            App.PlayFXSound(nameof(App.BlockFlagSound));
             this.CurrentGame.FlagBlock((sender as GameBlockCoordinated).Coordinate);
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ProcessStatus)));
         }
         private void GameBlock_QuickOpen(object sender, RoutedEventArgs e) {
-            PlayFXSound(nameof(BlockClickSound));
+            App.PlayFXSound(nameof(App.BlockClickSound));
             this.CurrentGame.OpenNearBlocks((sender as GameBlockCoordinated).Coordinate);
             CalGame(this.CurrentGame.IsGameCompleted);
         }
         private void toggleDetector_Click(object sender, RoutedEventArgs e) {
-            PlayFXSound(nameof(MenuButtonClickSound));
+            App.PlayFXSound(nameof(App.MenuButtonClickSound));
             if (this.toggleDetector.IsChecked == true) {
-                this.Cursor = DetectorAimerCursor;
+                this.Cursor = App.DetectorAimerCursor;
             } else {
-                this.Cursor = NormalCursor;
+                this.Cursor = App.NormalCursor;
             }
         }
         private void MenuButton_MouseEnter(object sender, MouseEventArgs e) {
-            PlayFXSound(nameof(MenuMouseHoverSound));
+            App.PlayFXSound(nameof(App.MenuMouseHoverSound));
         }
         #endregion
 
@@ -244,11 +244,11 @@ namespace MinesweepGameLite {
             }
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
-            this.Cursor = ClickedCursor;
+            this.Cursor = App.ClickedCursor;
             this.toggleDetector.IsChecked = false;
         }
         private void Window_MouseUp(object sender, MouseButtonEventArgs e) {
-            this.Cursor = NormalCursor;
+            this.Cursor = App.NormalCursor;
         }
         #endregion
 
@@ -265,7 +265,7 @@ namespace MinesweepGameLite {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         private void StartCurrentGame() {
-            this.Cursor = LoadingGameCursor;
+            this.Cursor = App.LoadingGameCursor;
             //开始游戏
             if (this.CurrentGame.RowSize != this.RowsSet
                 || this.CurrentGame.ColumnSize != this.ColumnsSet
@@ -281,7 +281,7 @@ namespace MinesweepGameLite {
             this.btnStartGame.IsOn = null;
             this.UsingTime = 0;
             this.usingTimeTimer.Start();
-            this.Cursor = NormalCursor;
+            this.Cursor = App.NormalCursor;
             OnPropertyChanged(nameof(ProcessStatus));
         }
         private void RandomMode() {
@@ -290,31 +290,6 @@ namespace MinesweepGameLite {
             this.ColumnsSet = rnd.Next(MinimumColumns, MaximumColumns);
             this.MinesSet = rnd.Next(MinimumMines, MaximumMines);
             StartCurrentGame();
-        }
-        private void PlayFXSound(string soundName) {
-            if (!App.IsSoundEnabled) {
-                return;
-            }
-            Uri path = new Uri($@"{App.UserTempFilePath}\{soundName}.wav", UriKind.Absolute);
-            switch (soundName) {
-                case nameof(BlockClickSound):
-                    BlockClickSound.Open(path);
-                    BlockClickSound.Play();
-                    break;
-                case nameof(BlockFlagSound):
-                    BlockFlagSound.Open(path);
-                    BlockFlagSound.Play();
-                    break;
-                case nameof(MenuMouseHoverSound):
-                    MenuMouseHoverSound.Open(path);
-                    MenuMouseHoverSound.Play();
-                    break;
-                case nameof(MenuButtonClickSound):
-                    MenuButtonClickSound.Open(path);
-                    MenuButtonClickSound.Play();
-                    break;
-            }
-
         }
         private void CalGame(bool? isGameCompleted) {
             if (isGameCompleted == null) {
@@ -329,7 +304,7 @@ namespace MinesweepGameLite {
                     KernelType = KernelType.Gaussian,
                     Radius = 0
                 };
-                this.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
+                this.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, App.AnimationForBlurEffect);
                 //MessageBox.Show("YZTXDY"); ;
             } else {
                 this.CurrentGame.OpenAllBlocks();
@@ -338,24 +313,6 @@ namespace MinesweepGameLite {
         private void TimerUsingTimer_Tick(object sender, EventArgs e) {
             ++UsingTime;
         }
-        #endregion
-
-        #region 自定义光标与音频
-        private static readonly MediaPlayer BlockClickSound = new MediaPlayer();
-        private static readonly MediaPlayer BlockFlagSound = new MediaPlayer();
-        private static readonly MediaPlayer MenuMouseHoverSound = new MediaPlayer();
-        private static readonly MediaPlayer MenuButtonClickSound = new MediaPlayer();
-        private static readonly Cursor NormalCursor = new Cursor(new MemoryStream(Properties.Resources.CursorStatic));
-        private static readonly Cursor ClickedCursor = new Cursor(new MemoryStream(Properties.Resources.CursorClicked));
-        private static readonly Cursor LoadingGameCursor = new Cursor(new MemoryStream(Properties.Resources.LoadingGame));
-        private static readonly Cursor DetectorAimerCursor = new Cursor(new MemoryStream(Properties.Resources.DetectorAimer));
-        private static readonly DoubleAnimation AnimationForBlurEffect = new DoubleAnimation {
-            From = 0,
-            To = 20,
-            AccelerationRatio = 0.2,
-            DecelerationRatio = 0.8,
-            Duration = TimeSpan.FromMilliseconds(200)
-        };
         #endregion
     }
 }

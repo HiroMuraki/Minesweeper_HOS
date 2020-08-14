@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="SlideJigsawGameLite.GameBlock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SlideJigsawGameLite"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="50" Name="UserControl">
+    <UserControl.Resources>
+        <Style x:Key="CoverStyle" TargetType="Label">
+            <Setter Property="Background" Value="{StaticResource BlockCover}"/>
+            <Setter Property="Padding" Value="0"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=BlockID}" Value="0">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BlockIDStyle" TargetType="Label">
+            <Setter Property="Content" Value="{Binding ElementName=UserControl,Path=BlockID}"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorLightWhite}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=BlockID}" Value="0">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Label Background="{StaticResource BlockBase}"/>
+        <Label Style="{StaticResource CoverStyle}"/>
+        <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Style="{StaticResource BlockIDStyle}" Margin="5"/>
+        </Viewbox>
+        <Label MouseLeftButtonDown="OnButtonClick"/>
+    </Grid>
+</UserControl>

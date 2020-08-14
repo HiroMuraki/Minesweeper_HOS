@@ -77,17 +77,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MainCodes\GameBlockCoordinated.cs" />
-    <Compile Include="MainCodes\GeneralAction.cs" />
-    <Compile Include="MainCodes\IGameBlock.cs" />
+    <Compile Include="MainCodes\MinesweeperGame\GameBlockCoordinated.cs" />
+    <Compile Include="MainCodes\MinesweeperGame\GeneralAction.cs" />
+    <Compile Include="MainCodes\MinesweeperGame\IGameBlock.cs" />
+    <Compile Include="MainCodes\SlideJigsawGame\BlockCoordinate.cs" />
+    <Compile Include="MainCodes\SlideJigsawGame\GameBlockCoordinated.cs" />
+    <Compile Include="MainCodes\SlideJigsawGame\IGameBlock.cs" />
+    <Compile Include="MainCodes\SlideJigsawGame\SlideJigsawGameLite.cs" />
+    <Compile Include="SlideJigsawGameWindow.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\GameBlock.xaml.cs" />
-    <Compile Include="UserControls\LabeledData.xaml.cs" />
-    <Compile Include="UserControls\StatusButton.xaml.cs" />
+    <Compile Include="UserControls\MinesweeperGame\GameBlock.xaml.cs" />
+    <Compile Include="UserControls\MinesweeperGame\LabeledData.xaml.cs" />
+    <Compile Include="UserControls\MinesweeperGame\StatusButton.xaml.cs" />
+    <Compile Include="UserControls\SlideJigsawGame\GameBlock.xaml.cs" />
+    <Compile Include="UserControls\SlideJigsawGame\StatusButton.xaml.cs" />
+    <Page Include="SlideJigsawGameWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MinesweeperGameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,8 +107,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainCodes\BlockCoordinate.cs" />
-    <Compile Include="MainCodes\MinesweeperGame.cs" />
+    <Compile Include="MainCodes\MinesweeperGame\BlockCoordinate.cs" />
+    <Compile Include="MainCodes\MinesweeperGame\MinesweeperGame.cs" />
     <Compile Include="MinesweeperGameWindow.xaml.cs">
       <DependentUpon>MinesweeperGameWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -118,15 +129,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\GameBlock.xaml">
+    <Page Include="UserControls\MinesweeperGame\GameBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\LabeledData.xaml">
+    <Page Include="UserControls\MinesweeperGame\LabeledData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\StatusButton.xaml">
+    <Page Include="UserControls\MinesweeperGame\StatusButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SlideJigsawGame\GameBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\SlideJigsawGame\StatusButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

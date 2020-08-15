@@ -19,7 +19,7 @@ namespace MinesweepGameLite {
         private int flagsCount;
         private bool isGameStarted;
         #endregion
-        public Func<IGameBlock> BlockCreateAction;
+        private Func<IGameBlock> BlockCreateAction;
         public int RowSize {
             get {
                 return this.rowSize;

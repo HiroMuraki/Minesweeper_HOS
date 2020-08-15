@@ -68,7 +68,7 @@ namespace SlideJigsawGameLite {
             }
         }
 
-        public Func<IGameBlock> BlockCreateAction;
+        private Func<IGameBlock> BlockCreateAction;
         public Dictionary<BlockCoordinate, IGameBlock> Blocks;
         public ObservableCollection<IGameBlock> BlocksArray {
             get {

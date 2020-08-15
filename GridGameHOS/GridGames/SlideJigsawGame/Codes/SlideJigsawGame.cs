@@ -44,6 +44,7 @@ namespace SlideJigsawGameLite {
             }
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) {
+            PlayFXSound(nameof(BlockClickSound));
             switch (e.Key) {
                 case Key.Up:
                 case Key.W:
@@ -61,6 +62,9 @@ namespace SlideJigsawGameLite {
                 case Key.D:
                     this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.Add(0, -1));
                     break;
+            }
+            if (this.Game.IsGameCompleted) {
+                CalGame();
             }
         }
         #endregion

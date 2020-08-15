@@ -3,9 +3,11 @@ using SlideJigsawGameLite;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Input.StylusWisp;
 using System.Windows.Threading;
+using System.Collections.Generic;
 
 namespace Common {
     /// <summary>
@@ -154,7 +156,7 @@ namespace Common {
             }
         }
         #endregion
-        
+
         #region 按钮与控件
         public MainGameWindow() {
             InitializeComponent();
@@ -163,8 +165,13 @@ namespace Common {
             this.UsingTimeTimer.Interval = TimeSpan.FromSeconds(1);
             this.UsingTimeTimer.Tick += TimerUsingTimer_Tick;
             LoadGame(App.DefaultGame);
+            this.SelectorGameList.AllowedLabels = new List<string>();
+            this.SelectorGameList.AllowedLabels.Add("扫雷");
+            this.SelectorGameList.AllowedLabels.Add("滑块拼图");
+            this.SelectorGameList.CurrentLabel = this.SelectorGameList.AllowedLabels[0];
         }
         public void LoadGame(GameType gameType) {
+            this.CurrentGame?.UnloadGame();
             switch (gameType) {
                 case GameType.Minesweeper:
                     this.CurrentGame = new MinesweeperGame(this);
@@ -230,11 +237,15 @@ namespace Common {
                 this.SettingMenu.Visibility = Visibility.Visible;
             }
         }
-        private void SwitchGameButton_Click(object sender, RoutedEventArgs e) {
-            if (this.CurrentGame.Type == GameType.Minesweeper) {
-                LoadGame(GameType.SlideJigsaw);
-            } else {
-                LoadGame(GameType.Minesweeper);
+        private void SelectorGameList_LabelSwitched(object sender, RoutedEventArgs e) {
+            this.CurrentGame.UnloadGame();
+            switch (SelectorGameList.CurrentLabel) {
+                case "扫雷":
+                    LoadGame(GameType.Minesweeper);
+                    break;
+                case "滑块拼图":
+                    LoadGame(GameType.SlideJigsaw);
+                    break;
             }
         }
         private void borderGamePanelCover_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {

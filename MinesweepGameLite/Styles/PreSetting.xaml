@@ -22,12 +22,12 @@
 
     <Image x:Key="MenuShow" Source="/Common;component/Resources/Images/MenuShow.png"/>
     <Image x:Key="MenuHidden" Source="/Common;component/Resources/Images/MenuHidden.png"/>
-    <Image x:Key="SwitchGame" Source="/Common;component/Resources/Images/SwitchGame.png"/>
+    <Image x:Key="L_Arrow" Source="/Common;component/Resources/Images/L_Arrow.png"/>
+    <Image x:Key="R_Arrow" Source="/Common;component/Resources/Images/R_Arrow.png"/>
 
     <ImageBrush x:Key="SettingBorderA" ImageSource="/Common;component/Resources/Images/SettingBorderA.png"/>
     <ImageBrush x:Key="SettingBorderB" ImageSource="/Common;component/Resources/Images/SettingBorderB.png"/>
     <ImageBrush x:Key="BorderedButtonSlot" ImageSource="/Common;component/Resources/Images/BorderdButtonSlot.png"/>
-
     <ImageBrush x:Key="GameCompletedBar" ImageSource="/Common;component/Resources/Images/GameCompletedBar.png"/>
     
     <SolidColorBrush x:Key="ColorLightWhite" Color="#FFFAFAFA"/>

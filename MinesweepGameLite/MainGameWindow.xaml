@@ -147,8 +147,6 @@
                    IsEnabled="False" IsHitTestVisible="False" Opacity="0" Style="{StaticResource GameCompleteBarStyle}"/>
             <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}" ToolTip="切换游戏"
                     VerticalAlignment="Center" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
-            <Button Click="SwitchGameButton_Click" Style="{StaticResource GameSwitcherButton}" Margin="0,35,0,0"
-                    VerticalAlignment="Top" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
             <ToggleButton x:Name="ToggleDetector" Margin="2" Style="{StaticResource DectectorToggleButton}" ToolTip="使用嗅探猫"
                           VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Height="60"
                           MouseEnter="MenuButton_MouseEnter"/>
@@ -159,6 +157,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -223,8 +222,13 @@
                                        DataDetails="{Binding Path=UsingTimeStatus}"/>
                 </StackPanel>
             </Border>
+            <!--游戏选择栏-->
+            <Border Grid.Row="3" Background="{StaticResource SettingBorderA}">
+                <local:SelectMenu x:Name="SelectorGameList" Height="40" Margin="5,0"
+                                  LabelSwitched="SelectorGameList_LabelSwitched"/>
+            </Border>
             <!--开始按钮 - 快捷-->
-            <Border Grid.Row="3" Background="{StaticResource BorderedButtonSlot}" Height="54">
+            <Border Grid.Row="4" Background="{StaticResource BorderedButtonSlot}" Height="54">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="1,0,0,0">
                     <local:StatusButton x:Name="btnQuickStartA" Width="48" Height="48"
                                         ToolTip="简单(9x9)" ButtonClick="btnStartGame_ButtonClick"
@@ -238,7 +242,7 @@
                 </StackPanel>
             </Border>
             <!--开始按钮 - 大-->
-            <Grid Background="{StaticResource SettingBorderA}" Grid.Row="4">
+            <Grid Background="{StaticResource SettingBorderA}" Grid.Row="5">
                 <local:StatusButton Width="150" Height="150" ToolTip="左键:自定义游戏&#x0a;右键:随机模式" Margin="5"
                                     x:Name="btnStartGame" ButtonClick="btnStartGame_ButtonClick"
                                     ButtonRightClick="btnStartGame_ButtonRightClick"

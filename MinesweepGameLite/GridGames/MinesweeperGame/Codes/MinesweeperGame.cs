@@ -129,5 +129,6 @@ namespace MinesweepGameLite {
             GameWindow.Cursor = App.NormalCursor;
             GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
         }
+        public void UnloadGame() { }
     }
 }

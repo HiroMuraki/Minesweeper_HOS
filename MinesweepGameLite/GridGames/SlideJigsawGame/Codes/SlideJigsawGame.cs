@@ -39,7 +39,7 @@ namespace SlideJigsawGameLite {
             GameWindow.MaximumColumns = 10;
             GameWindow.MinimumColumns = 3;
             GameWindow.MinimumMines = 0;
-            GameWindow.KeyDown += Window_KeyDown;
+            GameWindow.KeyDown += this.Window_KeyDown;
         }
         private void GameBlock_ButtonClick(object sender, RoutedEventArgs e) {
             App.PlayFXSound(nameof(App.BlockClickSound));
@@ -91,6 +91,9 @@ namespace SlideJigsawGameLite {
             GameWindow.UsingTimeTimer.Start();
             GameWindow.Cursor = App.NormalCursor;
             GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
+        }
+        public void UnloadGame() {
+            GameWindow.KeyDown -= this.Window_KeyDown;
         }
         private void CalGame() {
             GameWindow.UsingTimeTimer.Stop();

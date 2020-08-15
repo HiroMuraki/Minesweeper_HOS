@@ -79,6 +79,9 @@
     </ApplicationDefinition>
     <Compile Include="Common\Codes\IGridGame.cs" />
     <Compile Include="Common\Codes\GameTypeEnum.cs" />
+    <Compile Include="Common\UserControls\SelectMenu.xaml.cs">
+      <DependentUpon>SelectMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GridGames\MinesweeperGame\Codes\GameBlockCoordinated.cs" />
     <Compile Include="Common\Codes\GeneralAction.cs" />
     <Compile Include="GridGames\MinesweeperGame\Codes\IGameBlock.cs" />
@@ -108,6 +111,10 @@
       <DependentUpon>GameBlock.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Common\UserControls\SelectMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainGameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -238,7 +245,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\SwitchGame.png" />
+    <Resource Include="Resources\Images\L_Arrow.png" />
+    <Resource Include="Resources\Images\R_Arrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

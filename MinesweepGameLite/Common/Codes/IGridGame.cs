@@ -8,5 +8,6 @@
         string GameSizeStatus { get; }
         string ProcessStatus { get; }
         void StartGame();
+        void UnloadGame();
     }
 }

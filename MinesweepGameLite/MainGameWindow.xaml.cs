@@ -125,7 +125,7 @@ namespace Common {
                 this.minesSet = value;
                 OnPropertyChanged(nameof(MinesSet));
                 OnPropertyChanged(nameof(MaximumMines));
-                OnPropertyChanged(nameof(CurrentGame.ProcessStatus));
+                OnPropertyChanged(nameof(ProcessStatus));
             }
         }
         public int UsingTime {

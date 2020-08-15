@@ -31,7 +31,7 @@ namespace Common {
         public static readonly Cursor DetectorAimerCursor = new Cursor(new MemoryStream(Common.Properties.Resources.DetectorAimer));
         public static readonly DoubleAnimation AnimationForBlurEffect = new DoubleAnimation {
             From = 0,
-            To = 20,
+            To = 15,
             AccelerationRatio = 0.2,
             DecelerationRatio = 0.8,
             Duration = TimeSpan.FromMilliseconds(200)

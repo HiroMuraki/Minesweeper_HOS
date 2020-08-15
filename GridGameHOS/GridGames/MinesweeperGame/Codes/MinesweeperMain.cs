@@ -143,7 +143,7 @@ namespace MinesweepGameLite {
             List<BlockCoordinate> nearbyPos = new List<BlockCoordinate>();
             List<BlockCoordinate> avaliableBlankPos = new List<BlockCoordinate>();
             nearbyPos.Add(protectedCoordiante);
-            foreach (BlockCoordinate nCoordinate in this.GetNearCoordiantes(protectedCoordiante)) {
+            foreach (BlockCoordinate nCoordinate in this.GetNearCoordinates(protectedCoordiante)) {
                 nearbyPos.Add(nCoordinate);
             }
             foreach (BlockCoordinate nCoordinate in this.GetAllCoordinates()) {
@@ -180,7 +180,7 @@ namespace MinesweepGameLite {
                 return;
             }
             if (this[coordinate].NearMinesCount == 0) {
-                foreach (BlockCoordinate nearCoordinate in this.GetNearCoordiantes(coordinate)) {
+                foreach (BlockCoordinate nearCoordinate in this.GetNearCoordinates(coordinate)) {
                     this.OpenBlock(nearCoordinate);
                 }
             }
@@ -200,7 +200,7 @@ namespace MinesweepGameLite {
         public void OpenNearBlocks(BlockCoordinate coordinate) {
             int nearFlagedBlocks = GetNearCounts(coordinate, (BlockCoordinate nCoordinate) => this[nCoordinate].IsFlaged);
             if (this[coordinate].NearMinesCount <= nearFlagedBlocks) {
-                foreach (BlockCoordinate nearCoordinate in this.GetNearCoordiantes(coordinate)) {
+                foreach (BlockCoordinate nearCoordinate in this.GetNearCoordinates(coordinate)) {
                     this.OpenBlock(nearCoordinate);
                 }
             }
@@ -231,14 +231,14 @@ namespace MinesweepGameLite {
         }
         private int GetNearCounts(BlockCoordinate nCoordinate, Predicate<BlockCoordinate> predicate) {
             int count = 0;
-            foreach (BlockCoordinate coordinate in this.GetNearCoordiantes(nCoordinate)) {
+            foreach (BlockCoordinate coordinate in this.GetNearCoordinates(nCoordinate)) {
                 if (predicate(coordinate)) {
                     ++count;
                 }
             }
             return count;
         }
-        private IEnumerable<BlockCoordinate> GetNearCoordiantes(BlockCoordinate cCoordinate) {
+        private IEnumerable<BlockCoordinate> GetNearCoordinates(BlockCoordinate cCoordinate) {
             int cRow = cCoordinate.Row;
             int cCol = cCoordinate.Col;
             for (int i = -1; i < 2; i++) {

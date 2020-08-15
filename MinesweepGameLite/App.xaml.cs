@@ -45,7 +45,7 @@ namespace Common {
                         IsSoundEnabled = false;
                         continue;
                     }
-                    if (arg1 == "Slide" || arg1 == "SlideJigsaw") {
+                    if (arg1 == "SLIDE" || arg1 == "SLIDEJIGSAW") {
                         DefaultGame = GameType.SlideJigsaw;
                         continue;
                     }

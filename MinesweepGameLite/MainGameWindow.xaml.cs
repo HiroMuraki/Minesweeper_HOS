@@ -167,10 +167,10 @@ namespace Common {
         public void LoadGame(GameType gameType) {
             switch (gameType) {
                 case GameType.Minesweeper:
-                    this.CurrentGame = new MinesweeperMain(this);
+                    this.CurrentGame = new MinesweeperGame(this);
                     break;
                 case GameType.SlideJigsaw:
-                    this.CurrentGame = new SlideJigsawMain(this);
+                    this.CurrentGame = new SlideJigsawGame(this);
                     break;
             }
             btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
@@ -183,7 +183,7 @@ namespace Common {
             }
             switch (currentButton.Name) {
                 case "btnQuickStartA":
-                    if (this.CurrentGame is MinesweeperMain) {
+                    if (this.CurrentGame is MinesweeperGame) {
                         this.RowsSet = 9;
                         this.ColumnsSet = 9;
                         this.MinesSet = 10;
@@ -194,7 +194,7 @@ namespace Common {
                     }
                     break;
                 case "btnQuickStartB":
-                    if (this.CurrentGame is MinesweeperMain) {
+                    if (this.CurrentGame is MinesweeperGame) {
                         this.RowsSet = 16;
                         this.ColumnsSet = 16;
                         this.MinesSet = 40;
@@ -205,7 +205,7 @@ namespace Common {
                     }
                     break;
                 case "btnQuickStartC":
-                    if (this.CurrentGame is MinesweeperMain) {
+                    if (this.CurrentGame is MinesweeperGame) {
                         this.RowsSet = 16;
                         this.ColumnsSet = 30;
                         this.MinesSet = 99;
@@ -300,7 +300,7 @@ namespace Common {
         #endregion
 
         #region 包装方法
-        private void OnPropertyChanged(string propertyName) {
+        public void OnPropertyChanged(string propertyName) {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         private void StartCurrentGame() {

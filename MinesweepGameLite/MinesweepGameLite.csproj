@@ -82,11 +82,11 @@
     <Compile Include="GridGames\MinesweeperGame\Codes\GameBlockCoordinated.cs" />
     <Compile Include="Common\Codes\GeneralAction.cs" />
     <Compile Include="GridGames\MinesweeperGame\Codes\IGameBlock.cs" />
-    <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperMain.cs" />
-    <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawMain.cs" />
+    <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperGame.cs" />
+    <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawGame.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\GameBlockCoordinated.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\IGameBlock.cs" />
-    <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawGame.cs" />
+    <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawMain.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -117,7 +117,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\Codes\BlockCoordinate.cs" />
-    <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperGame.cs" />
+    <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperMain.cs" />
     <Compile Include="MainGameWindow.xaml.cs">
       <DependentUpon>MainGameWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

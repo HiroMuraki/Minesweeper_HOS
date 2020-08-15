@@ -1,13 +1,11 @@
 ﻿using MinesweepGameLite;
 using SlideJigsawGameLite;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Input.StylusWisp;
 using System.Windows.Threading;
-using System.Collections.Generic;
 using static Common.GeneralAction;
 
 namespace Common {
@@ -172,18 +170,6 @@ namespace Common {
             this.SelectorGameList.AllowedLabels.Add("滑块拼图");
             this.SelectorGameList.CurrentLabel = this.SelectorGameList.AllowedLabels[0];
         }
-        public void LoadGame(GameType gameType) {
-            this.CurrentGame?.UnloadGame();
-            switch (gameType) {
-                case GameType.Minesweeper:
-                    this.CurrentGame = new MinesweeperGame(this);
-                    break;
-                case GameType.SlideJigsaw:
-                    this.CurrentGame = new SlideJigsawGame(this);
-                    break;
-            }
-            this.btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
-        }
         private void btnStartGame_ButtonClick(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
             StatusButton currentButton = sender as StatusButton;
@@ -192,13 +178,13 @@ namespace Common {
             }
             switch (currentButton.Name) {
                 case "btnQuickStartA":
-                    this.currentGame.QuickStartGame(0);
+                    this.currentGame.QuickGame(0);
                     break;
                 case "btnQuickStartB":
-                    this.CurrentGame.QuickStartGame(1);
+                    this.CurrentGame.QuickGame(1);
                     break;
                 case "btnQuickStartC":
-                    this.CurrentGame.QuickStartGame(2);
+                    this.CurrentGame.QuickGame(2);
                     break;
             }
             this.StartCurrentGame();
@@ -291,6 +277,18 @@ namespace Common {
         #region 包装方法
         public void OnPropertyChanged(string propertyName) {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public void LoadGame(GameType gameType) {
+            this.CurrentGame?.UnloadGame();
+            switch (gameType) {
+                case GameType.Minesweeper:
+                    this.CurrentGame = new MinesweeperGame(this);
+                    break;
+                case GameType.SlideJigsaw:
+                    this.CurrentGame = new SlideJigsawGame(this);
+                    break;
+            }
+            this.btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
         }
         private void StartCurrentGame() {
             this.CurrentGame.StartGame();

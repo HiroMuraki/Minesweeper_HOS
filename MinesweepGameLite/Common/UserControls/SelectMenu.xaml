@@ -6,6 +6,16 @@
              xmlns:local="clr-namespace:Common"
              mc:Ignorable="d" x:Name="UserControl"
              d:DesignHeight="40" d:DesignWidth="160">
+    <UserControl.Resources>
+        <Style x:Key="ArrowLabel" TargetType="Label">
+            <Setter Property="Opacity" Value="0.6"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -13,10 +23,10 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Column="0" Content="{StaticResource L_Arrow}" VerticalAlignment="Center"
-               MouseLeftButtonDown="LArrow_Click"/>
+               MouseLeftButtonDown="LArrow_Click" Style="{StaticResource ArrowLabel}"/>
         <Label Grid.Column="1" Content="{Binding ElementName=UserControl,Path=CurrentLabel}" 
                VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
         <Label Grid.Column="2" Content="{StaticResource R_Arrow}" VerticalAlignment="Center"
-               MouseLeftButtonDown="RArrow_Click"/>
+               MouseLeftButtonDown="RArrow_Click" Style="{StaticResource ArrowLabel}"/>
     </Grid>
 </UserControl>

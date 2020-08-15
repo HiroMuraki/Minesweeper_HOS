@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -16,10 +15,10 @@ namespace Common {
         public static readonly MediaPlayer BlockFlagSound = new MediaPlayer();
         public static readonly MediaPlayer MenuMouseHoverSound = new MediaPlayer();
         public static readonly MediaPlayer MenuButtonClickSound = new MediaPlayer();
-        public static readonly Cursor NormalCursor = new Cursor(new MemoryStream(Common.Properties.Resources.CursorStatic));
-        public static readonly Cursor ClickedCursor = new Cursor(new MemoryStream(Common.Properties.Resources.CursorClicked));
-        public static readonly Cursor LoadingGameCursor = new Cursor(new MemoryStream(Common.Properties.Resources.LoadingGame));
-        public static readonly Cursor DetectorAimerCursor = new Cursor(new MemoryStream(Common.Properties.Resources.DetectorAimer));
+        public static readonly Cursor NormalCursor = new Cursor(new MemoryStream(GridGameHOS.Properties.Resources.CursorStatic));
+        public static readonly Cursor ClickedCursor = new Cursor(new MemoryStream(GridGameHOS.Properties.Resources.CursorClicked));
+        public static readonly Cursor LoadingGameCursor = new Cursor(new MemoryStream(GridGameHOS.Properties.Resources.LoadingGame));
+        public static readonly Cursor DetectorAimerCursor = new Cursor(new MemoryStream(GridGameHOS.Properties.Resources.DetectorAimer));
         public static readonly DoubleAnimation AnimationForBlurEffect = new DoubleAnimation {
             From = 0,
             To = 15,
@@ -40,7 +39,7 @@ namespace Common {
             Stream insertedResource = assembly.GetManifestResourceStream($@"{assemblyName}.{resourceName}");
             BufferedStream fileReader = new BufferedStream(insertedResource);
             FileStream fileWritter = File.OpenWrite($"{targetPath}");
-            
+
             byte[] buffer = new byte[128];
             int length;
             do {

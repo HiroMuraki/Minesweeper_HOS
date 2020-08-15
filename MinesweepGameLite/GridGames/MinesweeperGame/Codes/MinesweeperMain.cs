@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text;
 
 namespace MinesweepGameLite {
     public class MinesweeperMain : INotifyPropertyChanged {
@@ -257,6 +258,17 @@ namespace MinesweepGameLite {
             foreach (BlockCoordinate coordinate in this.Blocks.Keys) {
                 yield return coordinate;
             }
+        }
+        public override string ToString() {
+            StringBuilder sb = new StringBuilder();
+            for (int row = 0; row < this.RowSize; row++) {
+                for (int col = 0; col < this.ColumnSize; col++) {
+                    BlockCoordinate coordinate = new BlockCoordinate(row, col);
+                    sb.Append($"{(this[coordinate].IsMineBlock ? 1 : 0)} ");
+                }
+                sb.Append("\n");
+            }
+            return sb.ToString();
         }
     }
 }

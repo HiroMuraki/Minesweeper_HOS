@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using Common;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
 using static Common.GeneralAction;
-using Common;
 
 namespace SlideJigsawGameLite {
     class SlideJigsawGame : IGridGame, INotifyPropertyChanged {
@@ -93,7 +87,7 @@ namespace SlideJigsawGameLite {
             GameWindow.Cursor = NormalCursor;
             GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
         }
-        public void QuickStartGame(int level) {
+        public void QuickGame(int level) {
             switch (level) {
                 case 0:
                     GameWindow.RowsSet = 3;
@@ -108,7 +102,6 @@ namespace SlideJigsawGameLite {
                     GameWindow.ColumnsSet = 5;
                     break;
             }
-            this.StartGame();
         }
         public void UnloadGame() {
             GameWindow.KeyDown -= this.Window_KeyDown;
@@ -126,7 +119,6 @@ namespace SlideJigsawGameLite {
             //MessageBox.Show("yztxdy");
             //MessageBox.Show("YZTXDY"); ;
         }
-        
         #endregion
     }
 }

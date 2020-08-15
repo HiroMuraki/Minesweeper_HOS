@@ -9,6 +9,6 @@
         string ProcessStatus { get; }
         void StartGame();
         void UnloadGame();
-        void QuickStartGame(int level);
+        void QuickGame(int level);
     }
 }

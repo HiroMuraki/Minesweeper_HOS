@@ -6,38 +6,12 @@
         xmlns:local="clr-namespace:Common"
         mc:Ignorable="d" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="600" Width="800" KeyDown="Window_KeyDown"
-        MouseDown="Window_MouseDown" MouseUp="Window_MouseUp" FontFamily="/Common;component/Resources/#Belwe Bd BT"
+        MouseDown="Window_MouseDown" MouseUp="Window_MouseUp" FontFamily="/GridGameHOS;component/Resources/#Belwe Bd BT"
         MinHeight="425" MinWidth="425">
     <WindowChrome.WindowChrome>
         <WindowChrome UseAeroCaptionButtons="False" CaptionHeight="0" ResizeBorderThickness="10"/>
     </WindowChrome.WindowChrome>
     <Window.Resources>
-        <Style x:Key="GameSwitcherButton" TargetType="Button">
-            <Setter Property="Focusable" Value="False"/>
-            <Setter Property="Height" Value="100"/>
-            <Setter Property="Width" Value="25"/>
-            <Setter Property="Content" Value="{StaticResource SwitchGame}"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#FF363431"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Border CornerRadius="10,0,0,10" Background="{TemplateBinding Background}"/>
-                            <Label Content="{TemplateBinding Content}"
-                                   Foreground="{TemplateBinding Foreground}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF866e51"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <Style x:Key="MenuSwitcherButton" TargetType="Button">
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="Height" Value="100"/>

@@ -1,7 +1,5 @@
 ﻿using Common;
 using System.ComponentModel;
-using System.Diagnostics.Eventing.Reader;
-using System.Threading;
 using System.Windows;
 using System.Windows.Media.Effects;
 using static Common.GeneralAction;
@@ -131,7 +129,7 @@ namespace MinesweepGameLite {
             GameWindow.Cursor = NormalCursor;
             GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
         }
-        public void QuickStartGame(int level) {
+        public void QuickGame(int level) {
             switch (level) {
                 case 0:
                     GameWindow.RowsSet = 9;
@@ -149,7 +147,6 @@ namespace MinesweepGameLite {
                     GameWindow.MinesSet = 99;
                     break;
             }
-            this.StartGame();
         }
         public void UnloadGame() { }
     }

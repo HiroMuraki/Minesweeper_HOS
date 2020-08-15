@@ -1,11 +1,9 @@
-﻿using System;
-using System.CodeDom;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
-using System.Windows;
-using Common;
 
 namespace SlideJigsawGameLite {
     public class SlideJigsawMain : INotifyPropertyChanged {

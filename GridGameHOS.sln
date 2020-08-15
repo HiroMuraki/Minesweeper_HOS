@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridGameHOS", "MinesweepGameLite\GridGameHOS.csproj", "{10EB7E0E-90DF-49AB-B3FF-AD000A652892}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridGameHOS", "GridGameHOS\GridGameHOS.csproj", "{10EB7E0E-90DF-49AB-B3FF-AD000A652892}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

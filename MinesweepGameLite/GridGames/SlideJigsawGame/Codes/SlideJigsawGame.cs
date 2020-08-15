@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
+using static Common.GeneralAction;
 using Common;
 
 namespace SlideJigsawGameLite {
@@ -42,7 +43,7 @@ namespace SlideJigsawGameLite {
             GameWindow.KeyDown += this.Window_KeyDown;
         }
         private void GameBlock_ButtonClick(object sender, RoutedEventArgs e) {
-            App.PlayFXSound(nameof(App.BlockClickSound));
+            PlayFXSound(nameof(BlockClickSound));
             this.Game.SwapWithNullBlock((sender as IGameBlock).Coordinate);
             if (this.Game.IsGameCompleted) {
                 CalGame();
@@ -78,7 +79,7 @@ namespace SlideJigsawGameLite {
             return block;
         }
         public void StartGame() {
-            GameWindow.Cursor = App.LoadingGameCursor;
+            GameWindow.Cursor = LoadingGameCursor;
             this.Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet);
             this.Game.StartGame();
             //重置统计
@@ -89,8 +90,25 @@ namespace SlideJigsawGameLite {
             GameWindow.btnStartGame.IsOn = null;
             GameWindow.UsingTime = 0;
             GameWindow.UsingTimeTimer.Start();
-            GameWindow.Cursor = App.NormalCursor;
+            GameWindow.Cursor = NormalCursor;
             GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
+        }
+        public void QuickStartGame(int level) {
+            switch (level) {
+                case 0:
+                    GameWindow.RowsSet = 3;
+                    GameWindow.ColumnsSet = 3;
+                    break;
+                case 1:
+                    GameWindow.RowsSet = 4;
+                    GameWindow.ColumnsSet = 4;
+                    break;
+                case 2:
+                    GameWindow.RowsSet = 5;
+                    GameWindow.ColumnsSet = 5;
+                    break;
+            }
+            this.StartGame();
         }
         public void UnloadGame() {
             GameWindow.KeyDown -= this.Window_KeyDown;
@@ -104,10 +122,11 @@ namespace SlideJigsawGameLite {
                 KernelType = KernelType.Gaussian,
                 Radius = 0
             };
-            GameWindow.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, App.AnimationForBlurEffect);
+            GameWindow.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
             //MessageBox.Show("yztxdy");
             //MessageBox.Show("YZTXDY"); ;
         }
+        
         #endregion
     }
 }

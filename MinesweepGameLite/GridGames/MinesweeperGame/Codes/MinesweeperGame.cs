@@ -1,8 +1,10 @@
 ﻿using Common;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Threading;
 using System.Windows;
 using System.Windows.Media.Effects;
+using static Common.GeneralAction;
 
 namespace MinesweepGameLite {
     public class MinesweeperGame : IGridGame, INotifyPropertyChanged {
@@ -25,7 +27,7 @@ namespace MinesweepGameLite {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         private void GameBlock_OpenBlock(object sender, RoutedEventArgs e) {
-            App.PlayFXSound(nameof(App.BlockClickSound));
+            PlayFXSound(nameof(BlockClickSound));
             BlockCoordinate coordinate = (sender as GameBlockCoordinated).Coordinate;
             //嗅探猫
             if (GameWindow.ToggleDetector.IsChecked == true) {
@@ -50,21 +52,21 @@ namespace MinesweepGameLite {
             CalGame(this.Game.IsGameCompleted);
         }
         private void GameBlock_FlagBlock(object sender, RoutedEventArgs e) {
-            App.PlayFXSound(nameof(App.BlockFlagSound));
+            PlayFXSound(nameof(BlockFlagSound));
             this.Game.FlagBlock((sender as GameBlockCoordinated).Coordinate);
             GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
         }
         private void GameBlock_QuickOpen(object sender, RoutedEventArgs e) {
-            App.PlayFXSound(nameof(App.BlockClickSound));
+            PlayFXSound(nameof(BlockClickSound));
             this.Game.OpenNearBlocks((sender as GameBlockCoordinated).Coordinate);
             CalGame(this.Game.IsGameCompleted);
         }
         private void ToggleDetector_Click(object sender, RoutedEventArgs e) {
-            App.PlayFXSound(nameof(App.MenuButtonClickSound));
+            PlayFXSound(nameof(MenuButtonClickSound));
             if (GameWindow.ToggleDetector.IsChecked == true) {
-                GameWindow.Cursor = App.DetectorAimerCursor;
+                GameWindow.Cursor = DetectorAimerCursor;
             } else {
-                GameWindow.Cursor = App.NormalCursor;
+                GameWindow.Cursor = NormalCursor;
             }
         }
 
@@ -103,14 +105,14 @@ namespace MinesweepGameLite {
                     KernelType = KernelType.Gaussian,
                     Radius = 0
                 };
-                GameWindow.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, App.AnimationForBlurEffect);
+                GameWindow.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
                 //MessageBox.Show("YZTXDY"); ;
             } else {
                 this.Game.OpenAllBlocks();
             }
         }
         public void StartGame() {
-            GameWindow.Cursor = App.LoadingGameCursor;
+            GameWindow.Cursor = LoadingGameCursor;
             //开始游戏
             if (this.Game.RowSize != GameWindow.RowsSet
                 || this.Game.ColumnSize != GameWindow.ColumnsSet
@@ -126,8 +128,28 @@ namespace MinesweepGameLite {
             GameWindow.btnStartGame.IsOn = null;
             GameWindow.UsingTime = 0;
             GameWindow.UsingTimeTimer.Start();
-            GameWindow.Cursor = App.NormalCursor;
+            GameWindow.Cursor = NormalCursor;
             GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
+        }
+        public void QuickStartGame(int level) {
+            switch (level) {
+                case 0:
+                    GameWindow.RowsSet = 9;
+                    GameWindow.ColumnsSet = 9;
+                    GameWindow.MinesSet = 10;
+                    break;
+                case 1:
+                    GameWindow.RowsSet = 16;
+                    GameWindow.ColumnsSet = 16;
+                    GameWindow.MinesSet = 40;
+                    break;
+                case 2:
+                    GameWindow.RowsSet = 16;
+                    GameWindow.ColumnsSet = 30;
+                    GameWindow.MinesSet = 99;
+                    break;
+            }
+            this.StartGame();
         }
         public void UnloadGame() { }
     }

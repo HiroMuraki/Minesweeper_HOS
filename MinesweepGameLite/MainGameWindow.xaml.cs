@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Input.StylusWisp;
 using System.Windows.Threading;
 using System.Collections.Generic;
+using static Common.GeneralAction;
 
 namespace Common {
     /// <summary>
@@ -160,11 +161,12 @@ namespace Common {
         #region 按钮与控件
         public MainGameWindow() {
             InitializeComponent();
-            this.Cursor = App.NormalCursor;
+            this.Cursor = NormalCursor;
             this.DataContext = this;
             this.UsingTimeTimer.Interval = TimeSpan.FromSeconds(1);
             this.UsingTimeTimer.Tick += TimerUsingTimer_Tick;
             LoadGame(App.DefaultGame);
+            //添加游戏列表
             this.SelectorGameList.AllowedLabels = new List<string>();
             this.SelectorGameList.AllowedLabels.Add("扫雷");
             this.SelectorGameList.AllowedLabels.Add("滑块拼图");
@@ -180,57 +182,33 @@ namespace Common {
                     this.CurrentGame = new SlideJigsawGame(this);
                     break;
             }
-            btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
+            this.btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
         }
         private void btnStartGame_ButtonClick(object sender, RoutedEventArgs e) {
-            App.PlayFXSound(nameof(App.MenuButtonClickSound));
+            PlayFXSound(nameof(MenuButtonClickSound));
             StatusButton currentButton = sender as StatusButton;
             if (currentButton == null) {
                 return;
             }
             switch (currentButton.Name) {
                 case "btnQuickStartA":
-                    if (this.CurrentGame is MinesweeperGame) {
-                        this.RowsSet = 9;
-                        this.ColumnsSet = 9;
-                        this.MinesSet = 10;
-                    } else {
-                        this.RowsSet = 3;
-                        this.ColumnsSet = 3;
-                        this.MinesSet = 0;
-                    }
+                    this.currentGame.QuickStartGame(0);
                     break;
                 case "btnQuickStartB":
-                    if (this.CurrentGame is MinesweeperGame) {
-                        this.RowsSet = 16;
-                        this.ColumnsSet = 16;
-                        this.MinesSet = 40;
-                    } else {
-                        this.RowsSet = 4;
-                        this.ColumnsSet = 4;
-                        this.MinesSet = 0;
-                    }
+                    this.CurrentGame.QuickStartGame(1);
                     break;
                 case "btnQuickStartC":
-                    if (this.CurrentGame is MinesweeperGame) {
-                        this.RowsSet = 16;
-                        this.ColumnsSet = 30;
-                        this.MinesSet = 99;
-                    } else {
-                        this.RowsSet = 5;
-                        this.ColumnsSet = 5;
-                        this.MinesSet = 0;
-                    }
+                    this.CurrentGame.QuickStartGame(2);
                     break;
             }
             this.StartCurrentGame();
         }
         private void btnStartGame_ButtonRightClick(object sender, RoutedEventArgs e) {
-            App.PlayFXSound(nameof(App.MenuButtonClickSound));
+            PlayFXSound(nameof(MenuButtonClickSound));
             RandomMode();
         }
         private void HiddenSettingMenuButton_Click(object sender, RoutedEventArgs e) {
-            App.PlayFXSound(nameof(App.MenuButtonClickSound));
+            PlayFXSound(nameof(MenuButtonClickSound));
             if (this.SettingMenu.Visibility == Visibility.Visible) {
                 this.SettingMenu.Visibility = Visibility.Collapsed;
             } else {
@@ -249,11 +227,11 @@ namespace Common {
             }
         }
         private void borderGamePanelCover_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
-            App.PlayFXSound(nameof(App.MenuButtonClickSound));
+            PlayFXSound(nameof(MenuButtonClickSound));
             StartCurrentGame();
         }
         private void MenuButton_MouseEnter(object sender, MouseEventArgs e) {
-            App.PlayFXSound(nameof(App.MenuMouseHoverSound));
+            PlayFXSound(nameof(MenuMouseHoverSound));
         }
         #endregion
 
@@ -302,11 +280,11 @@ namespace Common {
             }
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
-            this.Cursor = App.ClickedCursor;
+            this.Cursor = ClickedCursor;
             this.ToggleDetector.IsChecked = false;
         }
         private void Window_MouseUp(object sender, MouseButtonEventArgs e) {
-            this.Cursor = App.NormalCursor;
+            this.Cursor = NormalCursor;
         }
         #endregion
 

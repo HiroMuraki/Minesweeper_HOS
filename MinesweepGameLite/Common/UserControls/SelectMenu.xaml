@@ -12,11 +12,11 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Content="{StaticResource R_Arrow}" VerticalAlignment="Center"
+        <Label Grid.Column="0" Content="{StaticResource L_Arrow}" VerticalAlignment="Center"
                MouseLeftButtonDown="LArrow_Click"/>
         <Label Grid.Column="1" Content="{Binding ElementName=UserControl,Path=CurrentLabel}" 
                VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-        <Label Grid.Column="2" Content="{StaticResource L_Arrow}" VerticalAlignment="Center"
+        <Label Grid.Column="2" Content="{StaticResource R_Arrow}" VerticalAlignment="Center"
                MouseLeftButtonDown="RArrow_Click"/>
     </Grid>
 </UserControl>

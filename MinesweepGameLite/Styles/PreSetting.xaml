@@ -1,33 +1,34 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:MinesweepGameLite">
+                    xmlns:local="clr-namespace:Common">
     <SolidColorBrush x:Key="BlockBase" Color="#FFd8b687"/>
-    <ImageBrush x:Key="BlockCover" ImageSource="/MinesweepGameLite;component/Resources/Images/BlockCover.png"/>
-    <ImageBrush x:Key="FlagMark" ImageSource="/MinesweepGameLite;component/Resources/Images/FlagMark.png"/>
-    <ImageBrush x:Key="MineMark" ImageSource="/MinesweepGameLite;component/Resources/Images/MineMark.png"/>
+    <ImageBrush x:Key="BlockCover" ImageSource="/Common;component/Resources/Images/BlockCover.png"/>
+    <ImageBrush x:Key="FlagMark" ImageSource="/Common;component/Resources/Images/FlagMark.png"/>
+    <ImageBrush x:Key="MineMark" ImageSource="/Common;component/Resources/Images/MineMark.png"/>
 
-    <ImageBrush x:Key="ToggleDetectorOff" ImageSource="/MinesweepGameLite;component/Resources/Images/ToggleDetectorOff.png"/>
-    <ImageBrush x:Key="ToggleDetectorOn" ImageSource="/MinesweepGameLite;component/Resources/Images/ToggleDetectorOn.png"/>
-    <ImageBrush x:Key="ToggleDetectorStatic" ImageSource="/MinesweepGameLite;component/Resources/Images/ToggleDetectorStatic.png"/>
-    <ImageBrush x:Key="ToggleDetectorFocusRing" ImageSource="/MinesweepGameLite;component/Resources/Images/ToggleDetectorFocusRing.png"/>
+    <ImageBrush x:Key="ToggleDetectorOff" ImageSource="/Common;component/Resources/Images/ToggleDetectorOff.png"/>
+    <ImageBrush x:Key="ToggleDetectorOn" ImageSource="/Common;component/Resources/Images/ToggleDetectorOn.png"/>
+    <ImageBrush x:Key="ToggleDetectorStatic" ImageSource="/Common;component/Resources/Images/ToggleDetectorStatic.png"/>
+    <ImageBrush x:Key="ToggleDetectorFocusRing" ImageSource="/Common;component/Resources/Images/ToggleDetectorFocusRing.png"/>
     
-    <ImageBrush x:Key="StatusButtonR" ImageSource="/MinesweepGameLite;component/Resources/Images/StatusButtonR.png"/>
-    <ImageBrush x:Key="StatusButtonB" ImageSource="/MinesweepGameLite;component/Resources/Images/StatusButtonB.png"/>
-    <ImageBrush x:Key="StatusButtonFocus" ImageSource="/MinesweepGameLite;component/Resources/Images/StatusButtonFocus.png"/>
-    <ImageBrush x:Key="StatusButtonStatic" ImageSource="/MinesweepGameLite;component/Resources/Images/StatusButtonStatic.png"/>
+    <ImageBrush x:Key="StatusButtonR" ImageSource="/Common;component/Resources/Images/StatusButtonR.png"/>
+    <ImageBrush x:Key="StatusButtonB" ImageSource="/Common;component/Resources/Images/StatusButtonB.png"/>
+    <ImageBrush x:Key="StatusButtonFocus" ImageSource="/Common;component/Resources/Images/StatusButtonFocus.png"/>
+    <ImageBrush x:Key="StatusButtonStatic" ImageSource="/Common;component/Resources/Images/StatusButtonStatic.png"/>
 
-    <ImageBrush x:Key="SeekBarSlider" ImageSource="/MinesweepGameLite;component/Resources/Images/SeekBarSlider_2.png"/>
-    <ImageBrush x:Key="SeekBarThumb" ImageSource="/MinesweepGameLite;component/Resources/Images/SeekBarThumb.png"/>
-    <ImageBrush x:Key="SeekBarThumbFocus" ImageSource="/MinesweepGameLite;component/Resources/Images/SeekBarThumbFocus.png"/>
+    <ImageBrush x:Key="SeekBarSlider" ImageSource="/Common;component/Resources/Images/SeekBarSlider_2.png"/>
+    <ImageBrush x:Key="SeekBarThumb" ImageSource="/Common;component/Resources/Images/SeekBarThumb.png"/>
+    <ImageBrush x:Key="SeekBarThumbFocus" ImageSource="/Common;component/Resources/Images/SeekBarThumbFocus.png"/>
 
-    <Image x:Key="MenuShow" Source="/MinesweepGameLite;component/Resources/Images/MenuShow.png"/>
-    <Image x:Key="MenuHidden" Source="/MinesweepGameLite;component/Resources/Images/MenuHidden.png"/>
+    <Image x:Key="MenuShow" Source="/Common;component/Resources/Images/MenuShow.png"/>
+    <Image x:Key="MenuHidden" Source="/Common;component/Resources/Images/MenuHidden.png"/>
+    <Image x:Key="SwitchGame" Source="/Common;component/Resources/Images/SwitchGame.png"/>
 
-    <ImageBrush x:Key="SettingBorderA" ImageSource="/MinesweepGameLite;component/Resources/Images/SettingBorderA.png"/>
-    <ImageBrush x:Key="SettingBorderB" ImageSource="/MinesweepGameLite;component/Resources/Images/SettingBorderB.png"/>
-    <ImageBrush x:Key="BorderedButtonSlot" ImageSource="/MinesweepGameLite;component/Resources/Images/BorderdButtonSlot.png"/>
+    <ImageBrush x:Key="SettingBorderA" ImageSource="/Common;component/Resources/Images/SettingBorderA.png"/>
+    <ImageBrush x:Key="SettingBorderB" ImageSource="/Common;component/Resources/Images/SettingBorderB.png"/>
+    <ImageBrush x:Key="BorderedButtonSlot" ImageSource="/Common;component/Resources/Images/BorderdButtonSlot.png"/>
 
-    <ImageBrush x:Key="GameCompletedBar" ImageSource="/MinesweepGameLite;component/Resources/Images/GameCompletedBar.png"/>
+    <ImageBrush x:Key="GameCompletedBar" ImageSource="/Common;component/Resources/Images/GameCompletedBar.png"/>
     
     <SolidColorBrush x:Key="ColorLightWhite" Color="#FFFAFAFA"/>
     <SolidColorBrush x:Key="ColorLightBlack" Color="#5a3b10"/>

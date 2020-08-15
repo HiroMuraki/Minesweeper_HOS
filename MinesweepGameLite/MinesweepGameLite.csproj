@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{10EB7E0E-90DF-49AB-B3FF-AD000A652892}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MinesweepGameLite</RootNamespace>
-    <AssemblyName>MinesweepGameLite</AssemblyName>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -54,7 +54,7 @@
     <ApplicationIcon>Resources\ICO.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>MinesweepGameLite.App</StartupObject>
+    <StartupObject>Common.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -77,29 +77,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MainCodes\MinesweeperGame\GameBlockCoordinated.cs" />
-    <Compile Include="MainCodes\MinesweeperGame\GeneralAction.cs" />
-    <Compile Include="MainCodes\MinesweeperGame\IGameBlock.cs" />
-    <Compile Include="MainCodes\SlideJigsawGame\BlockCoordinate.cs" />
-    <Compile Include="MainCodes\SlideJigsawGame\GameBlockCoordinated.cs" />
-    <Compile Include="MainCodes\SlideJigsawGame\IGameBlock.cs" />
-    <Compile Include="MainCodes\SlideJigsawGame\SlideJigsawGameLite.cs" />
-    <Compile Include="SlideJigsawGameWindow.cs" />
+    <Compile Include="Common\Codes\IGridGame.cs" />
+    <Compile Include="Common\Codes\GameTypeEnum.cs" />
+    <Compile Include="GridGames\MinesweeperGame\Codes\GameBlockCoordinated.cs" />
+    <Compile Include="Common\Codes\GeneralAction.cs" />
+    <Compile Include="GridGames\MinesweeperGame\Codes\IGameBlock.cs" />
+    <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperMain.cs" />
+    <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawMain.cs" />
+    <Compile Include="GridGames\SlideJigsawGame\Codes\GameBlockCoordinated.cs" />
+    <Compile Include="GridGames\SlideJigsawGame\Codes\IGameBlock.cs" />
+    <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawGame.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MinesweeperGame\GameBlock.xaml.cs" />
-    <Compile Include="UserControls\MinesweeperGame\LabeledData.xaml.cs" />
-    <Compile Include="UserControls\MinesweeperGame\StatusButton.xaml.cs" />
-    <Compile Include="UserControls\SlideJigsawGame\GameBlock.xaml.cs" />
-    <Compile Include="UserControls\SlideJigsawGame\StatusButton.xaml.cs" />
-    <Page Include="SlideJigsawGameWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MinesweeperGameWindow.xaml">
+    <Compile Include="GridGames\MinesweeperGame\UserControls\GameBlock.xaml.cs">
+      <DependentUpon>GameBlock.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\UserControls\LabeledData.xaml.cs">
+      <DependentUpon>LabeledData.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\UserControls\StatusButton.xaml.cs">
+      <DependentUpon>StatusButton.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GridGames\SlideJigsawGame\UserControls\GameBlock.xaml.cs">
+      <DependentUpon>GameBlock.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="MainGameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -107,16 +116,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainCodes\MinesweeperGame\BlockCoordinate.cs" />
-    <Compile Include="MainCodes\MinesweeperGame\MinesweeperGame.cs" />
-    <Compile Include="MinesweeperGameWindow.xaml.cs">
-      <DependentUpon>MinesweeperGameWindow.xaml</DependentUpon>
+    <Compile Include="Common\Codes\BlockCoordinate.cs" />
+    <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperGame.cs" />
+    <Compile Include="MainGameWindow.xaml.cs">
+      <DependentUpon>MainGameWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Styles\GeneralStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Styles\HOSStyleGeneral.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -129,23 +134,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\MinesweeperGame\GameBlock.xaml">
+    <Page Include="GridGames\MinesweeperGame\UserControls\GameBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\MinesweeperGame\LabeledData.xaml">
+    <Page Include="Common\UserControls\LabeledData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\MinesweeperGame\StatusButton.xaml">
+    <Page Include="Common\UserControls\StatusButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\SlideJigsawGame\GameBlock.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\SlideJigsawGame\StatusButton.xaml">
+    <Page Include="GridGames\SlideJigsawGame\UserControls\GameBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -235,6 +236,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\SwitchGame.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

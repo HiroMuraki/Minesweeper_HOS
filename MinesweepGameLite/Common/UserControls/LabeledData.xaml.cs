@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MinesweepGameLite {
+namespace Common {
     /// <summary>
     /// LabeledData.xaml 的交互逻辑
     /// </summary>

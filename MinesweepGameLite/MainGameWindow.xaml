@@ -1,17 +1,43 @@
-﻿<Window x:Class="MinesweepGameLite.MinesweeperGameWindow"
+﻿<Window x:Class="Common.MainGameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MinesweepGameLite"
+        xmlns:local="clr-namespace:Common"
         mc:Ignorable="d" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="600" Width="800" KeyDown="Window_KeyDown"
-        MouseDown="Window_MouseDown" MouseUp="Window_MouseUp" FontFamily="/MinesweepGameLite;component/Resources/#Belwe Bd BT"
+        MouseDown="Window_MouseDown" MouseUp="Window_MouseUp" FontFamily="/Common;component/Resources/#Belwe Bd BT"
         MinHeight="425" MinWidth="425">
     <WindowChrome.WindowChrome>
         <WindowChrome UseAeroCaptionButtons="False" CaptionHeight="0" ResizeBorderThickness="10"/>
     </WindowChrome.WindowChrome>
     <Window.Resources>
+        <Style x:Key="GameSwitcherButton" TargetType="Button">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Content" Value="{StaticResource SwitchGame}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#FF363431"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border CornerRadius="10,0,0,10" Background="{TemplateBinding Background}"/>
+                            <Label Content="{TemplateBinding Content}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF866e51"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="MenuSwitcherButton" TargetType="Button">
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="Height" Value="100"/>
@@ -24,9 +50,9 @@
                         <Grid>
                             <Border CornerRadius="10,0,0,10" Background="{TemplateBinding Background}"/>
                             <Label Content="{TemplateBinding Content}"
-                                           Foreground="{TemplateBinding Foreground}"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"/>
+                                   Foreground="{TemplateBinding Foreground}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -101,11 +127,11 @@
                             BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
                     <Viewbox Margin="35">
                         <Border BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="1">
-                            <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
+                            <ItemsControl ItemsSource="{Binding CurrentGame.Game.BlocksArray}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <UniformGrid Rows="{Binding CurrentGame.RowSize,Mode=OneWay}"
-                                             Columns="{Binding CurrentGame.ColumnSize,Mode=OneWay}">
+                                        <UniformGrid Rows="{Binding CurrentGame.Game.RowSize,Mode=OneWay}"
+                                             Columns="{Binding CurrentGame.Game.ColumnSize,Mode=OneWay}">
 
                                         </UniformGrid>
                                     </ItemsPanelTemplate>
@@ -118,12 +144,14 @@
                 </Grid>
             </Grid>
             <Label x:Name="gameCompleteBarImage" Background="{StaticResource GameCompletedBar}" Width="200" Height="0"
-               IsEnabled="False" IsHitTestVisible="False" Opacity="0" Style="{StaticResource GameCompleteBarStyle}"/>
-            <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}"
-                VerticalAlignment="Center" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
-            <ToggleButton x:Name="toggleDetector" Margin="2" Style="{StaticResource DectectorToggleButton}" ToolTip="使用嗅探猫"
-                      VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Height="60"
-                      MouseEnter="MenuButton_MouseEnter" Click="toggleDetector_Click"/>
+                   IsEnabled="False" IsHitTestVisible="False" Opacity="0" Style="{StaticResource GameCompleteBarStyle}"/>
+            <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}" ToolTip="切换游戏"
+                    VerticalAlignment="Center" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
+            <Button Click="SwitchGameButton_Click" Style="{StaticResource GameSwitcherButton}" Margin="0,35,0,0"
+                    VerticalAlignment="Top" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
+            <ToggleButton x:Name="ToggleDetector" Margin="2" Style="{StaticResource DectectorToggleButton}" ToolTip="使用嗅探猫"
+                          VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Height="60"
+                          MouseEnter="MenuButton_MouseEnter"/>
         </Grid>
         <!--#endregion-->
         <!--#region 设置区域 -->
@@ -150,42 +178,48 @@
             </Border>
             <!--设置栏-->
             <Border Grid.Row="1" Background="{StaticResource SettingBorderA}">
-                <Grid Margin="10,20">
+                <Grid Margin="10,20" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Slider Orientation="Vertical" Width="35" Grid.Column="0"
-                                Style="{StaticResource HOSSliderBar}"
-                                Maximum="{Binding Path=MaximumRows}" 
-                                Minimum="{Binding Path=MinimumRows}" 
-                                Value="{Binding Path=RowsSet,Mode=TwoWay}"
-                                ToolTip="{Binding Path=RowsSet,Mode=OneWay}"/>
+                    <Slider x:Name="SliderRowsSet"
+                            Orientation="Vertical" Width="35" Grid.Column="0" Margin="3,0"
+                            Style="{StaticResource HOSSliderBar}"
+                            Maximum="{Binding Path=MaximumRows}" 
+                            Minimum="{Binding Path=MinimumRows}" 
+                            Value="{Binding Path=RowsSet,Mode=TwoWay}"
+                            ToolTip="{Binding Path=RowsSet,Mode=OneWay}"/>
 
-                    <Slider  Orientation="Vertical" Width="35" Grid.Column="1"
-                                 Style="{StaticResource HOSSliderBar}"
-                                 Maximum="{Binding Path=MaximumColumns}"
-                                 Minimum="{Binding Path=MinimumColumns}" 
-                                 Value="{Binding Path=ColumnsSet,Mode=TwoWay}"
-                                 ToolTip="{Binding Path=ColumnsSet,Mode=OneWay}"/>
+                    <Slider x:Name="SliderColumnsSet"
+                            Orientation="Vertical" Width="35" Grid.Column="1" Margin="3,0"
+                            Style="{StaticResource HOSSliderBar}"
+                            Maximum="{Binding Path=MaximumColumns}"
+                            Minimum="{Binding Path=MinimumColumns}" 
+                            Value="{Binding Path=ColumnsSet,Mode=TwoWay}"
+                            ToolTip="{Binding Path=ColumnsSet,Mode=OneWay}"/>
 
-                    <Slider Orientation="Vertical" Width="35" Grid.Column="2"
-                                Style="{StaticResource HOSSliderBar}"
-                                Minimum="{Binding Path=MinimumMines}"
-                                Maximum="{Binding Path=MaximumMines}"
-                                Value="{Binding Path=MinesSet,Mode=TwoWay}"
-                                ToolTip="{Binding Path=MinesSet,Mode=OneWay}"/>
+                    <Slider x:Name="SliderMinesSet" 
+                            Orientation="Vertical" Width="35" Grid.Column="2"  Margin="3,0"
+                            Style="{StaticResource HOSSliderBar}"
+                            Minimum="{Binding Path=MinimumMines}"
+                            Maximum="{Binding Path=MaximumMines}"
+                            Value="{Binding Path=MinesSet,Mode=TwoWay}"
+                            ToolTip="{Binding Path=MinesSet,Mode=OneWay}"/>
                 </Grid>
             </Border>
             <!--信息栏-->
             <Border Grid.Row="2" Background="{StaticResource SettingBorderA}">
                 <StackPanel Margin="10,5">
-                    <local:LabeledData Grid.Row="0" DataHeader="大小:"
+                    <local:LabeledData x:Name="LabelGameSize"
+                                       Grid.Row="0" DataHeader="大小:"
                                        DataDetails="{Binding Path=GameSizeStatus}"/>
-                    <local:LabeledData Grid.Row="1" DataHeader="进度:"
+                    <local:LabeledData x:Name="LabelProcess"
+                                       Grid.Row="1" DataHeader="进度:"
                                        DataDetails="{Binding Path=ProcessStatus}"/>
-                    <local:LabeledData Grid.Row="2" DataHeader="用时:"
+                    <local:LabeledData x:Name="LabelUsingTime"
+                                       Grid.Row="2" DataHeader="用时:"
                                        DataDetails="{Binding Path=UsingTimeStatus}"/>
                 </StackPanel>
             </Border>

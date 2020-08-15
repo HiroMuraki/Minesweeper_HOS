@@ -1,15 +1,14 @@
-﻿<Application x:Class="MinesweepGameLite.App"
+﻿<Application x:Class="Common.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MinesweepGameLite"
+             xmlns:local="clr-namespace:Common"
              Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/MinesweepGameLite;component/Styles/PreSetting.xaml"/>
-                <ResourceDictionary Source="/MinesweepGameLite;component/Styles/GeneralStyle.xaml"/>
-                <ResourceDictionary Source="/MinesweepGameLite;component/Styles/HOSStyleGeneral.xaml"/>
-                <ResourceDictionary Source="/MinesweepGameLite;component/Styles/HOSStyleSliderBar.xaml"/>
+                <ResourceDictionary Source="/Common;component/Styles/PreSetting.xaml"/>
+                <ResourceDictionary Source="/Common;component/Styles/HOSStyleGeneral.xaml"/>
+                <ResourceDictionary Source="/Common;component/Styles/HOSStyleSliderBar.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

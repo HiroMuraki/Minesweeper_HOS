@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using static MinesweepGameLite.MainCodes.GeneralAction;
+using Common;
 
-namespace MinesweepGameLite {
+namespace Common {
     /// <summary>
     /// 应用载入操作，包括载入资源，读取启动参数
     /// </summary>
     public partial class App : Application {
-        private Window gameWindow;
         public static bool IsSoundEnabled = true;
+        public static GameType DefaultGame = GameType.Minesweeper;
         public static string UserTempFilePath;
         private static readonly string[] SoundResources = new string[] {
             "BlockClickSound.wav",
@@ -30,10 +25,10 @@ namespace MinesweepGameLite {
         public static readonly MediaPlayer BlockFlagSound = new MediaPlayer();
         public static readonly MediaPlayer MenuMouseHoverSound = new MediaPlayer();
         public static readonly MediaPlayer MenuButtonClickSound = new MediaPlayer();
-        public static readonly Cursor NormalCursor = new Cursor(new MemoryStream(MinesweepGameLite.Properties.Resources.CursorStatic));
-        public static readonly Cursor ClickedCursor = new Cursor(new MemoryStream(MinesweepGameLite.Properties.Resources.CursorClicked));
-        public static readonly Cursor LoadingGameCursor = new Cursor(new MemoryStream(MinesweepGameLite.Properties.Resources.LoadingGame));
-        public static readonly Cursor DetectorAimerCursor = new Cursor(new MemoryStream(MinesweepGameLite.Properties.Resources.DetectorAimer));
+        public static readonly Cursor NormalCursor = new Cursor(new MemoryStream(Common.Properties.Resources.CursorStatic));
+        public static readonly Cursor ClickedCursor = new Cursor(new MemoryStream(Common.Properties.Resources.CursorClicked));
+        public static readonly Cursor LoadingGameCursor = new Cursor(new MemoryStream(Common.Properties.Resources.LoadingGame));
+        public static readonly Cursor DetectorAimerCursor = new Cursor(new MemoryStream(Common.Properties.Resources.DetectorAimer));
         public static readonly DoubleAnimation AnimationForBlurEffect = new DoubleAnimation {
             From = 0,
             To = 20,
@@ -43,23 +38,29 @@ namespace MinesweepGameLite {
         };
         #endregion
         private void Application_Startup(object sender, StartupEventArgs e) {
-            if (e.Args.Length > 0) {
-                string arg1 = e.Args[0].Trim('-', '+').ToUpper();
-                if (arg1 == "NOSOUND" || arg1 == "SILENT") {
-                    IsSoundEnabled = false;
+            foreach (string arg in e.Args) {
+                if (arg.StartsWith("-")) {
+                    string arg1 = arg.Trim('-', '+').ToUpper();
+                    if (arg1 == "NOSOUND" || arg1 == "SILENT") {
+                        IsSoundEnabled = false;
+                        continue;
+                    }
+                    if (arg1 == "Slide" || arg1 == "SlideJigsaw") {
+                        DefaultGame = GameType.SlideJigsaw;
+                        continue;
+                    }
                 }
             }
             if (IsSoundEnabled) {
                 UserTempFilePath = Environment.GetEnvironmentVariable("TEMP");
                 InitializeResources();
             }
-            gameWindow = new MinesweeperGameWindow();
-            gameWindow.Show();
+            new MainGameWindow().Show();
         }
         private void InitializeResources() {
             foreach (string soundName in SoundResources) {
                 string fileFullPath = $@"{UserTempFilePath}\{soundName}";
-                CopyInsertedFileToPath($"Resources.Sound.{soundName}", fileFullPath);
+                GeneralAction.CopyInsertedFileToPath($"Resources.Sound.{soundName}", fileFullPath);
             }
         }
         public static void PlayFXSound(string soundName) {

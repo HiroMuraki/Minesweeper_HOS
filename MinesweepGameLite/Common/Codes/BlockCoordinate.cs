@@ -1,4 +1,4 @@
-﻿namespace MinesweepGameLite {
+﻿namespace Common {
     public struct BlockCoordinate {
         public int Row;
         public int Col;

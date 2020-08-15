@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Common;
 
 namespace SlideJigsawGameLite {
-    public class SliderJigsawGame : INotifyPropertyChanged {
+    public class SlideJigsawGame : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName) {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -86,7 +87,7 @@ namespace SlideJigsawGameLite {
                 this.Blocks[coordinate] = value;
             }
         }
-        public SliderJigsawGame(Func<IGameBlock> blockCreateAction) {
+        public SlideJigsawGame(Func<IGameBlock> blockCreateAction) {
             this.BlockCreateAction = blockCreateAction;
         }
         public void SetGame(int rowSet, int colSet) {

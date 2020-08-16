@@ -96,7 +96,7 @@
             <Grid>
                 <Border IsHitTestVisible="False" Background="{StaticResource SettingBorderB}"
                         BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
-                <Grid x:Name="gamePlayAreaGrid">
+                <Grid x:Name="GamePlayAreaGrid">
                     <Border MouseLeftButtonDown="Window_Move" Background="{StaticResource SettingBorderB}"
                             BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
                     <Viewbox Margin="35">
@@ -113,11 +113,11 @@
                             </ItemsControl>
                         </Border>
                     </Viewbox>
-                    <Border Background="Transparent" x:Name="borderGamePanelCover" 
+                    <Border Background="Transparent" x:Name="BorderGamePanelCover" 
                             MouseLeftButtonDown="borderGamePanelCover_MouseLeftButtonDown"/>
                 </Grid>
             </Grid>
-            <Label x:Name="gameCompleteBarImage" Background="{StaticResource GameCompletedBar}" Width="200" Height="0"
+            <Label x:Name="GameCompleteBarImage" Background="{StaticResource GameCompletedBar}" Width="200" Height="0"
                    IsEnabled="False" IsHitTestVisible="False" Opacity="0" Style="{StaticResource GameCompleteBarStyle}"/>
             <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}" ToolTip="切换游戏"
                     VerticalAlignment="Center" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
@@ -218,7 +218,7 @@
             <!--开始按钮 - 大-->
             <Grid Background="{StaticResource SettingBorderA}" Grid.Row="5">
                 <local:StatusButton Width="150" Height="150" ToolTip="左键:自定义游戏&#x0a;右键:随机模式" Margin="5"
-                                    x:Name="btnStartGame" ButtonClick="btnStartGame_ButtonClick"
+                                    x:Name="BtnStartGame" ButtonClick="btnStartGame_ButtonClick"
                                     ButtonRightClick="btnStartGame_ButtonRightClick"
                                     MouseEnter="MenuButton_MouseEnter"/>
             </Grid>

@@ -108,14 +108,14 @@ namespace SlideJigsawGameLite {
         }
         private void CalGame() {
             GameWindow.UsingTimeTimer.Stop();
-            GameWindow.borderGamePanelCover.IsHitTestVisible = true;
-            GameWindow.btnStartGame.IsOn = true;
-            GameWindow.gameCompleteBarImage.IsEnabled = true;
-            GameWindow.gamePlayAreaGrid.Effect = new BlurEffect {
+            GameWindow.BorderGamePanelCover.IsHitTestVisible = true;
+            GameWindow.BtnStartGame.IsOn = true;
+            GameWindow.GameCompleteBarImage.IsEnabled = true;
+            GameWindow.GamePlayAreaGrid.Effect = new BlurEffect {
                 KernelType = KernelType.Gaussian,
                 Radius = 0
             };
-            GameWindow.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
+            GameWindow.GamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
             //MessageBox.Show("yztxdy");
             //MessageBox.Show("YZTXDY"); ;
         }

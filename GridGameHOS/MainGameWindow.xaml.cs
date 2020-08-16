@@ -250,7 +250,7 @@ namespace Common {
         private void Window_KeyDown(object sender, KeyEventArgs e) {
             switch (e.Key) {
                 case Key.Space:
-                    btnStartGame_ButtonClick(this.btnStartGame, new RoutedEventArgs());
+                    btnStartGame_ButtonClick(this.BtnStartGame, new RoutedEventArgs());
                     break;
                 case Key.F1:
                     btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
@@ -262,7 +262,7 @@ namespace Common {
                     btnStartGame_ButtonClick(this.btnQuickStartC, new RoutedEventArgs());
                     break;
                 case Key.F5:
-                    btnStartGame_ButtonRightClick(this.btnStartGame, new RoutedEventArgs());
+                    btnStartGame_ButtonRightClick(this.BtnStartGame, new RoutedEventArgs());
                     break;
             }
         }
@@ -296,11 +296,11 @@ namespace Common {
             //开始游戏
             this.CurrentGame.StartGame();
             //重置统计
-            this.borderGamePanelCover.IsHitTestVisible = false;
-            this.gamePlayAreaGrid.Effect = null;
-            this.gameCompleteBarImage.IsEnabled = false;
+            this.BorderGamePanelCover.IsHitTestVisible = false;
+            this.GamePlayAreaGrid.Effect = null;
+            this.GameCompleteBarImage.IsEnabled = false;
             this.ToggleDetector.IsEnabled = true;
-            this.btnStartGame.IsOn = null;
+            this.BtnStartGame.IsOn = null;
             this.UsingTime = 0;
             this.UsingTimeTimer.Start();
             this.Cursor = NormalCursor;

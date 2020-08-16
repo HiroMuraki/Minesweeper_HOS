@@ -102,15 +102,15 @@ namespace MinesweepGameLite {
                 return;
             }
             GameWindow.UsingTimeTimer.Stop();
-            GameWindow.borderGamePanelCover.IsHitTestVisible = true;
+            GameWindow.BorderGamePanelCover.IsHitTestVisible = true;
             if (isGameCompleted == true) {
-                GameWindow.btnStartGame.IsOn = true;
-                GameWindow.gameCompleteBarImage.IsEnabled = true;
-                GameWindow.gamePlayAreaGrid.Effect = new BlurEffect {
+                GameWindow.BtnStartGame.IsOn = true;
+                GameWindow.GameCompleteBarImage.IsEnabled = true;
+                GameWindow.GamePlayAreaGrid.Effect = new BlurEffect {
                     KernelType = KernelType.Gaussian,
                     Radius = 0
                 };
-                GameWindow.gamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
+                GameWindow.GamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
                 //MessageBox.Show("YZTXDY"); ;
             } else {
                 this.Game.OpenAllBlocks();

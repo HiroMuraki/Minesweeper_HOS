@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media.Effects;
 using System.Windows.Threading;
 using static Common.GeneralAction;
 
@@ -305,6 +307,25 @@ namespace Common {
             this.UsingTimeTimer.Start();
             this.Cursor = NormalCursor;
             this.OnPropertyChanged(nameof(this.ProcessStatus));
+        }
+        public void CalCurrentGame(bool? isGameCompleted = true) {
+            if (isGameCompleted == null) {
+                return;
+            }
+            this.UsingTimeTimer.Stop();
+            this.BorderGamePanelCover.IsHitTestVisible = true;
+            if (isGameCompleted == true) {
+                this.BtnStartGame.IsOn = true;
+                this.GameCompleteBarImage.IsEnabled = true;
+                this.GamePlayAreaGrid.Effect = new BlurEffect {
+                    KernelType = KernelType.Gaussian,
+                    Radius = 0
+                };
+                this.GamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
+                //MessageBox.Show("YZTXDY"); ;
+            } else {
+                //
+            }
         }
         private void RandomMode() {
             Random rnd = new Random();

@@ -107,15 +107,7 @@ namespace SlideJigsawGameLite {
             GameWindow.KeyDown -= this.Window_KeyDown;
         }
         private void CalGame() {
-            GameWindow.UsingTimeTimer.Stop();
-            GameWindow.BorderGamePanelCover.IsHitTestVisible = true;
-            GameWindow.BtnStartGame.IsOn = true;
-            GameWindow.GameCompleteBarImage.IsEnabled = true;
-            GameWindow.GamePlayAreaGrid.Effect = new BlurEffect {
-                KernelType = KernelType.Gaussian,
-                Radius = 0
-            };
-            GameWindow.GamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
+            this.GameWindow.CalCurrentGame();
             //MessageBox.Show("yztxdy");
             //MessageBox.Show("YZTXDY"); ;
         }

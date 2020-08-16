@@ -98,21 +98,8 @@ namespace MinesweepGameLite {
             return block;
         }
         private void CalGame(bool? isGameCompleted) {
-            if (isGameCompleted == null) {
-                return;
-            }
-            GameWindow.UsingTimeTimer.Stop();
-            GameWindow.BorderGamePanelCover.IsHitTestVisible = true;
-            if (isGameCompleted == true) {
-                GameWindow.BtnStartGame.IsOn = true;
-                GameWindow.GameCompleteBarImage.IsEnabled = true;
-                GameWindow.GamePlayAreaGrid.Effect = new BlurEffect {
-                    KernelType = KernelType.Gaussian,
-                    Radius = 0
-                };
-                GameWindow.GamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
-                //MessageBox.Show("YZTXDY"); ;
-            } else {
+            this.GameWindow.CalCurrentGame(isGameCompleted);
+            if (isGameCompleted == false) {
                 this.Game.OpenAllBlocks();
             }
         }

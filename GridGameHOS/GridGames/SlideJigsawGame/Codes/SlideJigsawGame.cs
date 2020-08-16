@@ -83,20 +83,9 @@ namespace SlideJigsawGameLite {
             return block;
         }
         public void StartGame() {
-            GameWindow.Cursor = LoadingGameCursor;
             this.Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet);
             this.Game.StartGame();
             OnPropertyChanged(nameof(BlocksArray));
-            //重置统计
-            GameWindow.borderGamePanelCover.IsHitTestVisible = false;
-            GameWindow.gamePlayAreaGrid.Effect = null;
-            GameWindow.gameCompleteBarImage.IsEnabled = false;
-            GameWindow.ToggleDetector.IsEnabled = true;
-            GameWindow.btnStartGame.IsOn = null;
-            GameWindow.UsingTime = 0;
-            GameWindow.UsingTimeTimer.Start();
-            GameWindow.Cursor = NormalCursor;
-            GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
         }
         public void QuickGame(int level) {
             switch (level) {

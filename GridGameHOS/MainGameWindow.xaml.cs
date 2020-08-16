@@ -248,6 +248,7 @@ namespace Common {
             Application.Current.Shutdown();
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) {
+            PlayFXSound(nameof(MenuButtonClickSound));
             switch (e.Key) {
                 case Key.Space:
                     StartCurrentGame();
@@ -292,7 +293,19 @@ namespace Common {
             this.btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
         }
         private void StartCurrentGame() {
+            this.Cursor = LoadingGameCursor;
+            //开始游戏
             this.CurrentGame.StartGame();
+            //重置统计
+            this.borderGamePanelCover.IsHitTestVisible = false;
+            this.gamePlayAreaGrid.Effect = null;
+            this.gameCompleteBarImage.IsEnabled = false;
+            this.ToggleDetector.IsEnabled = true;
+            this.btnStartGame.IsOn = null;
+            this.UsingTime = 0;
+            this.UsingTimeTimer.Start();
+            this.Cursor = NormalCursor;
+            this.OnPropertyChanged(nameof(this.ProcessStatus));
         }
         private void RandomMode() {
             Random rnd = new Random();

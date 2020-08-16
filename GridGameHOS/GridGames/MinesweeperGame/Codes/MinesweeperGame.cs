@@ -117,8 +117,6 @@ namespace MinesweepGameLite {
             }
         }
         public void StartGame() {
-            GameWindow.Cursor = LoadingGameCursor;
-            //开始游戏
             if (this.Game.RowSize != GameWindow.RowsSet
                 || this.Game.ColumnSize != GameWindow.ColumnsSet
                 || this.Game.MineSize != GameWindow.MinesSet) {
@@ -126,16 +124,6 @@ namespace MinesweepGameLite {
             }
             this.Game.StartGame();
             OnPropertyChanged(nameof(BlocksArray));
-            //重置统计
-            GameWindow.borderGamePanelCover.IsHitTestVisible = false;
-            GameWindow.gamePlayAreaGrid.Effect = null;
-            GameWindow.gameCompleteBarImage.IsEnabled = false;
-            GameWindow.ToggleDetector.IsEnabled = true;
-            GameWindow.btnStartGame.IsOn = null;
-            GameWindow.UsingTime = 0;
-            GameWindow.UsingTimeTimer.Start();
-            GameWindow.Cursor = NormalCursor;
-            GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
         }
         public void QuickGame(int level) {
             switch (level) {

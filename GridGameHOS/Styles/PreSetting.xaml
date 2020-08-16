@@ -1,35 +1,35 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:GridGameHOS">
+    <!--扫雷游戏方块资源-->
     <SolidColorBrush x:Key="BlockBase" Color="#FFd8b687"/>
     <ImageBrush x:Key="BlockCover" ImageSource="/GridGameHOS;component/Resources/Images/BlockCover.png"/>
     <ImageBrush x:Key="FlagMark" ImageSource="/GridGameHOS;component/Resources/Images/FlagMark.png"/>
     <ImageBrush x:Key="MineMark" ImageSource="/GridGameHOS;component/Resources/Images/MineMark.png"/>
-
+    <!--扫雷游戏嗅探猫资源-->
     <ImageBrush x:Key="ToggleDetectorOff" ImageSource="/GridGameHOS;component/Resources/Images/ToggleDetectorOff.png"/>
     <ImageBrush x:Key="ToggleDetectorOn" ImageSource="/GridGameHOS;component/Resources/Images/ToggleDetectorOn.png"/>
     <ImageBrush x:Key="ToggleDetectorStatic" ImageSource="/GridGameHOS;component/Resources/Images/ToggleDetectorStatic.png"/>
     <ImageBrush x:Key="ToggleDetectorFocusRing" ImageSource="/GridGameHOS;component/Resources/Images/ToggleDetectorFocusRing.png"/>
-    
+    <!--状态指示按钮资源-->
     <ImageBrush x:Key="StatusButtonR" ImageSource="/GridGameHOS;component/Resources/Images/StatusButtonR.png"/>
     <ImageBrush x:Key="StatusButtonB" ImageSource="/GridGameHOS;component/Resources/Images/StatusButtonB.png"/>
     <ImageBrush x:Key="StatusButtonFocus" ImageSource="/GridGameHOS;component/Resources/Images/StatusButtonFocus.png"/>
     <ImageBrush x:Key="StatusButtonStatic" ImageSource="/GridGameHOS;component/Resources/Images/StatusButtonStatic.png"/>
-
+    <!--HOS风格滑杆资源-->
     <ImageBrush x:Key="SeekBarSlider" ImageSource="/GridGameHOS;component/Resources/Images/SeekBarSlider_2.png"/>
     <ImageBrush x:Key="SeekBarThumb" ImageSource="/GridGameHOS;component/Resources/Images/SeekBarThumb.png"/>
     <ImageBrush x:Key="SeekBarThumbFocus" ImageSource="/GridGameHOS;component/Resources/Images/SeekBarThumbFocus.png"/>
-
+    <!--HOS风格主菜单资源-->
     <Image x:Key="MenuShow" Source="/GridGameHOS;component/Resources/Images/MenuShow.png"/>
     <Image x:Key="MenuHidden" Source="/GridGameHOS;component/Resources/Images/MenuHidden.png"/>
     <Image x:Key="L_Arrow" Source="/GridGameHOS;component/Resources/Images/L_Arrow.png"/>
     <Image x:Key="R_Arrow" Source="/GridGameHOS;component/Resources/Images/R_Arrow.png"/>
-
     <ImageBrush x:Key="SettingBorderA" ImageSource="/GridGameHOS;component/Resources/Images/SettingBorderA.png"/>
     <ImageBrush x:Key="SettingBorderB" ImageSource="/GridGameHOS;component/Resources/Images/SettingBorderB.png"/>
     <ImageBrush x:Key="BorderedButtonSlot" ImageSource="/GridGameHOS;component/Resources/Images/BorderdButtonSlot.png"/>
     <ImageBrush x:Key="GameCompletedBar" ImageSource="/GridGameHOS;component/Resources/Images/GameCompletedBar.png"/>
-    
+    <!--自定义颜色-->
     <SolidColorBrush x:Key="ColorLightWhite" Color="#FFFAFAFA"/>
     <SolidColorBrush x:Key="ColorLightBlack" Color="#5a3b10"/>
     <SolidColorBrush x:Key="ColorBorderBlack" Color="#2c2926"/>

@@ -6,7 +6,9 @@ namespace Common {
     /// LabeledData.xaml 的交互逻辑
     /// </summary>
     public partial class LabeledData : UserControl {
-        //标头
+        /// <summary>
+        /// 数据标签
+        /// </summary>
         public string DataHeader {
             get {
                 return (string)GetValue(DataHeaderProperty);
@@ -17,7 +19,9 @@ namespace Common {
         }
         public static readonly DependencyProperty DataHeaderProperty =
             DependencyProperty.Register("DataHeader", typeof(string), typeof(LabeledData), new PropertyMetadata(""));
-        //数据
+        /// <summary>
+        /// 数据内容
+        /// </summary>
         public string DataDetails {
             get {
                 return (string)GetValue(DataDetailsProperty);
@@ -28,7 +32,9 @@ namespace Common {
         }
         public static readonly DependencyProperty DataDetailsProperty =
             DependencyProperty.Register("DataDetails", typeof(string), typeof(LabeledData), new PropertyMetadata(""));
-        //构造函数
+        /// <summary>
+        /// 默认构造函数
+        /// </summary>
         public LabeledData() {
             InitializeComponent();
         }

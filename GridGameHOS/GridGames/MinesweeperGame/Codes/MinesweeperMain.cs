@@ -98,9 +98,19 @@ namespace MinesweepGameLite {
                 this.Blocks[coordinate] = value;
             }
         }
+        /// <summary>
+        /// 带参构造函数，传入一个创建方块的方法
+        /// </summary>
+        /// <param name="blockCreateAction">创建方块的方法</param>
         public MinesweeperMain(Func<IGameBlock> blockCreateAction) {
             this.BlockCreateAction = blockCreateAction;
         }
+        /// <summary>
+        /// 设置游戏的行数，列数和雷数
+        /// </summary>
+        /// <param name="rowSize">行数</param>
+        /// <param name="columnSize">列数</param>
+        /// <param name="minesCount">雷数</param>
         public void SetGame(int rowSize, int columnSize, int minesCount) {
             this.RowSize = rowSize;
             this.ColumnSize = columnSize;
@@ -119,17 +129,27 @@ namespace MinesweepGameLite {
                 }
             }
         }
+        /// <summary>
+        /// 开始当前游戏
+        /// </summary>
         public void StartGame() {
             this.Shuffle();
             OnPropertyChanged(nameof(Blocks));
             this.IsGameStarted = false;
             this.FlagsCount = 0;
         }
+        /// <summary>
+        /// 打开所有方块
+        /// </summary>
         public void OpenAllBlocks() {
             foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
                 this.OpenBlock(coordinate);
             }
         }
+        /// <summary>
+        /// 重置方块位置，指定方块周围的8个坐标与自身坐标将不会有雷
+        /// </summary>
+        /// <param name="protectedCoordiante">待保护的坐标位置</param>
         public void ResetLayout(BlockCoordinate protectedCoordiante) {
             List<BlockCoordinate> nearbyPos = new List<BlockCoordinate>();
             List<BlockCoordinate> avaliableBlankPos = new List<BlockCoordinate>();
@@ -160,6 +180,10 @@ namespace MinesweepGameLite {
             this.FlagsCount = 0;
         }
         //普通方法
+        /// <summary>
+        /// 打开指定方块，为递归打开
+        /// </summary>
+        /// <param name="coordinate">待打开的方块坐标</param>
         public void OpenBlock(BlockCoordinate coordinate) {
             if (this[coordinate] == null
                 || this[coordinate].IsOpen
@@ -177,6 +201,10 @@ namespace MinesweepGameLite {
             }
             return;
         }
+        /// <summary>
+        /// 为指定方块插旗
+        /// </summary>
+        /// <param name="coordinate">待插旗的方块坐标</param>
         public void FlagBlock(BlockCoordinate coordinate) {
             if (!this[coordinate].IsOpen) {
                 if (!this[coordinate].IsFlaged) {
@@ -188,6 +216,10 @@ namespace MinesweepGameLite {
                 }
             }
         }
+        /// <summary>
+        /// 打开指定方块周围的方块
+        /// </summary>
+        /// <param name="coordinate">中心方块</param>
         public void OpenNearBlocks(BlockCoordinate coordinate) {
             int nearFlagedBlocks = GetNearCounts(coordinate, (BlockCoordinate nCoordinate) => this[nCoordinate].IsFlaged);
             if (this[coordinate].NearMinesCount <= nearFlagedBlocks) {
@@ -197,6 +229,9 @@ namespace MinesweepGameLite {
             }
         }
         //包装方法
+        /// <summary>
+        /// 打乱方块位置
+        /// </summary>
         private void Shuffle() {
             Random random = new Random();
             for (int i = 0; i < this.GameSize; i++) {
@@ -213,6 +248,11 @@ namespace MinesweepGameLite {
                     GetNearCounts(coordinate, (BlockCoordinate nCoordinate) => this[nCoordinate].IsMineBlock);
             }
         }
+        /// <summary>
+        /// 交换两个方块的位置
+        /// </summary>
+        /// <param name="coordinateA"></param>
+        /// <param name="coordinateB"></param>
         private void SwapBlock(BlockCoordinate coordinateA, BlockCoordinate coordinateB) {
             IGameBlock T = this[coordinateA];
             this[coordinateA] = this[coordinateB];
@@ -220,6 +260,12 @@ namespace MinesweepGameLite {
             this[coordinateB] = T;
             this[coordinateB].Coordinate = coordinateB;
         }
+        /// <summary>
+        /// 获取指定方块周围符合predicate的方块的数量
+        /// </summary>
+        /// <param name="nCoordinate">中心方块</param>
+        /// <param name="predicate">判定方法</param>
+        /// <returns></returns>
         private int GetNearCounts(BlockCoordinate nCoordinate, Predicate<BlockCoordinate> predicate) {
             int count = 0;
             foreach (BlockCoordinate coordinate in this.GetNearCoordinates(nCoordinate)) {
@@ -229,6 +275,11 @@ namespace MinesweepGameLite {
             }
             return count;
         }
+        /// <summary>
+        /// 获取指定方块周围8个方块的坐标
+        /// </summary>
+        /// <param name="cCoordinate">中心方块坐标</param>
+        /// <returns></returns>
         private IEnumerable<BlockCoordinate> GetNearCoordinates(BlockCoordinate cCoordinate) {
             int cRow = cCoordinate.Row;
             int cCol = cCoordinate.Col;
@@ -245,11 +296,19 @@ namespace MinesweepGameLite {
                 }
             }
         }
+        /// <summary>
+        /// 获取当前游戏所有可用的坐标值
+        /// </summary>
+        /// <returns></returns>
         private IEnumerable<BlockCoordinate> GetAllCoordinates() {
             foreach (BlockCoordinate coordinate in this.Blocks.Keys) {
                 yield return coordinate;
             }
         }
+        /// <summary>
+        /// 字符串格式化方法
+        /// </summary>
+        /// <returns></returns>
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
             for (int row = 0; row < this.RowSize; row++) {

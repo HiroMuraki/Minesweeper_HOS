@@ -29,6 +29,10 @@ namespace SlideJigsawGameLite {
 
         #region 控件
         private SlideJigsawGame() { }
+        /// <summary>
+        /// 带参构造函数，传入一个MainGameWindow类，用于关联游戏窗口
+        /// </summary>
+        /// <param name="gameWindow">关联的游戏窗口</param>
         public SlideJigsawGame(MainGameWindow gameWindow) {
             this.Game = new SlideJigsawMain(BlockCreatAction);
             this.GameWindow = gameWindow;
@@ -42,6 +46,11 @@ namespace SlideJigsawGameLite {
             GameWindow.MinimumMines = 0;
             GameWindow.KeyDown += this.Window_KeyDown;
         }
+        /// <summary>
+        /// 点击方块时的操作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GameBlock_ButtonClick(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(BlockClickSound));
             this.Game.SwapWithNullBlock((sender as IGameBlock).Coordinate);
@@ -49,6 +58,11 @@ namespace SlideJigsawGameLite {
                 CalGame();
             }
         }
+        /// <summary>
+        /// 方块移动的快捷键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_KeyDown(object sender, KeyEventArgs e) {
             PlayFXSound(nameof(BlockClickSound));
             switch (e.Key) {
@@ -76,17 +90,28 @@ namespace SlideJigsawGameLite {
         #endregion
 
         #region 包装方法
+        /// <summary>
+        /// 创建方块的方法
+        /// </summary>
+        /// <returns></returns>
         private IGameBlock BlockCreatAction() {
             GameBlockCoordinated block = new GameBlockCoordinated();
             block.Width = block.Height = 50;
             block.ButtonClick += GameBlock_ButtonClick;
             return block;
         }
+        /// <summary>
+        /// 开始当前游戏
+        /// </summary>
         public void StartGame() {
             this.Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet);
             this.Game.StartGame();
             OnPropertyChanged(nameof(BlocksArray));
         }
+        /// <summary>
+        /// 快速游戏
+        /// </summary>
+        /// <param name="level">传入一个整数数字（0-2），开始制定难度的游戏</param>
         public void QuickGame(int level) {
             switch (level) {
                 case 0:
@@ -103,9 +128,15 @@ namespace SlideJigsawGameLite {
                     break;
             }
         }
+        /// <summary>
+        /// 卸载游戏时进行的操作，由游戏主窗口调用
+        /// </summary>
         public void UnloadGame() {
             GameWindow.KeyDown -= this.Window_KeyDown;
         }
+        /// <summary>
+        /// 结算游戏
+        /// </summary>
         private void CalGame() {
             this.GameWindow.CalCurrentGame();
             //MessageBox.Show("yztxdy");

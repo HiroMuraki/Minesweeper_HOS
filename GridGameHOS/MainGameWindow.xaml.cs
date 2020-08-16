@@ -80,6 +80,7 @@ namespace Common {
             }
         }
         #endregion
+        #region 主要属性
         public event PropertyChangedEventHandler PropertyChanged;
         public IGridGame CurrentGame {
             get {
@@ -157,6 +158,7 @@ namespace Common {
             }
         }
         #endregion
+        #endregion
 
         #region 按钮与控件
         public MainGameWindow() {
@@ -173,6 +175,11 @@ namespace Common {
             }
             this.SelectorGameList.CurrentLabel = GameDictionary[App.DefaultGame];
         }
+        /// <summary>
+        /// 开始游戏按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStartGame_ButtonClick(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
             StatusButton currentButton = sender as StatusButton;
@@ -192,10 +199,20 @@ namespace Common {
             }
             this.StartCurrentGame();
         }
+        /// <summary>
+        /// 右键点击开始游戏按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnStartGame_ButtonRightClick(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
             RandomMode();
         }
+        /// <summary>
+        /// 隐藏游戏设置栏
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HiddenSettingMenuButton_Click(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
             if (this.SettingMenu.Visibility == Visibility.Visible) {
@@ -204,6 +221,11 @@ namespace Common {
                 this.SettingMenu.Visibility = Visibility.Visible;
             }
         }
+        /// <summary>
+        /// 切换游戏类型标签
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectorGameList_LabelSwitched(object sender, RoutedEventArgs e) {
             this.CurrentGame.UnloadGame();
             switch (SelectorGameList.CurrentLabel) {
@@ -215,16 +237,31 @@ namespace Common {
                     break;
             }
         }
+        /// <summary>
+        /// 当游戏完成后按下游戏区时的透明按钮，用于开始游戏
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void borderGamePanelCover_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
             StartCurrentGame();
         }
+        /// <summary>
+        /// 当鼠标悬浮于菜单按钮时出发音效播放
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuButton_MouseEnter(object sender, MouseEventArgs e) {
             PlayFXSound(nameof(MenuMouseHoverSound));
         }
         #endregion
 
         #region 窗口操作
+        /// <summary>
+        /// 窗口操作，包括移动窗口，最大化窗口，最小化窗口，关闭窗口以及快捷键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Move(object sender, MouseButtonEventArgs e) {
             if (e.ClickCount == 2) {
                 if (this.WindowState == WindowState.Normal) {
@@ -268,6 +305,11 @@ namespace Common {
                     break;
             }
         }
+        /// <summary>
+        /// 鼠标样式修改
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
             this.Cursor = ClickedCursor;
             this.ToggleDetector.IsChecked = false;
@@ -278,9 +320,17 @@ namespace Common {
         #endregion
 
         #region 包装方法
+        /// <summary>
+        /// INotifyPropertyChanged时间的包装方法
+        /// </summary>
+        /// <param name="propertyName"></param>
         public void OnPropertyChanged(string propertyName) {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        /// <summary>
+        /// 载入游戏时的操作
+        /// </summary>
+        /// <param name="gameType"></param>
         public void LoadGame(GameType gameType) {
             this.CurrentGame?.UnloadGame();
             switch (gameType) {
@@ -293,6 +343,9 @@ namespace Common {
             }
             this.btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
         }
+        /// <summary>
+        /// 开始当前游戏，由窗口调用
+        /// </summary>
         private void StartCurrentGame() {
             this.Cursor = LoadingGameCursor;
             //开始游戏
@@ -308,6 +361,10 @@ namespace Common {
             this.Cursor = NormalCursor;
             this.OnPropertyChanged(nameof(this.ProcessStatus));
         }
+        /// <summary>
+        /// 结算游戏，由游戏调用，若传入null，则无其它操作，传入false，仅关闭隐藏开始蒙版与计时器，传入true，正常结算
+        /// </summary>
+        /// <param name="isGameCompleted"></param>
         public void CalCurrentGame(bool? isGameCompleted = true) {
             if (isGameCompleted == null) {
                 return;
@@ -327,6 +384,9 @@ namespace Common {
                 //
             }
         }
+        /// <summary>
+        /// 随机模式
+        /// </summary>
         private void RandomMode() {
             Random rnd = new Random();
             this.RowsSet = rnd.Next(MinimumRows, MaximumRows);
@@ -334,6 +394,11 @@ namespace Common {
             this.MinesSet = rnd.Next(MinimumMines, MaximumMines);
             StartCurrentGame();
         }
+        /// <summary>
+        /// 游戏计时器更新，每秒更新一次
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TimerUsingTimer_Tick(object sender, EventArgs e) {
             ++UsingTime;
         }

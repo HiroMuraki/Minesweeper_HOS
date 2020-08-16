@@ -78,9 +78,18 @@ namespace SlideJigsawGameLite {
                 this.Blocks[coordinate] = value;
             }
         }
+        /// <summary>
+        /// 带参构造函数
+        /// </summary>
+        /// <param name="blockCreateAction">传入一个返回IGameBlock的方法，该方法生成一个方块样式</param>
         public SlideJigsawMain(Func<IGameBlock> blockCreateAction) {
             this.BlockCreateAction = blockCreateAction;
         }
+        /// <summary>
+        /// 设置游戏的行数和列数
+        /// </summary>
+        /// <param name="rowSet">行数</param>
+        /// <param name="colSet">列数</param>
         public void SetGame(int rowSet, int colSet) {
             this.RowSize = rowSet;
             this.ColumnSize = colSet;
@@ -95,9 +104,15 @@ namespace SlideJigsawGameLite {
                 }
             }
         }
+        /// <summary>
+        /// 开始游戏
+        /// </summary>
         public void StartGame() {
             this.Shuffle();
         }
+        /// <summary>
+        /// 打乱方块顺序
+        /// </summary>
         private void Shuffle() {
             Random random = new Random();
             for (int i = 0; i < this.GameSize; i++) {
@@ -113,7 +128,11 @@ namespace SlideJigsawGameLite {
                 }
             }
         }
-
+        /// <summary>
+        /// 判断指定位置方块的周围是否有空方块
+        /// </summary>
+        /// <param name="coordinate">传入指定的方块位置</param>
+        /// <returns>周围是否有空方块</returns>
         private bool IsNullBlockNearby(BlockCoordinate coordinate) {
             foreach (BlockCoordinate nCoordinate in GetNearCrossCoordinates(coordinate)) {
                 if (this[nCoordinate].BlockID == 0) {
@@ -122,6 +141,10 @@ namespace SlideJigsawGameLite {
             }
             return false;
         }
+        /// <summary>
+        /// 与空方快交换位置
+        /// </summary>
+        /// <param name="coordinate">传入待交换的方块坐标</param>
         public void SwapWithNullBlock(BlockCoordinate coordinate) {
             if (IsNullBlockNearby(coordinate)) {
                 if (Swap(coordinate, NullBlockCoordiante)) {
@@ -129,11 +152,20 @@ namespace SlideJigsawGameLite {
                 }
             }
         }
+        /// <summary>
+        /// 获取所有方块位置
+        /// </summary>
+        /// <returns>返回一个所有方块位置的迭代器</returns>
         private IEnumerable<BlockCoordinate> GetAllCoordinates() {
             foreach (BlockCoordinate coordinate in this.Blocks.Keys) {
                 yield return coordinate;
             }
         }
+        /// <summary>
+        /// 获取指定坐标周围十字范围的坐标
+        /// </summary>
+        /// <param name="coordinate">中心坐标</param>
+        /// <returns>周围十字范围的坐标</returns>
         private IEnumerable<BlockCoordinate> GetNearCrossCoordinates(BlockCoordinate coordinate) {
             int cRow = coordinate.Row;
             int cCol = coordinate.Col;
@@ -151,6 +183,12 @@ namespace SlideJigsawGameLite {
                 }
             }
         }
+        /// <summary>
+        /// 交换两个方块的属性，传入坐标
+        /// </summary>
+        /// <param name="coordinateA"></param>
+        /// <param name="coordinateB"></param>
+        /// <returns></returns>
         private bool Swap(BlockCoordinate coordinateA, BlockCoordinate coordinateB) {
             if ((uint)coordinateA.Row >= this.RowSize
                 || (uint)coordinateA.Col >= this.ColumnSize
@@ -163,6 +201,10 @@ namespace SlideJigsawGameLite {
             this[coordinateB].BlockID = T;
             return true;
         }
+        /// <summary>
+        /// 字符串格式化方法
+        /// </summary>
+        /// <returns></returns>
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
             for (int row = 0; row < this.rowSize; row++) {

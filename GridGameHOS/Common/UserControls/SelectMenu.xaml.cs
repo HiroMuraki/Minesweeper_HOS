@@ -8,8 +8,17 @@ namespace Common {
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
     public partial class SelectMenu : UserControl {
+        /// <summary>
+        /// 用于保存菜单的可切换标签列表
+        /// </summary>
         public List<string> AllowedLabels { get; set; }
+        /// <summary>
+        /// 用于跟踪当前标签的下标位置
+        /// </summary>
         private int currentLabelIndex = 0;
+        /// <summary>
+        /// 用于表示当前选择的标签，是依赖属性
+        /// </summary>
         public string CurrentLabel {
             get {
                 return (string)GetValue(CurrentLabelProperty);
@@ -20,7 +29,9 @@ namespace Common {
         }
         public static readonly DependencyProperty CurrentLabelProperty =
             DependencyProperty.Register("CurrentLabel", typeof(string), typeof(SelectMenu), new PropertyMetadata(""));
-
+        /// <summary>
+        /// 切换标签时的事件，由控件调用方使用
+        /// </summary>
         public event RoutedEventHandler LabelSwitched {
             add {
                 AddHandler(LabelSwitchedEvent, value);
@@ -35,6 +46,11 @@ namespace Common {
         public SelectMenu() {
             InitializeComponent();
         }
+        /// <summary>
+        /// 切换标签时的事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LArrow_Click(object sender, MouseButtonEventArgs e) {
             --currentLabelIndex;
             if (currentLabelIndex < 0) {

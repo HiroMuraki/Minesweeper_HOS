@@ -1,4 +1,7 @@
 ﻿namespace Common {
+    /// <summary>
+    /// 用于为网格类游戏标记坐标
+    /// </summary>
     public struct BlockCoordinate {
         public int Row;
         public int Col;

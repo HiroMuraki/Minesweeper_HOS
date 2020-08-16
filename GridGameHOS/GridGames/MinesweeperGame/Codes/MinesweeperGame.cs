@@ -76,6 +76,10 @@ namespace MinesweepGameLite {
         }
 
         private MinesweeperGame() { }
+        /// <summary>
+        /// 带参构造函数，传入一个MainGameWindow类，用于关联游戏窗口
+        /// </summary>
+        /// <param name="gameWindow">关联的游戏窗口</param>
         public MinesweeperGame(MainGameWindow gameWindow) {
             this.Game = new MinesweeperMain(BlockCreateAction);
             this.GameWindow = gameWindow;
@@ -89,6 +93,10 @@ namespace MinesweepGameLite {
             GameWindow.MinimumMines = 5;
             GameWindow.ToggleDetector.Click += ToggleDetector_Click;
         }
+        /// <summary>
+        /// 创建方块的方法
+        /// </summary>
+        /// <returns></returns>
         private IGameBlock BlockCreateAction() {
             GameBlockCoordinated block = new GameBlockCoordinated();
             block.Width = block.Height = 50;
@@ -97,12 +105,19 @@ namespace MinesweepGameLite {
             block.DoubleOpenBlock += GameBlock_QuickOpen;
             return block;
         }
+        /// <summary>
+        /// 结算游戏，若传入null，则无其它操作，传入false，打开所有方块，传入true，正常结算
+        /// </summary>
+        /// <param name="isGameCompleted">游戏是否完成</param>
         private void CalGame(bool? isGameCompleted) {
             this.GameWindow.CalCurrentGame(isGameCompleted);
             if (isGameCompleted == false) {
                 this.Game.OpenAllBlocks();
             }
         }
+        /// <summary>
+        /// 开始当前游戏
+        /// </summary>
         public void StartGame() {
             if (this.Game.RowSize != GameWindow.RowsSet
                 || this.Game.ColumnSize != GameWindow.ColumnsSet
@@ -112,6 +127,10 @@ namespace MinesweepGameLite {
             this.Game.StartGame();
             OnPropertyChanged(nameof(BlocksArray));
         }
+        /// <summary>
+        /// 快速游戏
+        /// </summary>
+        /// <param name="level">传入整数数字（0-2），开始制定难度的游戏</param>
         public void QuickGame(int level) {
             switch (level) {
                 case 0:
@@ -131,6 +150,9 @@ namespace MinesweepGameLite {
                     break;
             }
         }
+        /// <summary>
+        /// 卸载游戏时的操作，由游戏窗口调用
+        /// </summary>
         public void UnloadGame() { }
     }
 }

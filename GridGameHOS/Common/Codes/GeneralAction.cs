@@ -7,6 +7,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace Common {
+    /// <summary>
+    /// 常见且具有通用性的操作
+    /// </summary>
     public static class GeneralAction {
         /// <summary>
         /// 初始化资源
@@ -28,7 +31,9 @@ namespace Common {
             Duration = TimeSpan.FromMilliseconds(200)
         };
         #endregion
-
+        /// <summary>
+        /// 可用游戏列表，用于在可用游戏枚举和对应文字描述之间映射
+        /// </summary>
         public static Dictionary<GameType, string> GameDictionary = new Dictionary<GameType, string> {
             {GameType.Minesweeper,"扫雷" },
             {GameType.SlideJigsaw,"滑块拼图" }
@@ -57,16 +62,17 @@ namespace Common {
             fileWritter.Close();
         }
 
-        /// <summary>
-        /// 用于播放音频
-        /// </summary>
-        /// <param name="soundName">传入音频文件文件名（无扩展名），但扩展名为.wav</param>
+       
         public static readonly string[] SoundResources = new string[] {
             "BlockClickSound.wav",
             "BlockFlagSound.wav",
             "MenuMouseHoverSound.wav",
             "MenuButtonClickSound.wav"
         };
+        /// <summary>
+        /// 用于播放音频
+        /// </summary>
+        /// <param name="soundName">传入音频文件文件名（无扩展名），但扩展名为.wav</param>
         public static void PlayFXSound(string soundName) {
             if (!App.IsSoundEnabled) {
                 return;

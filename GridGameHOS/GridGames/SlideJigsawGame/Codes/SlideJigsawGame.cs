@@ -1,4 +1,5 @@
 ﻿using Common;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
@@ -14,6 +15,11 @@ namespace SlideJigsawGameLite {
         }
         public MainGameWindow GameWindow { get; set; }
         public SlideJigsawMain Game { get; set; }
+        public ObservableCollection<IBlocks> BlocksArray {
+            get {
+                return new ObservableCollection<IBlocks>(this.Game.Blocks.Values);
+            }
+        } 
         public string GameSizeStatus {
             get {
                 return $"{GameWindow.RowsSet} x {GameWindow.ColumnsSet}";
@@ -80,6 +86,7 @@ namespace SlideJigsawGameLite {
             GameWindow.Cursor = LoadingGameCursor;
             this.Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet);
             this.Game.StartGame();
+            OnPropertyChanged(nameof(BlocksArray));
             //重置统计
             GameWindow.borderGamePanelCover.IsHitTestVisible = false;
             GameWindow.gamePlayAreaGrid.Effect = null;

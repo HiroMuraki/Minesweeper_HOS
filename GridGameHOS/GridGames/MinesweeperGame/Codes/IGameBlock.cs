@@ -1,7 +1,7 @@
 ﻿using Common;
 
 namespace MinesweepGameLite {
-    public interface IGameBlock {
+    public interface IGameBlock : IBlocks {
         bool IsFlaged { get; set; }
         bool IsOpen { get; set; }
         bool IsMineBlock { get; set; }

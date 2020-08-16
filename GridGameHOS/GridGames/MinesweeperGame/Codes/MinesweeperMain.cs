@@ -89,16 +89,7 @@ namespace MinesweepGameLite {
                 return isGameCompleted;
             }
         }
-        private Dictionary<BlockCoordinate, IGameBlock> Blocks;
-        public ObservableCollection<IGameBlock> BlocksArray {
-            get {
-                ObservableCollection<IGameBlock> blocksArray = new ObservableCollection<IGameBlock>();
-                foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
-                    blocksArray.Add(this[coordinate]);
-                }
-                return blocksArray;
-            }
-        }
+        public Dictionary<BlockCoordinate, IGameBlock> Blocks { get; private set; }
         public IGameBlock this[BlockCoordinate coordinate] {
             get {
                 return this.Blocks[coordinate];
@@ -130,7 +121,7 @@ namespace MinesweepGameLite {
         }
         public void StartGame() {
             this.Shuffle();
-            OnPropertyChanged(nameof(BlocksArray));
+            OnPropertyChanged(nameof(Blocks));
             this.IsGameStarted = false;
             this.FlagsCount = 0;
         }
@@ -164,7 +155,7 @@ namespace MinesweepGameLite {
                     GetNearCounts(coordinate, (BlockCoordinate nCoordinate) => this[nCoordinate].IsMineBlock);
             }
 
-            OnPropertyChanged(nameof(BlocksArray));
+            OnPropertyChanged(nameof(Blocks));
             this.IsGameStarted = false;
             this.FlagsCount = 0;
         }

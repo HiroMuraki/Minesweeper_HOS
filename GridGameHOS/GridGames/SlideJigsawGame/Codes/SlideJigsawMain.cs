@@ -55,13 +55,13 @@ namespace SlideJigsawGameLite {
         }
         public bool IsGameCompleted {
             get {
-                Console.WriteLine(ToString());
+                List<IGameBlock> blocksArray = new List<IGameBlock>(this.Blocks.Values);
                 for (int i = 0; i < this.GameSize - 1; i++) {
-                    if (this.BlocksArray[i].BlockID != i + 1) {
+                    if (blocksArray[i].BlockID != i + 1) {
                         return false;
                     }
                 }
-                if (this.BlocksArray[this.GameSize - 1].BlockID != 0) {
+                if (blocksArray[this.GameSize - 1].BlockID != 0) {
                     return false;
                 }
                 return true;
@@ -70,15 +70,6 @@ namespace SlideJigsawGameLite {
 
         private Func<IGameBlock> BlockCreateAction;
         public Dictionary<BlockCoordinate, IGameBlock> Blocks;
-        public ObservableCollection<IGameBlock> BlocksArray {
-            get {
-                ObservableCollection<IGameBlock> blocks = new ObservableCollection<IGameBlock>();
-                foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
-                    blocks.Add(this[coordinate]);
-                }
-                return blocks;
-            }
-        }
         public IGameBlock this[BlockCoordinate coordinate] {
             get {
                 return this.Blocks[coordinate];
@@ -103,7 +94,6 @@ namespace SlideJigsawGameLite {
                     this[coordinate].BlockID = row * this.ColumnSize + col;
                 }
             }
-            OnPropertyChanged(nameof(BlocksArray));
         }
         public void StartGame() {
             this.Shuffle();
@@ -125,7 +115,7 @@ namespace SlideJigsawGameLite {
         }
 
         private bool IsNullBlockNearby(BlockCoordinate coordinate) {
-            foreach (BlockCoordinate nCoordinate in GetNearCoordinates(coordinate)) {
+            foreach (BlockCoordinate nCoordinate in GetNearCrossCoordinates(coordinate)) {
                 if (this[nCoordinate].BlockID == 0) {
                     return true;
                 }
@@ -144,7 +134,7 @@ namespace SlideJigsawGameLite {
                 yield return coordinate;
             }
         }
-        private IEnumerable<BlockCoordinate> GetNearCoordinates(BlockCoordinate coordinate) {
+        private IEnumerable<BlockCoordinate> GetNearCrossCoordinates(BlockCoordinate coordinate) {
             int cRow = coordinate.Row;
             int cCol = coordinate.Col;
             for (int i = -1; i < 2; i++) {

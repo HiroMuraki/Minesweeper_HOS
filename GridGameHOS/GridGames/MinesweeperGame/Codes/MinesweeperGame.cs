@@ -1,4 +1,5 @@
 ﻿using Common;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media.Effects;
@@ -8,6 +9,11 @@ namespace MinesweepGameLite {
     public class MinesweeperGame : IGridGame, INotifyPropertyChanged {
         public GameType Type { get; private set; } = GameType.Minesweeper;
         public MinesweeperMain Game { get; set; }
+        public ObservableCollection<IBlocks> BlocksArray {
+            get {
+                return new ObservableCollection<IBlocks>(this.Game.Blocks.Values);
+            }
+        }
         public MainGameWindow GameWindow { get; set; }
         public string GameSizeStatus {
             get {
@@ -43,6 +49,7 @@ namespace MinesweepGameLite {
             //首开保护
             if (!this.Game.IsGameStarted) {
                 this.Game.ResetLayout(coordinate);
+                this.OnPropertyChanged(nameof(BlocksArray));
                 this.Game.IsGameStarted = true;
             }
             //普通打开
@@ -118,6 +125,7 @@ namespace MinesweepGameLite {
                 this.Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet, GameWindow.MinesSet);
             }
             this.Game.StartGame();
+            OnPropertyChanged(nameof(BlocksArray));
             //重置统计
             GameWindow.borderGamePanelCover.IsHitTestVisible = false;
             GameWindow.gamePlayAreaGrid.Effect = null;

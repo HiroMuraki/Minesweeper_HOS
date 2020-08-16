@@ -101,7 +101,7 @@
                             BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
                     <Viewbox Margin="35">
                         <Border BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="1">
-                            <ItemsControl ItemsSource="{Binding CurrentGame.Game.BlocksArray}">
+                            <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <UniformGrid Rows="{Binding CurrentGame.Game.RowSize,Mode=OneWay}"

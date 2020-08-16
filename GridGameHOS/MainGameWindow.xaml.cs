@@ -248,10 +248,9 @@ namespace Common {
             Application.Current.Shutdown();
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) {
-            PlayFXSound(nameof(MenuButtonClickSound));
             switch (e.Key) {
                 case Key.Space:
-                    StartCurrentGame();
+                    btnStartGame_ButtonClick(this.btnStartGame, new RoutedEventArgs());
                     break;
                 case Key.F1:
                     btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
@@ -263,7 +262,7 @@ namespace Common {
                     btnStartGame_ButtonClick(this.btnQuickStartC, new RoutedEventArgs());
                     break;
                 case Key.F5:
-                    RandomMode();
+                    btnStartGame_ButtonRightClick(this.btnStartGame, new RoutedEventArgs());
                     break;
             }
         }

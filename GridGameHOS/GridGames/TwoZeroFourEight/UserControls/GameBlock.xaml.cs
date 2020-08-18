@@ -29,13 +29,8 @@ namespace TwoZeroFourEightLite {
         public static readonly DependencyProperty NumberProperty =
             DependencyProperty.Register("Number", typeof(int), typeof(GameBlock), new PropertyMetadata(0));
 
-
         public GameBlock() {
             InitializeComponent();
-        }
-
-        private void Label_SourceUpdated(object sender, DataTransferEventArgs e) {
-
         }
     }
 }

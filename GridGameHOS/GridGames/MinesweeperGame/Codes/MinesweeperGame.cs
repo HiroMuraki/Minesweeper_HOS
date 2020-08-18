@@ -153,6 +153,8 @@ namespace MinesweepGameLite {
         /// <summary>
         /// 卸载游戏时的操作，由游戏窗口调用
         /// </summary>
-        public void UnloadGame() { }
+        public void UnloadGame() {
+            this.GameWindow.ToggleDetector.Click -= ToggleDetector_Click;
+        }
     }
 }

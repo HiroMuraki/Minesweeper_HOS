@@ -30,6 +30,10 @@ namespace Common {
                         DefaultGame = GameType.SlideJigsaw;
                         continue;
                     }
+                    if (arg1 == "2048" || arg1 == "2048H") {
+                        DefaultGame = GameType.TwoZeroFourEight;
+                        continue;
+                    }
                 }
             }
             if (IsSoundEnabled) {

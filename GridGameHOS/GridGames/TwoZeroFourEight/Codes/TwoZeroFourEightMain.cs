@@ -130,6 +130,9 @@ namespace TwoZeroFourEightLite {
             }
             return true;
         }
+        /// <summary>
+        /// 在随机位置生成数字
+        /// </summary>
         public void GenerateNumber() {
             List<BlockCoordinate> blankCoordiantes = new List<BlockCoordinate>();
             foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
@@ -144,6 +147,13 @@ namespace TwoZeroFourEightLite {
             BlockCoordinate numberCoordinate = blankCoordiantes[rnd.Next(blankCoordiantes.Count)];
             int number = rnd.Next(3) == 0 ? 4 : 2;
             this[numberCoordinate].Number = number;
+        }
+        public void ClearNumber(int targetNumber) {
+            foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+                if (this[coordinate].Number == targetNumber) {
+                    this[coordinate].Number = 0;
+                }
+            }
         }
         /// <summary>
         /// 交换两个方块的内容

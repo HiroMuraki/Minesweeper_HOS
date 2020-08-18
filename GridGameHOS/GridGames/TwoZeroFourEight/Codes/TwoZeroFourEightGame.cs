@@ -46,12 +46,20 @@ namespace TwoZeroFourEightLite {
             this.GameWindow.MinimumColumns = 1;
             this.GameWindow.SliderMinesSet.Visibility = Visibility.Collapsed;
             this.GameWindow.LabelProcess.Visibility = Visibility.Visible;
+            this.GameWindow.ToggleDetector.Click += ToggleDetector_Click;
+        }
+
+        private void ToggleDetector_Click(object sender, RoutedEventArgs e) {
+            PlayFXSound(nameof(MenuButtonClickSound));
+            this.GameWindow.ToggleDetector.IsEnabled = false;
+            this.Game.ClearNumber(2);
         }
 
         public void StartGame() {
             this.Game.StartGame(GameWindow.RowsSet, GameWindow.ColumnsSet << 9);
             this.Game.GenerateNumber();
             this.Game.GenerateNumber();
+            this.GameWindow.ToggleDetector.IsEnabled = true;
             OnPropertyChanged(nameof(BlocksArray));
         }
 
@@ -76,6 +84,7 @@ namespace TwoZeroFourEightLite {
             this.StartGame();
         }
         public void UnloadGame() {
+            this.GameWindow.ToggleDetector.Click -= ToggleDetector_Click;
             this.GameWindow.KeyDown -= Window_KeyDown;
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) {
@@ -84,21 +93,24 @@ namespace TwoZeroFourEightLite {
                 case Key.W:
                 case Key.Up:
                     this.Game.MoveToNorth();
+                    this.Game.GenerateNumber();
                     break;
                 case Key.S:
                 case Key.Down:
                     this.Game.MoveToSouth();
+                    this.Game.GenerateNumber();
                     break;
                 case Key.A:
                 case Key.Left:
                     this.Game.MoveToWest();
+                    this.Game.GenerateNumber();
                     break;
                 case Key.D:
                 case Key.Right:
                     this.Game.MoveToEast();
+                    this.Game.GenerateNumber();
                     break;
             }
-            this.Game.GenerateNumber();
             if (this.Game.IsGameCompleted) {
                 GameWindow.CalCurrentGame(true);
             }

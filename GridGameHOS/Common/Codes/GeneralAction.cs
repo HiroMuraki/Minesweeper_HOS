@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -62,8 +63,9 @@ namespace Common {
             fileReader.Close();
             fileWritter.Close();
         }
-
-
+        /// <summary>
+        ///  记录音频列表
+        /// </summary>
         public static readonly string[] SoundResources = new string[] {
             "BlockClickSound.wav",
             "BlockFlagSound.wav",
@@ -97,6 +99,27 @@ namespace Common {
                     MenuButtonClickSound.Play();
                     break;
             }
+        }
+        /// <summary>
+        /// 播放缩放动画
+        /// </summary>
+        /// <param name="element">要缩放的控件</param>
+        /// <param name="scaleFrom">缩放的起始值</param>
+        /// <param name="scaleTo">缩放的目标值</param>
+        /// <param name="duration">动画持续时间，单位为毫秒</param>
+        public static void PlayScaleTransform(UIElement element, double scaleFrom, double scaleTo, int duration) {
+            ScaleTransform scale = new ScaleTransform();
+            DoubleAnimation animation = new DoubleAnimation() {
+                From = scaleFrom,
+                To = scaleTo,
+                AccelerationRatio = 0.2,
+                DecelerationRatio = 0.5,
+                Duration = TimeSpan.FromMilliseconds(duration)
+            };
+            element.RenderTransform = scale;
+            element.RenderTransformOrigin = new Point(0.5, 0.5);
+            scale.BeginAnimation(ScaleTransform.ScaleXProperty, animation);
+            scale.BeginAnimation(ScaleTransform.ScaleYProperty, animation);
         }
     }
 }

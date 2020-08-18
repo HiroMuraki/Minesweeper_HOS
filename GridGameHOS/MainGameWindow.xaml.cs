@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
 using System.Windows.Threading;
+using TwoZeroFourEightLite;
 using static Common.GeneralAction;
 
 namespace Common {
@@ -235,6 +236,9 @@ namespace Common {
                 case "滑块拼图":
                     LoadGame(GameType.SlideJigsaw);
                     break;
+                case "2048H":
+                    LoadGame(GameType.TwoZeroFourEight);
+                    break;
             }
         }
         /// <summary>
@@ -339,6 +343,9 @@ namespace Common {
                     break;
                 case GameType.SlideJigsaw:
                     this.CurrentGame = new SlideJigsawGame(this);
+                    break;
+                case GameType.TwoZeroFourEight:
+                    this.CurrentGame = new TwoZeroFourEightGame(this);
                     break;
             }
             this.btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());

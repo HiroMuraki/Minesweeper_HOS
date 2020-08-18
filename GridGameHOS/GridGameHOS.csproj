@@ -168,6 +168,13 @@
     <Compile Include="GridGames\SlideJigsawGame\Codes\GameBlockCoordinated.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\IGameBlock.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawMain.cs" />
+    <Compile Include="GridGames\TwoZeroFourEight\Codes\DirectionEnum.cs" />
+    <Compile Include="GridGames\TwoZeroFourEight\Codes\IGameBlock.cs" />
+    <Compile Include="GridGames\TwoZeroFourEight\Codes\TwoZeroFourEightGame.cs" />
+    <Compile Include="GridGames\TwoZeroFourEight\Codes\TwoZeroFourEightMain.cs" />
+    <Compile Include="GridGames\TwoZeroFourEight\UserControls\GameBlock.xaml.cs">
+      <DependentUpon>GameBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -192,6 +199,10 @@
     <Page Include="Common\UserControls\SelectMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GridGames\TwoZeroFourEight\UserControls\GameBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainGameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

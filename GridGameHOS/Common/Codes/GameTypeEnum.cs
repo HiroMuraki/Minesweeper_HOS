@@ -4,6 +4,7 @@
     /// </summary>
     public enum GameType {
         Minesweeper,
-        SlideJigsaw
+        SlideJigsaw,
+        TwoZeroFourEight
     }
 }

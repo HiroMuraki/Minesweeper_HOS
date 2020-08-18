@@ -36,7 +36,8 @@ namespace Common {
         /// </summary>
         public static Dictionary<GameType, string> GameDictionary = new Dictionary<GameType, string> {
             {GameType.Minesweeper,"扫雷" },
-            {GameType.SlideJigsaw,"滑块拼图" }
+            {GameType.SlideJigsaw,"滑块拼图" },
+            {GameType.TwoZeroFourEight,"2048H" }
         };
         /// <summary>
         /// 用于将嵌入资源复制到指定目录
@@ -62,7 +63,7 @@ namespace Common {
             fileWritter.Close();
         }
 
-       
+
         public static readonly string[] SoundResources = new string[] {
             "BlockClickSound.wav",
             "BlockFlagSound.wav",

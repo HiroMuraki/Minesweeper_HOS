@@ -68,19 +68,19 @@ namespace SlideJigsawGameLite {
             switch (e.Key) {
                 case Key.Up:
                 case Key.W:
-                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.Add(1, 0));
+                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.South);
                     break;
                 case Key.Down:
                 case Key.S:
-                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.Add(-1, 0));
+                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.North);
                     break;
                 case Key.Left:
                 case Key.A:
-                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.Add(0, 1));
+                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.East);
                     break;
                 case Key.Right:
                 case Key.D:
-                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.Add(0, -1));
+                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.West);
                     break;
             }
             if (this.Game.IsGameCompleted) {

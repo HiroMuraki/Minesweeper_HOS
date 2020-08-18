@@ -8,56 +8,99 @@
              d:DesignHeight="128" d:DesignWidth="128" Name="UserControl">
     <UserControl.Resources>
         <Style x:Key="BlockNumberStyle" TargetType="Label">
-            <Setter Property="Content" Value="{Binding ElementName=UserControl,Path=Number}" />
-            <Setter Property="FontSize" Value="16" />
-            <Setter Property="Foreground" Value="{StaticResource ColorLightWhite}" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="0">
-                    <Setter Property="Foreground" Value="Transparent" />
+                    <Setter Property="Background" Value="{x:Null}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="2">
-                    <Setter Property="Foreground" Value="Wheat"/>
+                    <Setter Property="Background" Value="{StaticResource S1}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="4">
-                    <Setter Property="Foreground" Value="AntiqueWhite"/>
+                    <Setter Property="Background" Value="{StaticResource S1}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="8">
-                    <Setter Property="Foreground" Value="Beige"/>
+                    <Setter Property="Background" Value="{StaticResource S2}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="16">
-                    <Setter Property="Foreground" Value="Brown"/>
+                    <Setter Property="Background" Value="{StaticResource S2}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="32">
-                    <Setter Property="Foreground" Value="Aquamarine"/>
+                    <Setter Property="Background" Value="{StaticResource S3}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="64">
-                    <Setter Property="Foreground" Value="Purple"/>
+                    <Setter Property="Background" Value="{StaticResource S3}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="128">
-                    <Setter Property="Foreground" Value="SeaGreen"/>
+                    <Setter Property="Background" Value="{StaticResource S4}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="256">
-                    <Setter Property="Foreground" Value="Salmon"/>
+                    <Setter Property="Background" Value="{StaticResource S4}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="512">
-                    <Setter Property="Foreground" Value="DarkSalmon"/>
+                    <Setter Property="Background" Value="{StaticResource S5}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="1024">
-                    <Setter Property="Foreground" Value="Azure"/>
+                    <Setter Property="Background" Value="{StaticResource S5}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="2048">
-                    <Setter Property="Foreground" Value="Olive"/>
+                    <Setter Property="Background" Value="{StaticResource S6}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="4096">
-                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="{StaticResource S6}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BlockNumberTypeStyle" TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="0">
+                    <Setter Property="Background" Value="{x:Null}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="2">
+                    <Setter Property="Background" Value="{StaticResource Border_A}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="4">
+                    <Setter Property="Background" Value="{StaticResource Border_B}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="8">
+                    <Setter Property="Background" Value="{StaticResource Border_A}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="16">
+                    <Setter Property="Background" Value="{StaticResource Border_B}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="32">
+                    <Setter Property="Background" Value="{StaticResource Border_A}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="64">
+                    <Setter Property="Background" Value="{StaticResource Border_B}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="128">
+                    <Setter Property="Background" Value="{StaticResource Border_A}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="256">
+                    <Setter Property="Background" Value="{StaticResource Border_B}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="512">
+                    <Setter Property="Background" Value="{StaticResource Border_A}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="1024">
+                    <Setter Property="Background" Value="{StaticResource Border_B}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="2048">
+                    <Setter Property="Background" Value="{StaticResource Border_A}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl,Path=Number}" Value="4096">
+                    <Setter Property="Background" Value="{StaticResource Border_B}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Label Background="{StaticResource BlockCover}"/>
-        <Viewbox>
-            <Label Style="{StaticResource BlockNumberStyle}"/>
+        <Label Background="{StaticResource BlockBase}"/>
+        <Viewbox x:Name="NumberIcon" Margin="5">
+            <Grid>
+                <Label Style="{StaticResource BlockNumberStyle}"/>
+                <Label Style="{StaticResource BlockNumberTypeStyle}"/>
+            </Grid>
         </Viewbox>
     </Grid>
 </UserControl>

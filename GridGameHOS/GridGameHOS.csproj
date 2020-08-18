@@ -337,5 +337,15 @@
     <Resource Include="Resources\Images\L_Arrow.png" />
     <Resource Include="Resources\Images\R_Arrow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Game2048H\Border_A.png" />
+    <Resource Include="Resources\Images\Game2048H\Border_B.png" />
+    <Resource Include="Resources\Images\Game2048H\S1.png" />
+    <Resource Include="Resources\Images\Game2048H\S2.png" />
+    <Resource Include="Resources\Images\Game2048H\S3.png" />
+    <Resource Include="Resources\Images\Game2048H\S4.png" />
+    <Resource Include="Resources\Images\Game2048H\S5.png" />
+    <Resource Include="Resources\Images\Game2048H\S6.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

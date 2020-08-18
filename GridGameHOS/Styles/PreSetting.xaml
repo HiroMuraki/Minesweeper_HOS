@@ -29,6 +29,15 @@
     <ImageBrush x:Key="SettingBorderB" ImageSource="/GridGameHOS;component/Resources/Images/SettingBorderB.png"/>
     <ImageBrush x:Key="BorderedButtonSlot" ImageSource="/GridGameHOS;component/Resources/Images/BorderdButtonSlot.png"/>
     <ImageBrush x:Key="GameCompletedBar" ImageSource="/GridGameHOS;component/Resources/Images/GameCompletedBar.png"/>
+    <!--2048H游戏数字图标-->
+    <ImageBrush x:Key="S1" ImageSource="/GridGameHOS;component/Resources/Images/Game2048H/S1.png"/>
+    <ImageBrush x:Key="S2" ImageSource="/GridGameHOS;component/Resources/Images/Game2048H/S2.png"/>
+    <ImageBrush x:Key="S3" ImageSource="/GridGameHOS;component/Resources/Images/Game2048H/S3.png"/>
+    <ImageBrush x:Key="S4" ImageSource="/GridGameHOS;component/Resources/Images/Game2048H/S4.png"/>
+    <ImageBrush x:Key="S5" ImageSource="/GridGameHOS;component/Resources/Images/Game2048H/S5.png"/>
+    <ImageBrush x:Key="S6" ImageSource="/GridGameHOS;component/Resources/Images/Game2048H/S6.png"/>
+    <ImageBrush x:Key="Border_A" ImageSource="/GridGameHOS;component/Resources/Images/Game2048H/Border_A.png"/>
+    <ImageBrush x:Key="Border_B" ImageSource="/GridGameHOS;component/Resources/Images/Game2048H/Border_B.png"/>
     <!--自定义颜色-->
     <SolidColorBrush x:Key="ColorLightWhite" Color="#FFFAFAFA"/>
     <SolidColorBrush x:Key="ColorLightBlack" Color="#5a3b10"/>

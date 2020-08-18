@@ -20,7 +20,7 @@ namespace TwoZeroFourEightLite {
         public GameType Type { get; set; } = GameType.Minesweeper;
         public string GameSizeStatus {
             get {
-                return $"{this.GameWindow.RowsSet} x {this.GameWindow.RowsSet} | {this.GameWindow.ColumnsSet << 9}";
+                return $"{this.GameWindow.RowsSet} x {this.GameWindow.RowsSet} | {GetTargetNumber(this.GameWindow.ColumnsSet)}";
             }
         }
         public string ProcessStatus {
@@ -42,7 +42,7 @@ namespace TwoZeroFourEightLite {
             this.GameWindow.KeyDown += Window_KeyDown;
             this.GameWindow.MaximumRows = 6;
             this.GameWindow.MinimumRows = 4;
-            this.GameWindow.MaximumColumns = 8;
+            this.GameWindow.MaximumColumns = 4;
             this.GameWindow.MinimumColumns = 1;
             this.GameWindow.SliderMinesSet.Visibility = Visibility.Collapsed;
             this.GameWindow.LabelProcess.Visibility = Visibility.Visible;
@@ -56,7 +56,7 @@ namespace TwoZeroFourEightLite {
         }
 
         public void StartGame() {
-            this.Game.StartGame(GameWindow.RowsSet, GameWindow.ColumnsSet << 9);
+            this.Game.StartGame(GameWindow.RowsSet, GetTargetNumber(GameWindow.ColumnsSet));
             this.Game.GenerateNumber();
             this.Game.GenerateNumber();
             this.GameWindow.ToggleDetector.IsEnabled = true;
@@ -70,15 +70,15 @@ namespace TwoZeroFourEightLite {
             switch (level) {
                 case 0:
                     GameWindow.RowsSet = 4;
-                    GameWindow.ColumnsSet = 4;
+                    GameWindow.ColumnsSet = 3;
                     break;
                 case 1:
                     GameWindow.RowsSet = 5;
-                    GameWindow.ColumnsSet = 8;
+                    GameWindow.ColumnsSet = 4;
                     break;
                 case 2:
                     GameWindow.RowsSet = 4;
-                    GameWindow.ColumnsSet = 8;
+                    GameWindow.ColumnsSet = 4;
                     break;
             }
             this.StartGame();
@@ -116,6 +116,20 @@ namespace TwoZeroFourEightLite {
             }
         }
 
+        private int GetTargetNumber(int setting) {
+            switch (setting) {
+                case 1:
+                    return 512;
+                case 2:
+                    return 1024;
+                case 3:
+                    return 2048;
+                case 4:
+                    return 4096;
+                default:
+                    return 2048;
+            }
+        }
         public IGameBlock BlockCreateAction() {
             GameBlock block = new GameBlock();
             block.Width = block.Height = 50;

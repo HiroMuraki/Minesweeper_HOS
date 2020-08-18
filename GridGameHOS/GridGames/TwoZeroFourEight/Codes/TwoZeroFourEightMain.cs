@@ -4,6 +4,8 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace TwoZeroFourEightLite {
     public class TwoZeroFourEightMain {
@@ -127,6 +129,20 @@ namespace TwoZeroFourEightLite {
             } else if (this[coordinate].Number == this[targetCoordinate].Number) {
                 this[targetCoordinate].Number = this[targetCoordinate].Number << 1;
                 this[coordinate].Number = 0;
+
+                DoubleAnimation animation = new DoubleAnimation() {
+                    From = 0,
+                    To = 1,
+                    AccelerationRatio = 0.2,
+                    DecelerationRatio = 0.8,
+                    Duration = TimeSpan.FromMilliseconds(255)
+                };
+                ScaleTransform scale = new ScaleTransform();
+                (this[targetCoordinate] as GameBlock).NumberIcon.RenderTransform = scale;
+                (this[targetCoordinate] as GameBlock).NumberIcon.RenderTransformOrigin = new Point(0.5, 0.5);
+                scale.BeginAnimation(ScaleTransform.ScaleXProperty, animation);
+                scale.BeginAnimation(ScaleTransform.ScaleYProperty, animation);
+
             }
             return true;
         }

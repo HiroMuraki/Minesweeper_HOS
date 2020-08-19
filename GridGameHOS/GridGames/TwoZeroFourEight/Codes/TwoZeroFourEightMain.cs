@@ -175,7 +175,7 @@ namespace TwoZeroFourEightLite {
                 int number = this[coordinate].Number;
                 if (number == 4 || number == 16 || number == 64 
                     || number == 256 || number == 1024 || number == 4096) {
-                    this[coordinate].Number = number << 1;
+                    this[coordinate].Number = number >> 1;
                 }
             }
         }

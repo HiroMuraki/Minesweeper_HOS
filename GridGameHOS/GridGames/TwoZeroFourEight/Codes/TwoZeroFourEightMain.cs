@@ -13,6 +13,7 @@ namespace TwoZeroFourEightLite {
         public int RowSize { get; private set; }
         public int ColumnSize { get; private set; }
         public int TargetNumber { get; private set; }
+        public int Scores { get; private set; }
         public bool IsGameCompleted {
             get {
                 foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
@@ -44,6 +45,7 @@ namespace TwoZeroFourEightLite {
         public void StartGame(int gameSize, int targetNumber) {
             this.RowSize = this.ColumnSize = gameSize;
             this.TargetNumber = targetNumber;
+            this.Scores = 0;
             this.Blocks = new Dictionary<BlockCoordinate, IGameBlock>();
             for (int row = 0; row < this.RowSize; row++) {
                 for (int col = 0; col < this.ColumnSize; col++) {
@@ -130,6 +132,7 @@ namespace TwoZeroFourEightLite {
             } else if (this[coordinate].Number == this[targetCoordinate].Number) {
                 this[targetCoordinate].Number = this[targetCoordinate].Number << 1;
                 this[coordinate].Number = 0;
+                this.Scores += this[targetCoordinate].Number;
                 PlayScaleTransform((this[targetCoordinate] as GameBlock).NumberIcon, 1.25, 1, 255);
             }
             return true;

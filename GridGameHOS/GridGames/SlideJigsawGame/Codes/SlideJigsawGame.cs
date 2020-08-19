@@ -64,22 +64,25 @@ namespace SlideJigsawGameLite {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Window_KeyDown(object sender, KeyEventArgs e) {
-            PlayFXSound(nameof(BlockClickSound));
             switch (e.Key) {
                 case Key.Up:
                 case Key.W:
+                    PlayFXSound(nameof(BlockClickSound));
                     this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.South);
                     break;
                 case Key.Down:
                 case Key.S:
+                    PlayFXSound(nameof(BlockClickSound));
                     this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.North);
                     break;
                 case Key.Left:
                 case Key.A:
+                    PlayFXSound(nameof(BlockClickSound));
                     this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.East);
                     break;
                 case Key.Right:
                 case Key.D:
+                    PlayFXSound(nameof(BlockClickSound));
                     this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.West);
                     break;
             }

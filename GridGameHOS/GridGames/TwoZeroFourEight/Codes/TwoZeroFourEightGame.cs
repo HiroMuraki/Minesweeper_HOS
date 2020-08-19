@@ -25,7 +25,7 @@ namespace TwoZeroFourEightLite {
         }
         public string ProcessStatus {
             get {
-                return $"{this.Game.TargetNumber}";
+                return $"{this.Game.Scores}";
             }
         }
         public ObservableCollection<IBlocks> BlocksArray {
@@ -48,14 +48,20 @@ namespace TwoZeroFourEightLite {
             this.GameWindow.LabelProcess.Visibility = Visibility.Visible;
             this.GameWindow.ToggleDetector.Click += ToggleDetector_Click;
         }
-
+        /// <summary>
+        /// 游戏技能
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ToggleDetector_Click(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
             this.GameWindow.ToggleDetector.IsEnabled = false;
             this.GameWindow.ToggleDetector.IsChecked = false;
             this.Game.ClearNumber(2);
         }
-
+        /// <summary>
+        /// 开始游戏
+        /// </summary>
         public void StartGame() {
             this.Game.StartGame(GameWindow.RowsSet, GetTargetNumber(GameWindow.ColumnsSet));
             this.Game.GenerateNumber();
@@ -63,7 +69,6 @@ namespace TwoZeroFourEightLite {
             this.GameWindow.ToggleDetector.IsEnabled = true;
             OnPropertyChanged(nameof(BlocksArray));
         }
-
         public void OnPropertyChanged(string propertyName) {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -118,8 +123,13 @@ namespace TwoZeroFourEightLite {
             if (this.Game.IsGameCompleted) {
                 GameWindow.CalCurrentGame(true);
             }
+            GameWindow.OnPropertyChanged(nameof(ProcessStatus));
         }
-
+        /// <summary>
+        /// 根据滑杆设置获取对应的游戏目标
+        /// </summary>
+        /// <param name="setting"></param>
+        /// <returns></returns>
         private int GetTargetNumber(int setting) {
             switch (setting) {
                 case 1:

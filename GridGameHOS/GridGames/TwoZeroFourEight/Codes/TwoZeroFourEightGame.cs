@@ -67,7 +67,7 @@ namespace TwoZeroFourEightLite {
             PlayFXSound(nameof(MenuButtonClickSound));
             this.GameWindow.ToggleDetector.IsEnabled = false;
             this.GameWindow.ToggleDetector.IsChecked = false;
-            this.Game.ClearNumber(2);
+            this.Game.TransToNormalType();
         }
         /// <summary>
         /// 开始游戏

@@ -157,13 +157,25 @@ namespace TwoZeroFourEightLite {
             PlayScaleTransform((this[numberCoordinate] as GameBlock).NumberIcon, 0, 1, 255);
         }
         /// <summary>
-        /// 清楚面板上的指定数字
+        /// 清除面板上的指定数字
         /// </summary>
         /// <param name="targetNumber"></param>
         public void ClearNumber(int targetNumber) {
             foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
                 if (this[coordinate].Number == targetNumber) {
                     this[coordinate].Number = 0;
+                }
+            }
+        }
+        /// <summary>
+        /// 将所有4的4N倍除以2
+        /// </summary>
+        public void TransToNormalType() {
+            foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+                int number = this[coordinate].Number;
+                if (number == 4 || number == 16 || number == 64 
+                    || number == 256 || number == 1024 || number == 4096) {
+                    this[coordinate].Number = number << 1;
                 }
             }
         }

@@ -56,6 +56,7 @@ namespace TwoZeroFourEightLite {
             this.GameWindow.MinimumColumns = 1;
             this.GameWindow.SliderMinesSet.Visibility = Visibility.Collapsed;
             this.GameWindow.LabelProcess.Visibility = Visibility.Visible;
+            this.GameWindow.ToggleDetector.Visibility = Visibility.Visible;
             this.GameWindow.ToggleDetector.Click += ToggleDetector_Click;
         }
         /// <summary>

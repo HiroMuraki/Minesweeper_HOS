@@ -15,11 +15,21 @@ namespace SlideJigsawGameLite {
         }
         public MainGameWindow GameWindow { get; set; }
         public SlideJigsawMain Game { get; set; }
+        public int RowSize {
+            get {
+                return this.Game.RowSize;
+            }
+        }
+        public int ColumnSize {
+            get {
+                return this.Game.ColumnSize;
+            }
+        }
         public ObservableCollection<IBlocks> BlocksArray {
             get {
                 return new ObservableCollection<IBlocks>(this.Game.Blocks.Values);
             }
-        } 
+        }
         public string GameSizeStatus {
             get {
                 return $"{GameWindow.RowsSet} x {GameWindow.ColumnsSet}";
@@ -109,7 +119,6 @@ namespace SlideJigsawGameLite {
         public void StartGame() {
             this.Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet);
             this.Game.StartGame();
-            OnPropertyChanged(nameof(BlocksArray));
         }
         /// <summary>
         /// 快速游戏

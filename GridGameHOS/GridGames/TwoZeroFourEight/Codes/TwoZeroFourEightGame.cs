@@ -28,6 +28,16 @@ namespace TwoZeroFourEightLite {
                 return $"{this.Game.Scores}";
             }
         }
+        public int RowSize {
+            get {
+                return this.Game.RowSize;
+            }
+        }
+        public int ColumnSize {
+            get {
+                return this.Game.ColumnSize;
+            }
+        }
         public ObservableCollection<IBlocks> BlocksArray {
             get {
                 return new ObservableCollection<IBlocks>(this.Game.Blocks.Values);
@@ -67,7 +77,6 @@ namespace TwoZeroFourEightLite {
             this.Game.GenerateNumber();
             this.Game.GenerateNumber();
             this.GameWindow.ToggleDetector.IsEnabled = true;
-            OnPropertyChanged(nameof(BlocksArray));
         }
         public void OnPropertyChanged(string propertyName) {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

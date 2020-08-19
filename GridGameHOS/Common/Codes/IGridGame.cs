@@ -10,6 +10,14 @@ namespace Common {
         /// </summary>
         MainGameWindow GameWindow { get; set; }
         /// <summary>
+        /// 用于标注当前游戏行数
+        /// </summary>
+        int RowSize { get; }
+        /// <summary>
+        /// 用于标注当前游戏列数
+        /// </summary>
+        int ColumnSize { get; }
+        /// <summary>
         /// 用于在游戏窗口上显示方块序列
         /// </summary>
         ObservableCollection<IBlocks> BlocksArray { get; }

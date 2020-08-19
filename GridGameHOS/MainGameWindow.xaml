@@ -104,8 +104,8 @@
                             <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <UniformGrid Rows="{Binding CurrentGame.Game.RowSize,Mode=OneWay}"
-                                             Columns="{Binding CurrentGame.Game.ColumnSize,Mode=OneWay}">
+                                        <UniformGrid Rows="{Binding CurrentGame.RowSize,Mode=OneWay}"
+                                             Columns="{Binding CurrentGame.ColumnSize,Mode=OneWay}">
 
                                         </UniformGrid>
                                     </ItemsPanelTemplate>

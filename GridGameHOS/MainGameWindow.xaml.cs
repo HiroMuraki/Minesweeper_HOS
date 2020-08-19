@@ -366,7 +366,7 @@ namespace Common {
             this.UsingTime = 0;
             this.UsingTimeTimer.Start();
             this.Cursor = NormalCursor;
-            this.OnPropertyChanged(nameof(this.ProcessStatus));
+            this.OnPropertyChanged(nameof(this.CurrentGame));
         }
         /// <summary>
         /// 结算游戏，由游戏调用，若传入null，则无其它操作，传入false，仅关闭隐藏开始蒙版与计时器，传入true，正常结算

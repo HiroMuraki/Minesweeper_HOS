@@ -9,6 +9,16 @@ namespace MinesweepGameLite {
     public class MinesweeperGame : IGridGame, INotifyPropertyChanged {
         public GameType Type { get; private set; } = GameType.Minesweeper;
         public MinesweeperMain Game { get; set; }
+        public int RowSize {
+            get {
+                return this.Game.RowSize;
+            }
+        }
+        public int ColumnSize {
+            get {
+                return this.Game.ColumnSize;
+            }
+        }
         public ObservableCollection<IBlocks> BlocksArray {
             get {
                 return new ObservableCollection<IBlocks>(this.Game.Blocks.Values);
@@ -125,7 +135,6 @@ namespace MinesweepGameLite {
                 this.Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet, GameWindow.MinesSet);
             }
             this.Game.StartGame();
-            OnPropertyChanged(nameof(BlocksArray));
         }
         /// <summary>
         /// 快速游戏

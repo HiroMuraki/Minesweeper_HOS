@@ -52,6 +52,7 @@ namespace TwoZeroFourEightLite {
         private void ToggleDetector_Click(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
             this.GameWindow.ToggleDetector.IsEnabled = false;
+            this.GameWindow.ToggleDetector.IsChecked = false;
             this.Game.ClearNumber(2);
         }
 
@@ -70,14 +71,14 @@ namespace TwoZeroFourEightLite {
             switch (level) {
                 case 0:
                     GameWindow.RowsSet = 4;
-                    GameWindow.ColumnsSet = 3;
+                    GameWindow.ColumnsSet = 1;
                     break;
                 case 1:
-                    GameWindow.RowsSet = 5;
-                    GameWindow.ColumnsSet = 4;
+                    GameWindow.RowsSet = 4;
+                    GameWindow.ColumnsSet = 3;
                     break;
                 case 2:
-                    GameWindow.RowsSet = 4;
+                    GameWindow.RowsSet = 5;
                     GameWindow.ColumnsSet = 4;
                     break;
             }
@@ -88,25 +89,28 @@ namespace TwoZeroFourEightLite {
             this.GameWindow.KeyDown -= Window_KeyDown;
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) {
-            PlayFXSound(nameof(BlockClickSound));
             switch (e.Key) {
                 case Key.W:
                 case Key.Up:
+                    PlayFXSound(nameof(BlockClickSound));
                     this.Game.MoveToNorth();
                     this.Game.GenerateNumber();
                     break;
                 case Key.S:
                 case Key.Down:
+                    PlayFXSound(nameof(BlockClickSound));
                     this.Game.MoveToSouth();
                     this.Game.GenerateNumber();
                     break;
                 case Key.A:
                 case Key.Left:
+                    PlayFXSound(nameof(BlockClickSound));
                     this.Game.MoveToWest();
                     this.Game.GenerateNumber();
                     break;
                 case Key.D:
                 case Key.Right:
+                    PlayFXSound(nameof(BlockClickSound));
                     this.Game.MoveToEast();
                     this.Game.GenerateNumber();
                     break;

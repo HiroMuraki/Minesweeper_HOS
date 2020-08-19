@@ -130,7 +130,7 @@ namespace TwoZeroFourEightLite {
             } else if (this[coordinate].Number == this[targetCoordinate].Number) {
                 this[targetCoordinate].Number = this[targetCoordinate].Number << 1;
                 this[coordinate].Number = 0;
-                PlayScaleTransform((this[targetCoordinate] as GameBlock).NumberIcon, 1.2, 1, 255);
+                PlayScaleTransform((this[targetCoordinate] as GameBlock).NumberIcon, 1.25, 1, 255);
             }
             return true;
         }
@@ -153,6 +153,10 @@ namespace TwoZeroFourEightLite {
             this[numberCoordinate].Number = number;
             PlayScaleTransform((this[numberCoordinate] as GameBlock).NumberIcon, 0, 1, 255);
         }
+        /// <summary>
+        /// 清楚面板上的指定数字
+        /// </summary>
+        /// <param name="targetNumber"></param>
         public void ClearNumber(int targetNumber) {
             foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
                 if (this[coordinate].Number == targetNumber) {

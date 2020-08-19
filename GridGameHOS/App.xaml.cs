@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using static Common.GeneralAction;
 
@@ -7,6 +8,8 @@ namespace Common {
     /// 应用载入操作，包括载入资源，读取启动参数
     /// </summary>
     public partial class App : Application {
+        //是否启用重置启动
+        public static bool IsResetStart = false;
         //是否启用音频
         public static bool IsSoundEnabled = true;
         //游戏类型
@@ -34,6 +37,9 @@ namespace Common {
                         DefaultGame = GameType.TwoZeroFourEight;
                         continue;
                     }
+                    if (arg1 == "sound" || arg1 == "reset") {
+                        IsResetStart = true;
+                    }
                 }
             }
             if (IsSoundEnabled) {
@@ -48,6 +54,9 @@ namespace Common {
         private void InitializeResources() {
             foreach (string soundName in SoundResources) {
                 string fileFullPath = $@"{UserTempFilePath}\{soundName}";
+                if (File.Exists(fileFullPath) && !IsResetStart) {
+                    continue;
+                }
                 CopyInsertedFileToPath($"Resources.Sound.{soundName}", fileFullPath);
             }
         }

@@ -24,7 +24,7 @@ namespace Common {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Application_Startup(object sender, StartupEventArgs e) {
+        private async void Application_Startup(object sender, StartupEventArgs e) {
             foreach (string arg in e.Args) {
                 if (arg.StartsWith("-")) {
                     string arg1 = arg.Trim('-', '+').ToLower();
@@ -46,7 +46,7 @@ namespace Common {
                 }
             }
             if (IsSoundEnabled) {
-                Task.Run(() => {
+                await Task.Run(() => {
                     UserTempFilePath = Environment.GetEnvironmentVariable("TEMP");
                     InitializeResources();
                 });

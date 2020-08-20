@@ -12,21 +12,19 @@
         <WindowChrome UseAeroCaptionButtons="False" CaptionHeight="0" ResizeBorderThickness="10"/>
     </WindowChrome.WindowChrome>
     <Window.Resources>
-        <Style x:Key="MenuSwitcherButton" TargetType="Button">
+        <Style x:Key="SwitcherButton" TargetType="Button">
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="Height" Value="100"/>
             <Setter Property="Width" Value="25"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{StaticResource MenuShow}"/>
             <Setter Property="Background" Value="#FF363431"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid>
                             <Border CornerRadius="10,0,0,10" Background="{TemplateBinding Background}"/>
-                            <Label Content="{TemplateBinding Content}"
-                                   Foreground="{TemplateBinding Foreground}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"/>
+                            <Label Background="{TemplateBinding Foreground}"
+                                   Margin="5,15"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -36,16 +34,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=SettingMenu,Path=Visibility}" Value="Collapsed">
-                    <Setter Property="Content" Value="{StaticResource MenuShow}"/>
-                    <Setter Property="ToolTip" Value="显示菜单"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=SettingMenu,Path=Visibility}" Value="Visible">
-                    <Setter Property="Content" Value="{StaticResource MenuHidden}"/>
-                    <Setter Property="ToolTip" Value="隐藏菜单"/>
-                </DataTrigger>
-            </Style.Triggers>
         </Style>
         <Style x:Key="GameCompleteBarStyle" TargetType="Label">
             <Style.Triggers>
@@ -96,6 +84,55 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="DectectorToggleButton" TargetType="ToggleButton">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Background" Value="{StaticResource ToggleDetectorOff}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Label Background="{TemplateBinding Background}"/>
+                            <Label x:Name="focusRing" Background="{StaticResource ToggleDetectorFocusRing}" Opacity="0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="1" TargetName="focusRing"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ToggleDetectorOn}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource ToggleDetectorStatic}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MenuSwitcherButton" TargetType="Button" BasedOn="{StaticResource SwitcherButton}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=SettingMenu,Path=Visibility}" Value="Collapsed">
+                    <Setter Property="Foreground" Value="{StaticResource MenuShow}"/>
+                    <Setter Property="ToolTip" Value="显示菜单"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=SettingMenu,Path=Visibility}" Value="Visible">
+                    <Setter Property="Foreground" Value="{StaticResource MenuHidden}"/>
+                    <Setter Property="ToolTip" Value="隐藏菜单"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="DetecotrSwitcherButton" TargetType="Button" BasedOn="{StaticResource SwitcherButton}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=DetectorBox,Path=Visibility}" Value="Collapsed">
+                    <Setter Property="Foreground" Value="{StaticResource MenuShow}" />
+                    <Setter Property="ToolTip" Value="打开技能槽"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=DetectorBox,Path=Visibility}" Value="Visible">
+                    <Setter Property="Foreground" Value="{StaticResource MenuHidden}" />
+                    <Setter Property="ToolTip" Value="隐藏技能槽"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -126,13 +163,24 @@
                             MouseLeftButtonDown="borderGamePanelCover_MouseLeftButtonDown"/>
                 </Grid>
             </Grid>
+            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource DetecotrSwitcherButton}" Grid.Column="0" Height="75"
+                        Click="DetecotrSwitchButton_Click"/>
+                <Border Background="{StaticResource SettingBorderA}" Width="75" Height="75" Grid.Column="1"
+                        x:Name="DetectorBox" Visibility="Collapsed">
+                    <ToggleButton x:Name="ToggleDetector" Style="{StaticResource DectectorToggleButton}" ToolTip="使用嗅探猫"
+                                  Width="60" Height="60" MouseEnter="MenuButton_MouseEnter"
+                                  Effect="{StaticResource GeneralShadowEffect}"/>
+                </Border>
+            </Grid>
             <Label x:Name="GameCompleteBarImage" Background="{StaticResource GameCompletedBar}" Width="200" Height="0"
                    IsEnabled="False" IsHitTestVisible="False" Opacity="0" Style="{StaticResource GameCompleteBarStyle}"/>
             <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}" ToolTip="切换游戏"
                     VerticalAlignment="Center" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
-            <ToggleButton x:Name="ToggleDetector" Margin="2" Style="{StaticResource DectectorToggleButton}" ToolTip="使用嗅探猫"
-                          VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Height="60"
-                          MouseEnter="MenuButton_MouseEnter" Effect="{StaticResource GeneralShadowEffect}"/>
         </Grid>
         <!--#endregion-->
         <!--#region 设置区域 -->

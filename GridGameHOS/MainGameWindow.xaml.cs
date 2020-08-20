@@ -212,7 +212,7 @@ namespace Common {
             RandomMode();
         }
         /// <summary>
-        /// 隐藏游戏设置栏
+        /// 显示/隐藏游戏设置栏
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -222,6 +222,19 @@ namespace Common {
                 this.SettingMenu.Visibility = Visibility.Collapsed;
             } else {
                 this.SettingMenu.Visibility = Visibility.Visible;
+            }
+        }
+        /// <summary>
+        /// 显示/隐藏技能槽
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DetecotrSwitchButton_Click(object sender, RoutedEventArgs e) {
+            PlayFXSound(nameof(MenuButtonClickSound));
+            if (this.DetectorBox.Visibility == Visibility.Visible) {
+                this.DetectorBox.Visibility = Visibility.Collapsed;
+            } else {
+                this.DetectorBox.Visibility = Visibility.Visible;
             }
         }
         /// <summary>

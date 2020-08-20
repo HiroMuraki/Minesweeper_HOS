@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using static Common.GeneralAction;
@@ -9,7 +10,7 @@ namespace Common {
     /// 应用载入操作，包括载入资源，读取启动参数
     /// </summary>
     public partial class App : Application {
-        //用于指示资源文件是否可用
+        //用于指示音频是否可用
         public static bool IsSoundAvaliable = false;
         //是否启用重置启动
         public static bool IsResetStart = false;
@@ -46,11 +47,8 @@ namespace Common {
                 }
             }
             if (IsSoundEnabled) {
-                Task.Run(() => {
-                    UserTempFilePath = Environment.GetEnvironmentVariable("TEMP");
-                    InitializeResources();
-                });
-                IsSoundAvaliable = true;
+                UserTempFilePath = Environment.GetEnvironmentVariable("TEMP");
+                InitializeResources();
             }
             new MainGameWindow().Show();
         }
@@ -66,6 +64,7 @@ namespace Common {
                 }
                 CopyInsertedFileToPath($"Resources.Sound.{soundName}", fileFullPath);
             }
+            IsSoundAvaliable = true;
         }
         /// <summary>
         /// 关闭应用时清理释放的临时资源
@@ -73,19 +72,21 @@ namespace Common {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Application_Exit(object sender, ExitEventArgs e) {
-            ClearResources();
+            ClearResourcesAsync();
         }
         /// <summary>
         /// 清理释放的资源文件
         /// </summary>
-        private void ClearResources() {
+        private async void ClearResourcesAsync() {
             //音频资源
-            foreach (string soundName in SoundResources) {
-                string fileFullPath = $@"{UserTempFilePath}\{soundName}";
-                if (File.Exists(fileFullPath)) {
-                    File.Delete(fileFullPath);
+            await Task.Run(() => {
+                foreach (string soundName in SoundResources) {
+                    string fileFullPath = $@"{UserTempFilePath}\{soundName}";
+                    if (File.Exists(fileFullPath)) {
+                        File.Delete(fileFullPath);
+                    }
                 }
-            }
+            });
         }
     }
 }

@@ -23,8 +23,8 @@
     <ImageBrush x:Key="SeekBarThumb" ImageSource="/GridGameHOS;component/Resources/Images/SeekBarThumb.png"/>
     <ImageBrush x:Key="SeekBarThumbFocus" ImageSource="/GridGameHOS;component/Resources/Images/SeekBarThumbFocus.png"/>
     <!--HOS风格主菜单资源-->
-    <Image x:Key="MenuShow" Source="/GridGameHOS;component/Resources/Images/MenuShow.png"/>
-    <Image x:Key="MenuHidden" Source="/GridGameHOS;component/Resources/Images/MenuHidden.png"/>
+    <ImageBrush x:Key="MenuShow" ImageSource="/GridGameHOS;component/Resources/Images/MenuShow.png"/>
+    <ImageBrush x:Key="MenuHidden" ImageSource="/GridGameHOS;component/Resources/Images/MenuHidden.png"/>
     <Image x:Key="L_Arrow" Source="/GridGameHOS;component/Resources/Images/L_Arrow.png"/>
     <Image x:Key="R_Arrow" Source="/GridGameHOS;component/Resources/Images/R_Arrow.png"/>
     <ImageBrush x:Key="SettingBorderA" ImageSource="/GridGameHOS;component/Resources/Images/SettingBorderA.png"/>

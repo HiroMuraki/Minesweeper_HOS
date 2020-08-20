@@ -26,30 +26,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <!--探测器-->
-    <Style x:Key="DectectorToggleButton" TargetType="ToggleButton">
-        <Setter Property="Focusable" Value="False"/>
-        <Setter Property="Background" Value="{StaticResource ToggleDetectorOff}"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ToggleButton">
-                    <Grid>
-                        <Label Background="{TemplateBinding Background}"/>
-                        <Label x:Name="focusRing" Background="{StaticResource ToggleDetectorFocusRing}" Opacity="0"/>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Opacity" Value="1" TargetName="focusRing"/>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Background" Value="{StaticResource ToggleDetectorOn}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" Value="{StaticResource ToggleDetectorStatic}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 </ResourceDictionary>

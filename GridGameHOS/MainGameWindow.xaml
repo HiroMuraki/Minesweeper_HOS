@@ -15,7 +15,7 @@
         <Style x:Key="SwitcherButton" TargetType="Button">
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="Height" Value="100"/>
-            <Setter Property="Width" Value="25"/>
+            <Setter Property="Width" Value="20"/>
             <Setter Property="Foreground" Value="{StaticResource MenuShow}"/>
             <Setter Property="Background" Value="#FF363431"/>
             <Setter Property="Template">
@@ -24,7 +24,7 @@
                         <Grid>
                             <Border CornerRadius="10,0,0,10" Background="{TemplateBinding Background}"/>
                             <Label Background="{TemplateBinding Foreground}"
-                                   Margin="5,15"/>
+                                   Margin="5,20"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -145,7 +145,7 @@
                 <Border IsHitTestVisible="False" Style="{StaticResource MainBackgroundStyle}"/>
                 <Grid x:Name="GamePlayAreaGrid">
                     <Border MouseLeftButtonDown="Window_Move" Style="{StaticResource MainBackgroundStyle}"/>
-                    <Viewbox Margin="15">
+                    <Viewbox Margin="20">
                         <Border Effect="{StaticResource GeneralShadowEffect}">
                             <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
                                 <ItemsControl.ItemsPanel>
@@ -169,7 +169,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Style="{StaticResource DetecotrSwitcherButton}" Grid.Column="0" Height="75"
-                        Click="DetecotrSwitchButton_Click"/>
+                        Click="DetecotrSwitchButton_Click" MouseEnter="MenuButton_MouseEnter"/>
                 <Border Background="{StaticResource SettingBorderA}" Width="75" Height="75" Grid.Column="1"
                         x:Name="DetectorBox" Visibility="Collapsed">
                     <ToggleButton x:Name="ToggleDetector" Style="{StaticResource DectectorToggleButton}" ToolTip="使用嗅探猫"

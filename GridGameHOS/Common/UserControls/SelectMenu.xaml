@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Column="0" Content="{StaticResource L_Arrow}" VerticalAlignment="Center"
                MouseLeftButtonDown="LArrow_Click" Style="{StaticResource ArrowLabel}"/>
-        <Label Grid.Column="1" Content="{Binding ElementName=UserControl,Path=CurrentLabel}" 
+        <Label Grid.Column="1" Content="{Binding ElementName=UserControl,Path=CurrentLabel}" x:Name="CurrentDisplayLabel"
                VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
         <Label Grid.Column="2" Content="{StaticResource R_Arrow}" VerticalAlignment="Center"
                MouseLeftButtonDown="RArrow_Click" Style="{StaticResource ArrowLabel}"/>

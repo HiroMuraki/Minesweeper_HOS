@@ -228,6 +228,7 @@ namespace Common {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SelectorGameList_LabelSwitched(object sender, RoutedEventArgs e) {
+            PlayScaleTransform(this.SelectorGameList.CurrentDisplayLabel, 0, 1, 255);
             this.CurrentGame.UnloadGame();
             switch (SelectorGameList.CurrentLabel) {
                 case "扫雷":

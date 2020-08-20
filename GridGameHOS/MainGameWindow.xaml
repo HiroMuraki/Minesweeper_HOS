@@ -94,13 +94,13 @@
         <!--#region  方格区域 -->
         <Grid Grid.Column="0">
             <Grid>
-                <Border IsHitTestVisible="False" Background="{StaticResource SettingBorderB}"
+                <Border IsHitTestVisible="False" Background="{StaticResource MainBackground}"
                         BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
                 <Grid x:Name="GamePlayAreaGrid">
-                    <Border MouseLeftButtonDown="Window_Move" Background="{StaticResource SettingBorderB}"
+                    <Border MouseLeftButtonDown="Window_Move" Background="{StaticResource MainBackground}"
                             BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
-                    <Viewbox Margin="35">
-                        <Border BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="1">
+                    <Viewbox Margin="20">
+                        <Border Effect="{StaticResource GeneralShadowEffect}">
                             <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>

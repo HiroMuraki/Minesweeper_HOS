@@ -8,7 +8,7 @@
              d:DesignHeight="50" d:DesignWidth="50" Name="UserControl">
     <UserControl.Resources>
         <Style x:Key="CoverStyle" TargetType="Label">
-            <Setter Property="Background" Value="{StaticResource BlockCover}"/>
+            <Setter Property="Background" Value="{StaticResource BlockCover2}"/>
             <Setter Property="Padding" Value="0"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=UserControl,Path=BlockID}" Value="0">

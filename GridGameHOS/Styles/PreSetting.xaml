@@ -3,9 +3,11 @@
                     xmlns:local="clr-namespace:GridGameHOS">
     <!--扫雷游戏方块资源-->
     <SolidColorBrush x:Key="BlockBase" Color="#FFd8b687"/>
-    <ImageBrush x:Key="BlockCover" ImageSource="/GridGameHOS;component/Resources/Images/BlockCover.png"/>
-    <ImageBrush x:Key="FlagMark" ImageSource="/GridGameHOS;component/Resources/Images/FlagMark.png"/>
-    <ImageBrush x:Key="MineMark" ImageSource="/GridGameHOS;component/Resources/Images/MineMark.png"/>
+    <ImageBrush x:Key="BlockCover" ImageSource="/GridGameHOS;component/Resources/Images/Minesweeper/BlockCover.png"/>
+    <ImageBrush x:Key="FlagMark" ImageSource="/GridGameHOS;component/Resources/Images/Minesweeper/FlagMark.png"/>
+    <ImageBrush x:Key="MineMark" ImageSource="/GridGameHOS;component/Resources/Images/Minesweeper/MineMark.png"/>
+    <!--滑块拼图游戏资源-->
+    <ImageBrush x:Key="BlockCover2" ImageSource="/GridGameHOS;component/Resources/Images/SlideJigsaw/BlockCover2.png"/>
     <!--扫雷游戏嗅探猫资源-->
     <ImageBrush x:Key="ToggleDetectorOff" ImageSource="/GridGameHOS;component/Resources/Images/ToggleDetectorOff.png"/>
     <ImageBrush x:Key="ToggleDetectorOn" ImageSource="/GridGameHOS;component/Resources/Images/ToggleDetectorOn.png"/>
@@ -26,7 +28,9 @@
     <Image x:Key="L_Arrow" Source="/GridGameHOS;component/Resources/Images/L_Arrow.png"/>
     <Image x:Key="R_Arrow" Source="/GridGameHOS;component/Resources/Images/R_Arrow.png"/>
     <ImageBrush x:Key="SettingBorderA" ImageSource="/GridGameHOS;component/Resources/Images/SettingBorderA.png"/>
-    <ImageBrush x:Key="SettingBorderB" ImageSource="/GridGameHOS;component/Resources/Images/SettingBorderB.png"/>
+    <!--ImageBrush x:Key="SettingBorderB" ImageSource="/GridGameHOS;component/Resources/Images/SettingBorderB.png"/-->
+    <SolidColorBrush x:Key="MainBackground" Color="#FFd8b687"/>
+    <DropShadowEffect x:Key="GeneralShadowEffect" BlurRadius="5" ShadowDepth="1"/>
     <ImageBrush x:Key="BorderedButtonSlot" ImageSource="/GridGameHOS;component/Resources/Images/BorderdButtonSlot.png"/>
     <ImageBrush x:Key="GameCompletedBar" ImageSource="/GridGameHOS;component/Resources/Images/GameCompletedBar.png"/>
     <!--2048H游戏数字图标-->

@@ -162,19 +162,21 @@ namespace Common {
         #endregion
 
         #region 按钮与控件
-        public MainGameWindow() {
+        private MainGameWindow() {
             InitializeComponent();
             this.Cursor = NormalCursor;
             this.DataContext = this;
             this.UsingTimeTimer.Interval = TimeSpan.FromSeconds(1);
             this.UsingTimeTimer.Tick += TimerUsingTimer_Tick;
-            LoadGame(App.DefaultGame);
             //添加游戏列表
             this.SelectorGameList.AllowedLabels = new List<string>();
             foreach (string gameType in GameDictionary.Values) {
                 this.SelectorGameList.AllowedLabels.Add(gameType);
             }
-            this.SelectorGameList.CurrentLabel = GameDictionary[App.DefaultGame];
+        }
+        public MainGameWindow(GameType gameType) : this() {
+            this.LoadGame(gameType);
+            this.SelectorGameList.CurrentLabel = GameDictionary[gameType];
         }
         /// <summary>
         /// 开始游戏按钮
@@ -293,6 +295,9 @@ namespace Common {
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) {
             switch (e.Key) {
+                case Key.M:
+                    HiddenSettingMenuButton_Click(new object(), new RoutedEventArgs());
+                    break;
                 case Key.Space:
                     btnStartGame_ButtonClick(this.BtnStartGame, new RoutedEventArgs());
                     break;

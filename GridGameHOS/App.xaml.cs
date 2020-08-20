@@ -39,7 +39,7 @@ namespace Common {
                         DefaultGame = GameType.SlideJigsaw;
                         continue;
                     }
-                    if (arg1 == "2048" || arg1 == "2048H") {
+                    if (arg1 == "2048" || arg1 == "2048h") {
                         DefaultGame = GameType.TwoZeroFourEight;
                         continue;
                     }
@@ -51,13 +51,15 @@ namespace Common {
                     }
                 }
             }
-            MainGameWindow gameWindow = new MainGameWindow();
             if (IsSoundEnabled) {
                 UserTempFilePath = Environment.GetEnvironmentVariable("TEMP");
                 InitializeResources();
             }
+            MainGameWindow gameWindow = new MainGameWindow(DefaultGame);
             if (IsLiteMode) {
                 gameWindow.SettingMenu.Visibility = Visibility.Collapsed;
+                gameWindow.Width = gameWindow.MinWidth;
+                gameWindow.Height = gameWindow.MinHeight;
             }
             gameWindow.Show();
         }

@@ -47,6 +47,7 @@ namespace MinesweepGameLite {
             if (GameWindow.ToggleDetector.IsChecked == true) {
                 GameWindow.ToggleDetector.IsChecked = false;
                 GameWindow.ToggleDetector.IsEnabled = false;
+                GameWindow.DetectorBox.Visibility = Visibility.Collapsed;
                 if (this.Game[coordinate].IsMineBlock) {
                     this.Game.FlagBlock(coordinate);
                 } else {

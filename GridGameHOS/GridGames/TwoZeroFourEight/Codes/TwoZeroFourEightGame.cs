@@ -68,6 +68,7 @@ namespace TwoZeroFourEightLite {
             PlayFXSound(nameof(MenuButtonClickSound));
             this.GameWindow.ToggleDetector.IsEnabled = false;
             this.GameWindow.ToggleDetector.IsChecked = false;
+            this.GameWindow.DetectorBox.Visibility = Visibility.Collapsed;
             this.Game.TransToNormalType();
         }
         /// <summary>

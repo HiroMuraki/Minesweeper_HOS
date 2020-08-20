@@ -283,7 +283,6 @@
     <Resource Include="Resources\Images\SeekBarThumb.png" />
     <Resource Include="Resources\Images\SeekBarThumbFocus.png" />
     <Resource Include="Resources\Images\SettingBorderA.png" />
-    <Resource Include="Resources\Images\SettingBorderB.png" />
     <Resource Include="Resources\Images\StatusButtonB.png" />
     <Resource Include="Resources\Images\StatusButtonFocus.png" />
     <Resource Include="Resources\Images\StatusButtonR.png" />

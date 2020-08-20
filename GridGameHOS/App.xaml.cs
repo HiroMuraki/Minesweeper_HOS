@@ -16,6 +16,8 @@ namespace Common {
         public static bool IsResetStart = false;
         //是否启用音频
         public static bool IsSoundEnabled = true;
+        //是否以精简模式启动
+        public static bool IsLiteMode = false;
         //游戏类型
         public static GameType DefaultGame = GameType.Minesweeper;
         //用户系统的临时文件目录，用于存放临时资源文件
@@ -44,13 +46,20 @@ namespace Common {
                     if (arg1 == "sound" || arg1 == "reset") {
                         IsResetStart = true;
                     }
+                    if (arg1 == "litemode" || arg1 == "lite") {
+                        IsLiteMode = true;
+                    }
                 }
             }
+            MainGameWindow gameWindow = new MainGameWindow();
             if (IsSoundEnabled) {
                 UserTempFilePath = Environment.GetEnvironmentVariable("TEMP");
                 InitializeResources();
             }
-            new MainGameWindow().Show();
+            if (IsLiteMode) {
+                gameWindow.SettingMenu.Visibility = Visibility.Collapsed;
+            }
+            gameWindow.Show();
         }
         /// <summary>
         /// 初始化资源，用于将内嵌资源复制到指定目录

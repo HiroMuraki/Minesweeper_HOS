@@ -86,6 +86,7 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="MainBackgroundStyle" TargetType="Border">
+            <Setter Property="Focusable" Value="False" />
             <Setter Property="Background" Value="{StaticResource MainBackground}"/>
             <Setter Property="BorderBrush" Value="{StaticResource ColorBorderBlack}" />
             <Setter Property="BorderThickness" Value="1,1,0,1" />

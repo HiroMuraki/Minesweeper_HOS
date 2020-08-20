@@ -85,6 +85,16 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="MainBackgroundStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource MainBackground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorBorderBlack}" />
+            <Setter Property="BorderThickness" Value="1,1,0,1" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=SettingMenu,Path=Visibility}" Value="Collapsed">
+                    <Setter Property="BorderThickness" Value="1,1,1,1" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -94,12 +104,10 @@
         <!--#region  方格区域 -->
         <Grid Grid.Column="0">
             <Grid>
-                <Border IsHitTestVisible="False" Background="{StaticResource MainBackground}"
-                        BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
+                <Border IsHitTestVisible="False" Style="{StaticResource MainBackgroundStyle}"/>
                 <Grid x:Name="GamePlayAreaGrid">
-                    <Border MouseLeftButtonDown="Window_Move" Background="{StaticResource MainBackground}"
-                            BorderBrush="{StaticResource ColorBorderBlack}" BorderThickness="2,2,0,2"/>
-                    <Viewbox Margin="20">
+                    <Border MouseLeftButtonDown="Window_Move" Style="{StaticResource MainBackgroundStyle}"/>
+                    <Viewbox Margin="15">
                         <Border Effect="{StaticResource GeneralShadowEffect}">
                             <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
                                 <ItemsControl.ItemsPanel>
@@ -123,7 +131,7 @@
                     VerticalAlignment="Center" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
             <ToggleButton x:Name="ToggleDetector" Margin="2" Style="{StaticResource DectectorToggleButton}" ToolTip="使用嗅探猫"
                           VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60" Height="60"
-                          MouseEnter="MenuButton_MouseEnter"/>
+                          MouseEnter="MenuButton_MouseEnter" Effect="{StaticResource GeneralShadowEffect}"/>
         </Grid>
         <!--#endregion-->
         <!--#region 设置区域 -->

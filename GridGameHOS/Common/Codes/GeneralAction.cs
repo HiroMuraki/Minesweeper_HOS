@@ -77,7 +77,7 @@ namespace Common {
         /// </summary>
         /// <param name="soundName">传入音频文件文件名（无扩展名），但扩展名为.wav</param>
         public static void PlayFXSound(string soundName) {
-            if (!App.IsSoundEnabled) {
+            if (!App.IsSoundEnabled || !App.IsSoundAvaliable) {
                 return;
             }
             Uri path = new Uri($@"{App.UserTempFilePath}\{soundName}.wav", UriKind.Absolute);

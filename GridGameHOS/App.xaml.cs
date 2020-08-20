@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using static Common.GeneralAction;
 
@@ -8,6 +9,8 @@ namespace Common {
     /// 应用载入操作，包括载入资源，读取启动参数
     /// </summary>
     public partial class App : Application {
+        //用于指示资源文件是否可用
+        public static bool IsSoundAvaliable = false;
         //是否启用重置启动
         public static bool IsResetStart = false;
         //是否启用音频
@@ -43,8 +46,11 @@ namespace Common {
                 }
             }
             if (IsSoundEnabled) {
-                UserTempFilePath = Environment.GetEnvironmentVariable("TEMP");
-                InitializeResources();
+                Task.Run(() => {
+                    UserTempFilePath = Environment.GetEnvironmentVariable("TEMP");
+                    InitializeResources();
+                });
+                IsSoundAvaliable = true;
             }
             new MainGameWindow().Show();
         }
@@ -52,12 +58,33 @@ namespace Common {
         /// 初始化资源，用于将内嵌资源复制到指定目录
         /// </summary>
         private void InitializeResources() {
+            //音频资源
             foreach (string soundName in SoundResources) {
                 string fileFullPath = $@"{UserTempFilePath}\{soundName}";
                 if (File.Exists(fileFullPath) && !IsResetStart) {
                     continue;
                 }
                 CopyInsertedFileToPath($"Resources.Sound.{soundName}", fileFullPath);
+            }
+        }
+        /// <summary>
+        /// 关闭应用时清理释放的临时资源
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Application_Exit(object sender, ExitEventArgs e) {
+            ClearResources();
+        }
+        /// <summary>
+        /// 清理释放的资源文件
+        /// </summary>
+        private void ClearResources() {
+            //音频资源
+            foreach (string soundName in SoundResources) {
+                string fileFullPath = $@"{UserTempFilePath}\{soundName}";
+                if (File.Exists(fileFullPath)) {
+                    File.Delete(fileFullPath);
+                }
             }
         }
     }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Common"
         mc:Ignorable="d" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="600" Width="800" KeyDown="Window_KeyDown"
-        MouseDown="Window_MouseDown" MouseUp="Window_MouseUp" FontFamily="/GridGameHOS;component/Resources/#Belwe Bd BT"
+        MouseDown="Window_MouseDown" MouseUp="Window_MouseUp" FontFamily="{StaticResource HOSFont}"
         MinHeight="425" MinWidth="425">
     <WindowChrome.WindowChrome>
         <WindowChrome UseAeroCaptionButtons="False" CaptionHeight="0" ResizeBorderThickness="10"/>

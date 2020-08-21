@@ -279,7 +279,6 @@
     <Resource Include="Resources\Images\Minesweeper\FlagMark.png" />
     <Resource Include="Resources\ICO.ico" />
     <Resource Include="Resources\Images\Minesweeper\MineMark.png" />
-    <Resource Include="Resources\Images\SeekBarSlider_2.png" />
     <Resource Include="Resources\Images\SeekBarThumb.png" />
     <Resource Include="Resources\Images\SeekBarThumbFocus.png" />
     <Resource Include="Resources\Images\SettingBorderA.png" />
@@ -348,6 +347,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\SlideJigsaw\BlockCover2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\SliderBar\SLB_C.png" />
+    <Resource Include="Resources\Images\SliderBar\SLB_L.png" />
+    <Resource Include="Resources\Images\SliderBar\SLB_R.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:GridGameHOS">
+                    xmlns:local="clr-namespace:Common">
     <!--扫雷游戏方块资源-->
     <SolidColorBrush x:Key="BlockBase" Color="#FFd8b687"/>
     <ImageBrush x:Key="BlockCover" ImageSource="/GridGameHOS;component/Resources/Images/Minesweeper/BlockCover.png"/>
@@ -19,7 +19,7 @@
     <ImageBrush x:Key="StatusButtonFocus" ImageSource="/GridGameHOS;component/Resources/Images/StatusButtonFocus.png"/>
     <ImageBrush x:Key="StatusButtonStatic" ImageSource="/GridGameHOS;component/Resources/Images/StatusButtonStatic.png"/>
     <!--HOS风格滑杆资源-->
-    <ImageBrush x:Key="SeekBarSlider" ImageSource="/GridGameHOS;component/Resources/Images/SeekBarSlider_2.png"/>
+    <!--ImageBrush x:Key="SeekBarSlider" ImageSource="/GridGameHOS;component/Resources/Images/SeekBarSlider_2.png"/-->
     <ImageBrush x:Key="SeekBarThumb" ImageSource="/GridGameHOS;component/Resources/Images/SeekBarThumb.png"/>
     <ImageBrush x:Key="SeekBarThumbFocus" ImageSource="/GridGameHOS;component/Resources/Images/SeekBarThumbFocus.png"/>
     <!--HOS风格主菜单资源-->

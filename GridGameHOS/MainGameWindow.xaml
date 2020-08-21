@@ -208,7 +208,7 @@
             </Border>
             <!--设置栏-->
             <Border Grid.Row="1" Background="{StaticResource SettingBorderA}">
-                <Grid Margin="10,20" HorizontalAlignment="Center">
+                <Grid Margin="5,20" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>

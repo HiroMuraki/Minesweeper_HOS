@@ -1,11 +1,13 @@
 ﻿using Common;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Xml.Schema;
 
-namespace MinesweepGameLite {
+namespace MinesweeperGameLite {
     public class MinesweeperMain : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName) {
@@ -139,10 +141,41 @@ namespace MinesweepGameLite {
             this.FlagsCount = 0;
         }
         /// <summary>
+        /// 开始自定义游戏
+        /// </summary>
+        /// <param name="setting"></param>
+        public void StartCustomGame(LayoutSetting setting) {
+            this.SetGame(setting.RowSize, setting.ColumnSize, setting.MineSize);
+            for (int row = 0; row < this.RowSize; row++) {
+                for (int col = 0; col < this.ColumnSize; col++) {
+                    BlockCoordinate coordinate = new BlockCoordinate(row, col);
+                    this[coordinate].Coordinate = coordinate;
+                    int index = row * this.ColumnSize + col;
+                    if (setting.LayoutDataArray[index] == '1') {
+                        this[coordinate].IsMineBlock = true;
+                    } else {
+                        this[coordinate].IsMineBlock = false;
+                    }
+                }
+            }
+            foreach (BlockCoordinate cCoordinate in this.GetAllCoordinates()) {
+                this[cCoordinate].NearMinesCount
+                    = this.GetNearCounts(cCoordinate, (BlockCoordinate nCoordinate) => this[nCoordinate].IsMineBlock);
+            }
+            OnPropertyChanged(nameof(Blocks));
+            this.isGameStarted = true;
+            this.FlagsCount = 0;
+        }
+        /// <summary>
         /// 打开所有方块
         /// </summary>
         public void OpenAllBlocks() {
             foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+                if (this[coordinate].IsFlaged && !this[coordinate].IsMineBlock) {
+                    this[coordinate].IsFlaged = false;
+                    this[coordinate].IsOpen = true;
+                    continue;
+                }
                 this.OpenBlock(coordinate);
             }
         }

@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Media.Effects;
 using static Common.GeneralAction;
 
-namespace MinesweepGameLite {
+namespace MinesweeperGameLite {
     public class MinesweeperGame : IGridGame, INotifyPropertyChanged {
         public GameType Type { get; private set; } = GameType.Minesweeper;
         public MinesweeperMain Game { get; set; }
@@ -86,6 +86,8 @@ namespace MinesweepGameLite {
             }
         }
 
+
+
         private MinesweeperGame() { }
         /// <summary>
         /// 带参构造函数，传入一个MainGameWindow类，用于关联游戏窗口
@@ -103,7 +105,35 @@ namespace MinesweepGameLite {
             GameWindow.MinimumColumns = 6;
             GameWindow.MinimumMines = 5;
             GameWindow.ToggleDetector.Click += ToggleDetector_Click;
+            GameWindow.AllowDrop = true;
+            GameWindow.DragEnter += GameWindow_DragEnter;
+            GameWindow.DragLeave += GameWindow_DragLeave;
+            GameWindow.AllowDrop = true;
+            GameWindow.BorderGamePanelCover.DragEnter += BorderGamePanelCover_DragEnter;
+            GameWindow.BorderGamePanelCover.DragLeave += BorderGamePanelCover_DragLeave;
+            GameWindow.BorderGamePanelCover.Drop += BorderGamePanelCover_Drop;
         }
+
+        private void BorderGamePanelCover_Drop(object sender, DragEventArgs e) {
+            string filePath = ((string[])e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            LayoutSetting setting = GameLayoutLoader.ReadFromFile(filePath);
+            this.GameWindow.StartCustomGame(() => { this.StartCustomGame(setting); });
+            this.GameWindow.BorderGamePanelCover.Opacity = 0;
+            this.GameWindow.BorderGamePanelCover.IsHitTestVisible = false;
+        }
+        private void BorderGamePanelCover_DragLeave(object sender, DragEventArgs e) {
+            this.GameWindow.BorderGamePanelCover.Opacity = 0;
+        }
+        private void BorderGamePanelCover_DragEnter(object sender, DragEventArgs e) {
+            this.GameWindow.BorderGamePanelCover.Opacity = 0.65;
+        }
+        private void GameWindow_DragLeave(object sender, DragEventArgs e) {
+            this.GameWindow.BorderGamePanelCover.IsHitTestVisible = false;
+        }
+        private void GameWindow_DragEnter(object sender, DragEventArgs e) {
+            this.GameWindow.BorderGamePanelCover.IsHitTestVisible = true;
+        }
+
         /// <summary>
         /// 创建方块的方法
         /// </summary>
@@ -138,6 +168,16 @@ namespace MinesweepGameLite {
             this.Game.StartGame();
         }
         /// <summary>
+        /// 开始自定义游戏
+        /// </summary>
+        /// <param name="setting"></param>
+        public void StartCustomGame(LayoutSetting setting) {
+            this.Game.StartCustomGame(setting);
+            this.GameWindow.RowsSet = this.Game.RowSize;
+            this.GameWindow.ColumnsSet = this.Game.ColumnSize;
+            this.GameWindow.MinesSet = this.Game.MineSize;
+        }
+        /// <summary>
         /// 快速游戏
         /// </summary>
         /// <param name="level">传入整数数字（0-2），开始制定难度的游戏</param>
@@ -165,6 +205,13 @@ namespace MinesweepGameLite {
         /// </summary>
         public void UnloadGame() {
             this.GameWindow.ToggleDetector.Click -= ToggleDetector_Click;
+            GameWindow.AllowDrop = true;
+            GameWindow.DragEnter -= GameWindow_DragEnter;
+            GameWindow.DragLeave -= GameWindow_DragLeave;
+            GameWindow.BorderGamePanelCover.AllowDrop = true;
+            GameWindow.BorderGamePanelCover.DragEnter -= BorderGamePanelCover_DragEnter;
+            GameWindow.BorderGamePanelCover.DragLeave -= BorderGamePanelCover_DragLeave;
+            GameWindow.BorderGamePanelCover.Drop -= BorderGamePanelCover_Drop;
         }
     }
 }

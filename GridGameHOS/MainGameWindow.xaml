@@ -159,8 +159,13 @@
                             </ItemsControl>
                         </Border>
                     </Viewbox>
-                    <Border Background="Transparent" x:Name="BorderGamePanelCover" 
-                            MouseLeftButtonDown="borderGamePanelCover_MouseLeftButtonDown"/>
+                    <Border Background="White" x:Name="BorderGamePanelCover" Opacity="0"
+                            MouseLeftButtonDown="borderGamePanelCover_MouseLeftButtonDown">
+                        <Viewbox>
+                            <Label Content="拖动至此处载入自定义游戏" Margin="25"
+                                   FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
             </Grid>
             <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right">

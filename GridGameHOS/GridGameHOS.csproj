@@ -162,6 +162,7 @@
     </Compile>
     <Compile Include="GridGames\MinesweeperGame\Codes\GameBlockCoordinated.cs" />
     <Compile Include="Common\Codes\GeneralAction.cs" />
+    <Compile Include="GridGames\MinesweeperGame\Codes\GameLayoutLoader.cs" />
     <Compile Include="GridGames\MinesweeperGame\Codes\IGameBlock.cs" />
     <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperGame.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawGame.cs" />

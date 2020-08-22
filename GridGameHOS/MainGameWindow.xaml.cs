@@ -1,4 +1,4 @@
-﻿using MinesweepGameLite;
+﻿using MinesweeperGameLite;
 using SlideJigsawGameLite;
 using System;
 using System.Collections.Generic;
@@ -376,6 +376,21 @@ namespace Common {
             this.Cursor = LoadingGameCursor;
             //开始游戏
             this.CurrentGame.StartGame();
+            //重置统计
+            this.BorderGamePanelCover.IsHitTestVisible = false;
+            this.GamePlayAreaGrid.Effect = null;
+            this.GameCompleteBarImage.IsEnabled = false;
+            this.ToggleDetector.IsEnabled = true;
+            this.BtnStartGame.IsOn = null;
+            this.UsingTime = 0;
+            this.UsingTimeTimer.Start();
+            this.Cursor = NormalCursor;
+            this.OnPropertyChanged(nameof(this.CurrentGame));
+        }
+        public void StartCustomGame(Action gameStartAction) {
+            this.Cursor = LoadingGameCursor;
+            //开始游戏
+            gameStartAction?.Invoke();
             //重置统计
             this.BorderGamePanelCover.IsHitTestVisible = false;
             this.GamePlayAreaGrid.Effect = null;

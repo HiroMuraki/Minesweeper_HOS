@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace MinesweepGameLite {
+namespace MinesweeperGameLite {
     /// <summary>
     /// MineBlock.xaml 的交互逻辑
     /// </summary>

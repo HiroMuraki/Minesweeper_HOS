@@ -118,14 +118,17 @@ namespace MinesweeperGameLite {
             string filePath = ((string[])e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
             LayoutSetting setting = GameLayoutLoader.ReadFromFile(filePath);
             this.GameWindow.StartCustomGame(() => { this.StartCustomGame(setting); });
-            this.GameWindow.BorderGamePanelCover.Opacity = 0;
+            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover, 
+                this.GameWindow.BorderGamePanelCover.Opacity, 0, 150);
             this.GameWindow.BorderGamePanelCover.IsHitTestVisible = false;
         }
         private void BorderGamePanelCover_DragLeave(object sender, DragEventArgs e) {
-            this.GameWindow.BorderGamePanelCover.Opacity = 0;
+            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover, 
+                this.GameWindow.BorderGamePanelCover.Opacity, 0, 150);
         }
         private void BorderGamePanelCover_DragEnter(object sender, DragEventArgs e) {
-            this.GameWindow.BorderGamePanelCover.Opacity = 0.65;
+            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover, 
+                this.GameWindow.BorderGamePanelCover.Opacity, 0.65, 150);
         }
         private void GameWindow_DragLeave(object sender, DragEventArgs e) {
             this.GameWindow.BorderGamePanelCover.IsHitTestVisible = false;

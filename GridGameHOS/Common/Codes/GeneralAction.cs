@@ -121,5 +121,15 @@ namespace Common {
             scale.BeginAnimation(ScaleTransform.ScaleXProperty, animation);
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, animation);
         }
+        public static void PlayOpacityTransform(UIElement element, double opacityFrom, double opacityTo, int duration) {
+            DoubleAnimation animation = new DoubleAnimation() {
+                From = opacityFrom,
+                To = opacityTo,
+                Duration = TimeSpan.FromMilliseconds(duration),
+                AccelerationRatio = 0.2,
+                DecelerationRatio = 0.8
+            };
+            element.BeginAnimation(UIElement.OpacityProperty, animation);
+        }
     }
 }

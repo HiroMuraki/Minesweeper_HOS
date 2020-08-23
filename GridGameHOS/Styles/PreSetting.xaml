@@ -30,7 +30,7 @@
     <Image x:Key="R_Arrow" Source="/GridGameHOS;component/Resources/Images/R_Arrow.png"/>
     <ImageBrush x:Key="SettingBorderA" ImageSource="/GridGameHOS;component/Resources/Images/SettingBorderA.png"/>
     <!--ImageBrush x:Key="SettingBorderB" ImageSource="/GridGameHOS;component/Resources/Images/SettingBorderB.png"/-->
-    <SolidColorBrush x:Key="MainBackground" Color="#FFd8b687"/>
+    <SolidColorBrush x:Key="MainBackground" Color="#FFc1ae7d"/>
     <DropShadowEffect x:Key="GeneralShadowEffect" BlurRadius="5" ShadowDepth="1"/>
     <ImageBrush x:Key="BorderedButtonSlot" ImageSource="/GridGameHOS;component/Resources/Images/BorderdButtonSlot.png"/>
     <ImageBrush x:Key="GameCompletedBar" ImageSource="/GridGameHOS;component/Resources/Images/GameCompletedBar.png"/>

@@ -9,10 +9,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border>
+                    <Border Padding="0">
                         <Label Content="{TemplateBinding Content}"
                                Foreground="{TemplateBinding Foreground}"
                                FontSize="{TemplateBinding FontSize}"
+                               Padding="0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
                                VerticalContentAlignment="Center"
                                HorizontalContentAlignment="Center"/>
                     </Border>

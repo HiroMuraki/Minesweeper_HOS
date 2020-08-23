@@ -141,33 +141,37 @@
         </Grid.ColumnDefinitions>
         <!--#region  方格区域 -->
         <Grid Grid.Column="0">
-            <Grid>
-                <Border IsHitTestVisible="False" Style="{StaticResource MainBackgroundStyle}"/>
-                <Grid x:Name="GamePlayAreaGrid">
-                    <Border MouseLeftButtonDown="Window_Move" Style="{StaticResource MainBackgroundStyle}"/>
-                    <Viewbox Margin="20">
-                        <Border Effect="{StaticResource GeneralShadowEffect}">
-                            <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <UniformGrid Rows="{Binding CurrentGame.RowSize,Mode=OneWay}"
+            <Border IsHitTestVisible="False" Style="{StaticResource MainBackgroundStyle}"/>
+            <Grid x:Name="GamePlayAreaGrid">
+                <Border MouseLeftButtonDown="Window_Move" Style="{StaticResource MainBackgroundStyle}"/>
+                <Viewbox Margin="20">
+                    <Border Effect="{StaticResource GeneralShadowEffect}">
+                        <ItemsControl ItemsSource="{Binding CurrentGame.BlocksArray}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Rows="{Binding CurrentGame.RowSize,Mode=OneWay}"
                                              Columns="{Binding CurrentGame.ColumnSize,Mode=OneWay}">
 
-                                        </UniformGrid>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                        </Border>
-                    </Viewbox>
-                    <Border Background="White" x:Name="BorderGamePanelCover" Opacity="0"
-                            MouseLeftButtonDown="borderGamePanelCover_MouseLeftButtonDown">
-                        <Viewbox IsHitTestVisible="False">
-                            <Label Content="拖动至此处载入自定义游戏" Margin="25"
-                                   FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>
-                        </Viewbox>
+                                    </UniformGrid>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
                     </Border>
-                </Grid>
+                </Viewbox>
             </Grid>
+            <Border Background="{StaticResource ColorLightWhite}" x:Name="BorderGamePanelCover" Opacity="0"
+                            MouseLeftButtonDown="borderGamePanelCover_MouseLeftButtonDown">
+                <Viewbox IsHitTestVisible="False">
+                    <Label Content="拖动至此处载入自定义游戏" Margin="25" Foreground="{StaticResource ColorBorderBlack}"
+                           FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>
+                </Viewbox>
+            </Border>
+            <Label x:Name="GameCompleteBarImage" Background="{StaticResource GameCompletedBar}" Width="200" Height="0"
+                   IsEnabled="False" IsHitTestVisible="False" Opacity="0" Style="{StaticResource GameCompleteBarStyle}"/>
+            <!--菜单隐藏开关-->
+            <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}"
+                    VerticalAlignment="Center" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
+            <!--技能槽-->
             <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -182,10 +186,6 @@
                                   Effect="{StaticResource GeneralShadowEffect}"/>
                 </Border>
             </Grid>
-            <Label x:Name="GameCompleteBarImage" Background="{StaticResource GameCompletedBar}" Width="200" Height="0"
-                   IsEnabled="False" IsHitTestVisible="False" Opacity="0" Style="{StaticResource GameCompleteBarStyle}"/>
-            <Button Click="HiddenSettingMenuButton_Click" Style="{StaticResource MenuSwitcherButton}" ToolTip="切换游戏"
-                    VerticalAlignment="Center" HorizontalAlignment="Right" MouseEnter="MenuButton_MouseEnter"/>
             <Button Content="&#x2573;" VerticalAlignment="Top" HorizontalAlignment="Right"
                     Click="Window_Close" Height="25" Width="25" FontSize="14" FontWeight="Bold">
                 <Button.Style>

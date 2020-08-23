@@ -108,7 +108,7 @@ namespace MinesweeperGameLite {
             GameWindow.AllowDrop = true;
             GameWindow.DragEnter += GameWindow_DragEnter;
             GameWindow.DragLeave += GameWindow_DragLeave;
-            GameWindow.AllowDrop = true;
+            GameWindow.BorderGamePanelCover.AllowDrop = true;
             GameWindow.BorderGamePanelCover.DragEnter += BorderGamePanelCover_DragEnter;
             GameWindow.BorderGamePanelCover.DragLeave += BorderGamePanelCover_DragLeave;
             GameWindow.BorderGamePanelCover.Drop += BorderGamePanelCover_Drop;
@@ -118,17 +118,21 @@ namespace MinesweeperGameLite {
             string filePath = ((string[])e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
             LayoutSetting setting = GameLayoutLoader.ReadFromFile(filePath);
             this.GameWindow.StartCustomGame(() => { this.StartCustomGame(setting); });
+
             PlayOpacityTransform(this.GameWindow.BorderGamePanelCover,
                 this.GameWindow.BorderGamePanelCover.Opacity, 0, 150);
+            PlayBlurTransfrom(this.GameWindow.GamePlayAreaGrid, 15, 0, 150);
             this.GameWindow.BorderGamePanelCover.IsHitTestVisible = false;
         }
         private void BorderGamePanelCover_DragLeave(object sender, DragEventArgs e) {
             PlayOpacityTransform(this.GameWindow.BorderGamePanelCover,
                 this.GameWindow.BorderGamePanelCover.Opacity, 0, 150);
+            PlayBlurTransfrom(this.GameWindow.GamePlayAreaGrid, 15, 0, 150);
         }
         private void BorderGamePanelCover_DragEnter(object sender, DragEventArgs e) {
             PlayOpacityTransform(this.GameWindow.BorderGamePanelCover,
                 this.GameWindow.BorderGamePanelCover.Opacity, 0.65, 150);
+            PlayBlurTransfrom(this.GameWindow.GamePlayAreaGrid, 0, 15, 150);
         }
         private void GameWindow_DragLeave(object sender, DragEventArgs e) {
             this.GameWindow.BorderGamePanelCover.IsHitTestVisible = false;

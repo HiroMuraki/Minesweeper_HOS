@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Effects;
 
 namespace Common {
     /// <summary>
@@ -24,13 +25,7 @@ namespace Common {
         public static readonly Cursor ClickedCursor = new Cursor(new MemoryStream(GridGameHOS.Properties.Resources.CursorClicked));
         public static readonly Cursor LoadingGameCursor = new Cursor(new MemoryStream(GridGameHOS.Properties.Resources.LoadingGame));
         public static readonly Cursor DetectorAimerCursor = new Cursor(new MemoryStream(GridGameHOS.Properties.Resources.DetectorAimer));
-        public static readonly DoubleAnimation AnimationForBlurEffect = new DoubleAnimation {
-            From = 0,
-            To = 15,
-            AccelerationRatio = 0.2,
-            DecelerationRatio = 0.8,
-            Duration = TimeSpan.FromMilliseconds(200)
-        };
+
         #endregion
         /// <summary>
         /// 可用游戏列表，用于在可用游戏枚举和对应文字描述之间映射
@@ -108,6 +103,9 @@ namespace Common {
         /// <param name="scaleTo">缩放的目标值</param>
         /// <param name="duration">动画持续时间，单位为毫秒</param>
         public static void PlayScaleTransform(UIElement element, double scaleFrom, double scaleTo, int duration) {
+            if (Math.Abs(scaleFrom - scaleTo) < 0.001) {
+                return;
+            }
             ScaleTransform scale = new ScaleTransform();
             DoubleAnimation animation = new DoubleAnimation() {
                 From = scaleFrom,
@@ -122,6 +120,9 @@ namespace Common {
             scale.BeginAnimation(ScaleTransform.ScaleYProperty, animation);
         }
         public static void PlayOpacityTransform(UIElement element, double opacityFrom, double opacityTo, int duration) {
+            if (Math.Abs(opacityFrom - opacityTo) < 0.001) {
+                return;
+            }
             DoubleAnimation animation = new DoubleAnimation() {
                 From = opacityFrom,
                 To = opacityTo,
@@ -130,6 +131,22 @@ namespace Common {
                 DecelerationRatio = 0.8
             };
             element.BeginAnimation(UIElement.OpacityProperty, animation);
+        }
+        public static void PlayBlurTransfrom(UIElement element, double blurFrom, double blurTo, int duration) {
+            if (Math.Abs(blurFrom - blurTo) < 0.001) {
+                return;
+            }
+            DoubleAnimation animation = new DoubleAnimation {
+                From = blurFrom,
+                To = blurTo,
+                AccelerationRatio = 0.2,
+                DecelerationRatio = 0.8,
+                Duration = TimeSpan.FromMilliseconds(duration)
+            };
+            element.Effect = new BlurEffect() {
+                KernelType = KernelType.Gaussian,
+            };
+            element.Effect.BeginAnimation(BlurEffect.RadiusProperty, animation);
         }
     }
 }

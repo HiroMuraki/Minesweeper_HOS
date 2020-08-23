@@ -415,11 +415,7 @@ namespace Common {
             if (isGameCompleted == true) {
                 this.BtnStartGame.IsOn = true;
                 this.GameCompleteBarImage.IsEnabled = true;
-                this.GamePlayAreaGrid.Effect = new BlurEffect {
-                    KernelType = KernelType.Gaussian,
-                    Radius = 0
-                };
-                this.GamePlayAreaGrid.Effect.BeginAnimation(BlurEffect.RadiusProperty, AnimationForBlurEffect);
+                PlayBlurTransfrom(this.GamePlayAreaGrid, 0, 15, 200);
                 //MessageBox.Show("YZTXDY"); ;
             } else {
                 //

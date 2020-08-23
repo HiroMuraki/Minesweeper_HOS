@@ -118,16 +118,16 @@ namespace MinesweeperGameLite {
             string filePath = ((string[])e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
             LayoutSetting setting = GameLayoutLoader.ReadFromFile(filePath);
             this.GameWindow.StartCustomGame(() => { this.StartCustomGame(setting); });
-            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover, 
+            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover,
                 this.GameWindow.BorderGamePanelCover.Opacity, 0, 150);
             this.GameWindow.BorderGamePanelCover.IsHitTestVisible = false;
         }
         private void BorderGamePanelCover_DragLeave(object sender, DragEventArgs e) {
-            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover, 
+            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover,
                 this.GameWindow.BorderGamePanelCover.Opacity, 0, 150);
         }
         private void BorderGamePanelCover_DragEnter(object sender, DragEventArgs e) {
-            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover, 
+            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover,
                 this.GameWindow.BorderGamePanelCover.Opacity, 0.65, 150);
         }
         private void GameWindow_DragLeave(object sender, DragEventArgs e) {
@@ -163,10 +163,10 @@ namespace MinesweeperGameLite {
         /// 开始当前游戏
         /// </summary>
         public void StartGame() {
-            if (this.Game.RowSize != GameWindow.RowsSet
-                || this.Game.ColumnSize != GameWindow.ColumnsSet
-                || this.Game.MineSize != GameWindow.MinesSet) {
-                this.Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet, GameWindow.MinesSet);
+            if (this.Game.RowSize != this.GameWindow.RowsSet
+                || this.Game.ColumnSize != this.GameWindow.ColumnsSet
+                || this.Game.MineSize != this.GameWindow.MinesSet) {
+                this.Game.SetGame(this.GameWindow.RowsSet, this.GameWindow.ColumnsSet, this.GameWindow.MinesSet);
             }
             this.Game.StartGame();
         }
@@ -208,13 +208,13 @@ namespace MinesweeperGameLite {
         /// </summary>
         public void UnloadGame() {
             this.GameWindow.ToggleDetector.Click -= ToggleDetector_Click;
-            GameWindow.AllowDrop = true;
-            GameWindow.DragEnter -= GameWindow_DragEnter;
-            GameWindow.DragLeave -= GameWindow_DragLeave;
-            GameWindow.BorderGamePanelCover.AllowDrop = true;
-            GameWindow.BorderGamePanelCover.DragEnter -= BorderGamePanelCover_DragEnter;
-            GameWindow.BorderGamePanelCover.DragLeave -= BorderGamePanelCover_DragLeave;
-            GameWindow.BorderGamePanelCover.Drop -= BorderGamePanelCover_Drop;
+            this.GameWindow.AllowDrop = false;
+            this.GameWindow.DragEnter -= GameWindow_DragEnter;
+            this.GameWindow.DragLeave -= GameWindow_DragLeave;
+            this.GameWindow.BorderGamePanelCover.AllowDrop = false;
+            this.GameWindow.BorderGamePanelCover.DragEnter -= BorderGamePanelCover_DragEnter;
+            this.GameWindow.BorderGamePanelCover.DragLeave -= BorderGamePanelCover_DragLeave;
+            this.GameWindow.BorderGamePanelCover.Drop -= BorderGamePanelCover_Drop;
         }
     }
 }

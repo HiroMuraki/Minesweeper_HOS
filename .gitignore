@@ -1,4 +1,5 @@
 #vs的编译中间文件和二进制文件
 GridGameHOS/bin/
 GridGameHOS/obj/
+GridGameHOS/publish/
 .vs/

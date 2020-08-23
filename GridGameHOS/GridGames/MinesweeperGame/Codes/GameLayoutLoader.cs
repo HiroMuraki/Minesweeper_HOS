@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml;
 
 namespace MinesweeperGameLite {
     public struct LayoutSetting {
@@ -22,6 +23,9 @@ namespace MinesweeperGameLite {
     }
     public static class GameLayoutLoader {
         public static LayoutSetting ReadFromFile(string filePath) {
+            if (Directory.Exists(filePath)) {
+                return new LayoutSetting(0, 0, 0, "");
+            }
             string fileContent;
             using (StreamReader reader = new StreamReader(filePath)) {
                 fileContent = reader.ReadToEnd();
@@ -30,6 +34,9 @@ namespace MinesweeperGameLite {
             int rowSize = layouContent.Length;
             int columnSize = layouContent[0].Count((char ch) => (ch == '1' || ch == '0'));
             int mineSize = fileContent.Count((char ch) => ch == '1');
+            if (rowSize == 0 || columnSize == 0 || mineSize == 0) {
+                return new LayoutSetting(0, 0, 0, "");
+            }
             StringBuilder sb = new StringBuilder();
             foreach (char ch in fileContent) {
                 if (ch == '1' || ch == '0') {

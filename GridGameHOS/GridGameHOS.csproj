@@ -167,9 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Common\Codes\IBlocks.cs" />
-    <Compile Include="Common\Codes\IGridGame.cs" />
+    <Compile Include="GridGames\Common\IBlocks.cs" />
+    <Compile Include="GridGames\Common\IGridGame.cs" />
     <Compile Include="Common\Codes\GameTypeEnum.cs" />
+    <Compile Include="Common\Codes\ResDict.cs" />
     <Compile Include="Common\UserControls\SelectMenu.xaml.cs">
       <DependentUpon>SelectMenu.xaml</DependentUpon>
     </Compile>
@@ -177,6 +178,9 @@
     <Compile Include="GridGames\MinesweeperGame\Codes\GameLayoutLoader.cs" />
     <Compile Include="GridGames\MinesweeperGame\Codes\IGameBlock.cs" />
     <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperGame.cs" />
+    <Compile Include="GridGames\MinesweeperGame\ValueConverter\ReverseBoolToVisibility.cs" />
+    <Compile Include="GridGames\MinesweeperGame\ValueConverter\BoolToVisibility.cs" />
+    <Compile Include="GridGames\MinesweeperGame\ValueConverter\NearMinesCountToNumberLabel.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawGame.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\IGameBlock.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawMain.cs" />
@@ -187,6 +191,8 @@
     <Compile Include="GridGames\TwoZeroFourEight\UserControls\GameBlock.xaml.cs">
       <DependentUpon>GameBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GridGames\TwoZeroFourEight\ValueConverter\NumberToIconType.cs" />
+    <Compile Include="GridGames\TwoZeroFourEight\ValueConverter\NumberToBorderType.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -224,7 +230,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Common\Codes\BlockCoordinate.cs" />
+    <Compile Include="GridGames\Common\BlockCoordinate.cs" />
     <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperMain.cs" />
     <Compile Include="MainGameWindow.xaml.cs">
       <DependentUpon>MainGameWindow.xaml</DependentUpon>

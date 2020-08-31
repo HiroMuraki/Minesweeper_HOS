@@ -20,13 +20,13 @@
                             <Label Background="{StaticResource StatusButtonFocus}" x:Name="FocusRing" Opacity="0"/>
                             <Label Background="{StaticResource StatusButtonStatic}"/>
                             <Label Background="{TemplateBinding Foreground}"/>
-                            <Label x:Name="glowLight" Background="{StaticResource StatusButtonB}" IsHitTestVisible="False"
+                            <Label x:Name="GlowLight" Background="{StaticResource StatusButtonB}" IsHitTestVisible="False"
                                    Opacity="0"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Opacity" Value="1" TargetName="FocusRing"/>
-                                <Setter Property="Opacity" Value="1" TargetName="glowLight"/>
+                                <Setter Property="Opacity" Value="1" TargetName="GlowLight"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

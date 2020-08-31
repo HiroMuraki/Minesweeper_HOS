@@ -5,27 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MinesweeperGameLite"
              mc:Ignorable="d" 
+             DataContext="{Binding ElementName=UserControl}"
              d:DesignHeight="50" d:DesignWidth="50" Name="UserControl">
     <UserControl.Resources>
+        <local:NearMinesCountToNumberLabel x:Key="NearMinesCountToNumberLabel"/>
+        <local:BoolToVisibility x:Key="BoolToVisibility"/>
+        <local:ReverseBoolToVisibility x:Key="ReverseBoolToVisibility"/>
         <Style TargetType="Label" x:Key="Base">
             <Setter Property="Background" Value="{StaticResource BlockBase}"/>
         </Style>
         <Style TargetType="Label" x:Key="Flag">
             <Setter Property="Background" Value="{StaticResource FlagMark}"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsFlaged}" Value="True">
-                    <Setter Property="Visibility" Value="Visible"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsFlaged}" Value="False">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                </DataTrigger>
-            </Style.Triggers>
+            <Setter Property="Visibility" Value="{Binding IsFlaged,Converter={StaticResource BoolToVisibility}}" />
         </Style>
         <Style TargetType="Label" x:Key="Cover">
             <Setter Property="Background" Value="{StaticResource BlockCover}"/>
+            <Setter Property="Visibility" Value="{Binding IsOpen,Converter={StaticResource ReverseBoolToVisibility}}" />
             <Setter Property="Opacity" Value="1"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsOpen}" Value="True">
+                <DataTrigger Binding="{Binding IsOpen}" Value="True">
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
@@ -46,63 +44,18 @@
                             </Storyboard>
                         </BeginStoryboard>
                     </DataTrigger.ExitActions>
-                    <Setter Property="IsHitTestVisible" Value="False"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsOpen}" Value="False">
-                    <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style TargetType="Label" x:Key="Mine">
             <Setter Property="Background" Value="{StaticResource MineMark}"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsMineBlock}" Value="True">
-                    <Setter Property="Visibility" Value="Visible"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsMineBlock}" Value="False">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                </DataTrigger>
-            </Style.Triggers>
+            <Setter Property="Visibility" Value="{Binding IsMineBlock,Converter={StaticResource BoolToVisibility}}" />
         </Style>
         <Style TargetType="Label" x:Key="MinesCount">
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Content" Value="{Binding ElementName=UserControl,Path=NearMinesCount}"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=IsMineBlock}" Value="True">
-                    <Setter Property="Visibility" Value="Hidden"/>
-                </DataTrigger>
-
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="0">
-                    <Setter Property="Foreground" Value="Transparent"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="1">
-                    <Setter Property="Foreground" Value="#FF5A3B10"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="2">
-                    <Setter Property="Foreground" Value="#FF425A10"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="3">
-                    <Setter Property="Foreground" Value="#FF10415A"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="4">
-                    <Setter Property="Foreground" Value="#FF10235A"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="5">
-                    <Setter Property="Foreground" Value="#FFA2731D"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="6">
-                    <Setter Property="Foreground" Value="#FF9CA21D"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="7">
-                    <Setter Property="Foreground" Value="#FF5EA21D"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="8">
-                    <Setter Property="Foreground" Value="#FF1D83A2"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl,Path=NearMinesCount}" Value="9">
-                    <Setter Property="Foreground" Value="#FFA21D8B"/>
-                </DataTrigger>
-            </Style.Triggers>
+            <Setter Property="Foreground" Value="{Binding NearMinesCount,Converter={StaticResource NearMinesCountToNumberLabel}}" />
+            <Setter Property="Content" Value="{Binding NearMinesCount}"/>
+            <Setter Property="Visibility" Value="{Binding IsMineBlock,Converter={StaticResource ReverseBoolToVisibility}}"/>
         </Style>
     </UserControl.Resources>
     <Grid>

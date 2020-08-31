@@ -86,8 +86,6 @@ namespace MinesweeperGameLite {
             }
         }
 
-
-
         private MinesweeperGame() { }
         /// <summary>
         /// 带参构造函数，传入一个MainGameWindow类，用于关联游戏窗口

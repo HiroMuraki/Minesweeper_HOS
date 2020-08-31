@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Common;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -6,8 +7,19 @@ namespace MinesweeperGameLite {
     /// <summary>
     /// MineBlock.xaml 的交互逻辑
     /// </summary>
-    public partial class GameBlock : UserControl {
+    public partial class GameBlock : UserControl, IGameBlock {
         #region 属性
+        //坐标标记
+        public BlockCoordinate Coordinate {
+            get {
+                return (BlockCoordinate)GetValue(CoordinateProperty);
+            }
+            set {
+                SetValue(CoordinateProperty, value);
+            }
+        }
+        public static readonly DependencyProperty CoordinateProperty =
+            DependencyProperty.Register("Coordinate", typeof(BlockCoordinate), typeof(GameBlock), new PropertyMetadata(new BlockCoordinate(0, 0)));
         //是否打开旗帜标记
         public bool IsFlaged {
             get {

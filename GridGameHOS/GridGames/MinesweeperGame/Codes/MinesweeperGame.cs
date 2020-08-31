@@ -42,7 +42,7 @@ namespace MinesweeperGameLite {
         }
         private void GameBlock_OpenBlock(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(BlockClickSound));
-            BlockCoordinate coordinate = (sender as GameBlockCoordinated).Coordinate;
+            BlockCoordinate coordinate = (sender as GameBlock).Coordinate;
             //嗅探猫
             if (GameWindow.ToggleDetector.IsChecked == true) {
                 GameWindow.ToggleDetector.IsChecked = false;
@@ -69,12 +69,12 @@ namespace MinesweeperGameLite {
         }
         private void GameBlock_FlagBlock(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(BlockFlagSound));
-            this.Game.FlagBlock((sender as GameBlockCoordinated).Coordinate);
+            this.Game.FlagBlock((sender as GameBlock).Coordinate);
             GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
         }
         private void GameBlock_QuickOpen(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(BlockClickSound));
-            this.Game.OpenNearBlocks((sender as GameBlockCoordinated).Coordinate);
+            this.Game.OpenNearBlocks((sender as GameBlock).Coordinate);
             CalGame(this.Game.IsGameCompleted);
         }
         private void ToggleDetector_Click(object sender, RoutedEventArgs e) {
@@ -146,7 +146,7 @@ namespace MinesweeperGameLite {
         /// </summary>
         /// <returns></returns>
         private IGameBlock BlockCreateAction() {
-            GameBlockCoordinated block = new GameBlockCoordinated();
+            GameBlock block = new GameBlock();
             block.Width = block.Height = 50;
             block.OpenBlock += GameBlock_OpenBlock;
             block.FlagBlock += GameBlock_FlagBlock;

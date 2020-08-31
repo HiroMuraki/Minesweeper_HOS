@@ -108,7 +108,7 @@ namespace SlideJigsawGameLite {
         /// </summary>
         /// <returns></returns>
         private IGameBlock BlockCreatAction() {
-            GameBlockCoordinated block = new GameBlockCoordinated();
+            GameBlock block = new GameBlock();
             block.Width = block.Height = 50;
             block.ButtonClick += GameBlock_ButtonClick;
             return block;

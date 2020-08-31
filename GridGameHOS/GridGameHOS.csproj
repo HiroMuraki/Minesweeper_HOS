@@ -173,13 +173,11 @@
     <Compile Include="Common\UserControls\SelectMenu.xaml.cs">
       <DependentUpon>SelectMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GridGames\MinesweeperGame\Codes\GameBlockCoordinated.cs" />
     <Compile Include="Common\Codes\GeneralAction.cs" />
     <Compile Include="GridGames\MinesweeperGame\Codes\GameLayoutLoader.cs" />
     <Compile Include="GridGames\MinesweeperGame\Codes\IGameBlock.cs" />
     <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperGame.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawGame.cs" />
-    <Compile Include="GridGames\SlideJigsawGame\Codes\GameBlockCoordinated.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\IGameBlock.cs" />
     <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawMain.cs" />
     <Compile Include="GridGames\TwoZeroFourEight\Codes\DirectionEnum.cs" />

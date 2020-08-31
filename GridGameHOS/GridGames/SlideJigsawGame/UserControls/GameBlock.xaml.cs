@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Common;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -6,7 +7,7 @@ namespace SlideJigsawGameLite {
     /// <summary>
     /// GameBlock.xaml 的交互逻辑
     /// </summary>
-    public partial class GameBlock : UserControl {
+    public partial class GameBlock : UserControl, IGameBlock {
         public int BlockID {
             get {
                 return (int)GetValue(BlockIDProperty);
@@ -17,6 +18,17 @@ namespace SlideJigsawGameLite {
         }
         public static readonly DependencyProperty BlockIDProperty =
             DependencyProperty.Register("BlockID", typeof(int), typeof(GameBlock), new PropertyMetadata(0));
+
+        public BlockCoordinate Coordinate {
+            get {
+                return (BlockCoordinate)GetValue(CoordinateProperty);
+            }
+            set {
+                SetValue(CoordinateProperty, value);
+            }
+        }
+        public static readonly DependencyProperty CoordinateProperty =
+            DependencyProperty.Register("Coordinate", typeof(BlockCoordinate), typeof(GameBlock), new PropertyMetadata(new BlockCoordinate(0, 0)));
 
         public event RoutedEventHandler ButtonClick {
             add {

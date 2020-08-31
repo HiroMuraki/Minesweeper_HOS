@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Common">
+                    xmlns:local="clr-namespace:GridGameHOS.Common">
     <Style x:Key="HOSStyleSliderThumb" TargetType="{x:Type Thumb}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Height" Value="30"/>

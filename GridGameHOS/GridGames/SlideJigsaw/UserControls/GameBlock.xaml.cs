@@ -1,9 +1,9 @@
-﻿using Common;
+﻿using GridGameHOS.Common;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SlideJigsawGameLite {
+namespace GridGameHOS.SlideJigsaw {
     /// <summary>
     /// GameBlock.xaml 的交互逻辑
     /// </summary>

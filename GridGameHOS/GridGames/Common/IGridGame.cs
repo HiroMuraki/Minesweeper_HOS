@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Common {
+namespace GridGameHOS.Common {
     /// <summary>
     /// 用于游戏窗口的Game项
     /// </summary>

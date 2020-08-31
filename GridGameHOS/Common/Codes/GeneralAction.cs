@@ -8,7 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 
-namespace Common {
+namespace GridGameHOS.Common {
     /// <summary>
     /// 常见且具有通用性的操作
     /// </summary>

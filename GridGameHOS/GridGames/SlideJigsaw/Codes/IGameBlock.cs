@@ -1,6 +1,6 @@
-﻿using Common;
+﻿using GridGameHOS.Common;
 
-namespace SlideJigsawGameLite {
+namespace GridGameHOS.SlideJigsaw {
     public interface IGameBlock : IBlocks {
         /// <summary>
         /// 用于显示方块的ID

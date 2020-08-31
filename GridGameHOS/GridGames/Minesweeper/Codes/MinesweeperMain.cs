@@ -1,17 +1,14 @@
-﻿using Common;
+﻿using GridGameHOS.Common;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
-using System.Xml.Schema;
 
-namespace MinesweeperGameLite {
+namespace GridGameHOS.Minesweeper {
     public class MinesweeperMain : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName) {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #region 后备字段
         private int rowSize;
@@ -24,62 +21,62 @@ namespace MinesweeperGameLite {
         private Func<IGameBlock> BlockCreateAction { get; set; }
         public int RowSize {
             get {
-                return this.rowSize;
+                return rowSize;
             }
             private set {
-                this.rowSize = value;
+                rowSize = value;
                 OnPropertyChanged(nameof(RowSize));
             }
         }
         public int ColumnSize {
             get {
-                return this.columnsSize;
+                return columnsSize;
             }
             private set {
-                this.columnsSize = value;
+                columnsSize = value;
                 OnPropertyChanged(nameof(ColumnSize));
             }
         }
         public int MineSize {
             get {
-                return this.minesSize;
+                return minesSize;
             }
             private set {
-                this.minesSize = value;
+                minesSize = value;
                 OnPropertyChanged(nameof(MineSize));
             }
         }
         public int GameSize {
             get {
-                return this.gameSize;
+                return gameSize;
             }
             private set {
-                this.gameSize = value;
+                gameSize = value;
                 OnPropertyChanged(nameof(GameSize));
             }
         }
         public int FlagsCount {
             get {
-                return this.flagsCount;
+                return flagsCount;
             }
             private set {
-                this.flagsCount = value;
+                flagsCount = value;
                 OnPropertyChanged(nameof(FlagsCount));
             }
         }
         public bool IsGameStarted {
             get {
-                return this.isGameStarted;
+                return isGameStarted;
             }
             set {
-                this.isGameStarted = value;
+                isGameStarted = value;
                 OnPropertyChanged(nameof(IsGameStarted));
             }
         }
         public bool? IsGameCompleted {
             get {
                 bool? isGameCompleted = true;
-                foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+                foreach (BlockCoordinate coordinate in GetAllCoordinates()) {
                     if (this[coordinate].IsMineBlock && this[coordinate].IsOpen) {
                         isGameCompleted = false;
                         break;
@@ -94,10 +91,10 @@ namespace MinesweeperGameLite {
         public Dictionary<BlockCoordinate, IGameBlock> Blocks { get; private set; }
         public IGameBlock this[BlockCoordinate coordinate] {
             get {
-                return this.Blocks[coordinate];
+                return Blocks[coordinate];
             }
             private set {
-                this.Blocks[coordinate] = value;
+                Blocks[coordinate] = value;
             }
         }
         /// <summary>
@@ -105,7 +102,7 @@ namespace MinesweeperGameLite {
         /// </summary>
         /// <param name="blockCreateAction">创建方块的方法</param>
         public MinesweeperMain(Func<IGameBlock> blockCreateAction) {
-            this.BlockCreateAction = blockCreateAction;
+            BlockCreateAction = blockCreateAction;
         }
         /// <summary>
         /// 设置游戏的行数，列数和雷数
@@ -114,18 +111,18 @@ namespace MinesweeperGameLite {
         /// <param name="columnSize">列数</param>
         /// <param name="minesCount">雷数</param>
         public void SetGame(int rowSize, int columnSize, int minesCount) {
-            this.RowSize = rowSize;
-            this.ColumnSize = columnSize;
-            this.MineSize = minesCount;
-            this.GameSize = this.RowSize * this.ColumnSize;
-            this.FlagsCount = 0;
-            this.IsGameStarted = false;
-            this.Blocks = new Dictionary<BlockCoordinate, IGameBlock>();
-            for (int row = 0; row < this.RowSize; row++) {
-                for (int col = 0; col < this.ColumnSize; col++) {
+            RowSize = rowSize;
+            ColumnSize = columnSize;
+            MineSize = minesCount;
+            GameSize = RowSize * ColumnSize;
+            FlagsCount = 0;
+            IsGameStarted = false;
+            Blocks = new Dictionary<BlockCoordinate, IGameBlock>();
+            for (int row = 0; row < RowSize; row++) {
+                for (int col = 0; col < ColumnSize; col++) {
                     BlockCoordinate coordinate = new BlockCoordinate(row, col);
                     this[coordinate] = BlockCreateAction();
-                    if (row * this.ColumnSize + col < this.MineSize) {
+                    if (row * ColumnSize + col < MineSize) {
                         this[coordinate].IsMineBlock = true;
                     }
                 }
@@ -135,22 +132,22 @@ namespace MinesweeperGameLite {
         /// 开始当前游戏
         /// </summary>
         public void StartGame() {
-            this.Shuffle();
+            Shuffle();
             OnPropertyChanged(nameof(Blocks));
-            this.IsGameStarted = false;
-            this.FlagsCount = 0;
+            IsGameStarted = false;
+            FlagsCount = 0;
         }
         /// <summary>
         /// 开始自定义游戏
         /// </summary>
         /// <param name="setting"></param>
         public void StartCustomGame(LayoutSetting setting) {
-            this.SetGame(setting.RowSize, setting.ColumnSize, setting.MineSize);
-            for (int row = 0; row < this.RowSize; row++) {
-                for (int col = 0; col < this.ColumnSize; col++) {
+            SetGame(setting.RowSize, setting.ColumnSize, setting.MineSize);
+            for (int row = 0; row < RowSize; row++) {
+                for (int col = 0; col < ColumnSize; col++) {
                     BlockCoordinate coordinate = new BlockCoordinate(row, col);
                     this[coordinate].Coordinate = coordinate;
-                    int index = row * this.ColumnSize + col;
+                    int index = row * ColumnSize + col;
                     if (setting.LayoutDataArray[index] == '1') {
                         this[coordinate].IsMineBlock = true;
                     } else {
@@ -158,25 +155,25 @@ namespace MinesweeperGameLite {
                     }
                 }
             }
-            foreach (BlockCoordinate cCoordinate in this.GetAllCoordinates()) {
+            foreach (BlockCoordinate cCoordinate in GetAllCoordinates()) {
                 this[cCoordinate].NearMinesCount
-                    = this.GetNearCounts(cCoordinate, (BlockCoordinate nCoordinate) => this[nCoordinate].IsMineBlock);
+                    = GetNearCounts(cCoordinate, (BlockCoordinate nCoordinate) => this[nCoordinate].IsMineBlock);
             }
             OnPropertyChanged(nameof(Blocks));
-            this.isGameStarted = true;
-            this.FlagsCount = 0;
+            isGameStarted = true;
+            FlagsCount = 0;
         }
         /// <summary>
         /// 打开所有方块
         /// </summary>
         public void OpenAllBlocks() {
-            foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+            foreach (BlockCoordinate coordinate in GetAllCoordinates()) {
                 if (this[coordinate].IsFlaged && !this[coordinate].IsMineBlock) {
                     this[coordinate].IsFlaged = false;
                     this[coordinate].IsOpen = true;
                     continue;
                 }
-                this.OpenBlock(coordinate);
+                OpenBlock(coordinate);
             }
         }
         /// <summary>
@@ -187,10 +184,10 @@ namespace MinesweeperGameLite {
             List<BlockCoordinate> nearbyPos = new List<BlockCoordinate>();
             List<BlockCoordinate> avaliableBlankPos = new List<BlockCoordinate>();
             nearbyPos.Add(protectedCoordiante);
-            foreach (BlockCoordinate nCoordinate in this.GetNearCoordinates(protectedCoordiante)) {
+            foreach (BlockCoordinate nCoordinate in GetNearCoordinates(protectedCoordiante)) {
                 nearbyPos.Add(nCoordinate);
             }
-            foreach (BlockCoordinate nCoordinate in this.GetAllCoordinates()) {
+            foreach (BlockCoordinate nCoordinate in GetAllCoordinates()) {
                 if (!this[nCoordinate].IsMineBlock && !nearbyPos.Contains(nCoordinate)) {
                     avaliableBlankPos.Add(nCoordinate);
                 }
@@ -201,7 +198,7 @@ namespace MinesweeperGameLite {
                 SwapBlock(nearbyPos[i], avaliableBlankPos[blankPos]);
                 avaliableBlankPos.RemoveAt(blankPos);
             }
-            foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+            foreach (BlockCoordinate coordinate in GetAllCoordinates()) {
                 this[coordinate].IsOpen = false;
                 this[coordinate].IsFlaged = false;
                 this[coordinate].NearMinesCount =
@@ -209,8 +206,8 @@ namespace MinesweeperGameLite {
             }
 
             OnPropertyChanged(nameof(Blocks));
-            this.IsGameStarted = false;
-            this.FlagsCount = 0;
+            IsGameStarted = false;
+            FlagsCount = 0;
         }
         //普通方法
         /// <summary>
@@ -228,8 +225,8 @@ namespace MinesweeperGameLite {
                 return;
             }
             if (this[coordinate].NearMinesCount == 0) {
-                foreach (BlockCoordinate nearCoordinate in this.GetNearCoordinates(coordinate)) {
-                    this.OpenBlock(nearCoordinate);
+                foreach (BlockCoordinate nearCoordinate in GetNearCoordinates(coordinate)) {
+                    OpenBlock(nearCoordinate);
                 }
             }
             return;
@@ -256,8 +253,8 @@ namespace MinesweeperGameLite {
         public void OpenNearBlocks(BlockCoordinate coordinate) {
             int nearFlagedBlocks = GetNearCounts(coordinate, (BlockCoordinate nCoordinate) => this[nCoordinate].IsFlaged);
             if (this[coordinate].NearMinesCount <= nearFlagedBlocks) {
-                foreach (BlockCoordinate nearCoordinate in this.GetNearCoordinates(coordinate)) {
-                    this.OpenBlock(nearCoordinate);
+                foreach (BlockCoordinate nearCoordinate in GetNearCoordinates(coordinate)) {
+                    OpenBlock(nearCoordinate);
                 }
             }
         }
@@ -267,14 +264,14 @@ namespace MinesweeperGameLite {
         /// </summary>
         private void Shuffle() {
             Random random = new Random();
-            for (int i = 0; i < this.GameSize; i++) {
+            for (int i = 0; i < GameSize; i++) {
                 int indexA = i;
-                int indexB = random.Next(i, this.GameSize);
-                BlockCoordinate coordinateA = new BlockCoordinate(indexA / this.ColumnSize, indexA % this.ColumnSize);
-                BlockCoordinate coordinateB = new BlockCoordinate(indexB / this.ColumnSize, indexB % this.ColumnSize);
+                int indexB = random.Next(i, GameSize);
+                BlockCoordinate coordinateA = new BlockCoordinate(indexA / ColumnSize, indexA % ColumnSize);
+                BlockCoordinate coordinateB = new BlockCoordinate(indexB / ColumnSize, indexB % ColumnSize);
                 SwapBlock(coordinateA, coordinateB);
             }
-            foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+            foreach (BlockCoordinate coordinate in GetAllCoordinates()) {
                 this[coordinate].IsOpen = false;
                 this[coordinate].IsFlaged = false;
                 this[coordinate].NearMinesCount =
@@ -301,7 +298,7 @@ namespace MinesweeperGameLite {
         /// <returns></returns>
         private int GetNearCounts(BlockCoordinate nCoordinate, Predicate<BlockCoordinate> predicate) {
             int count = 0;
-            foreach (BlockCoordinate coordinate in this.GetNearCoordinates(nCoordinate)) {
+            foreach (BlockCoordinate coordinate in GetNearCoordinates(nCoordinate)) {
                 if (predicate(coordinate)) {
                     ++count;
                 }
@@ -321,8 +318,8 @@ namespace MinesweeperGameLite {
                     int nRow = cRow + i;
                     int nCol = cCol + j;
                     if ((nRow == cRow && nCol == cCol)
-                        || (uint)nRow >= this.RowSize
-                        || (uint)nCol >= this.ColumnSize) {
+                        || (uint)nRow >= RowSize
+                        || (uint)nCol >= ColumnSize) {
                         continue;
                     }
                     yield return new BlockCoordinate(nRow, nCol);
@@ -334,7 +331,7 @@ namespace MinesweeperGameLite {
         /// </summary>
         /// <returns></returns>
         private IEnumerable<BlockCoordinate> GetAllCoordinates() {
-            foreach (BlockCoordinate coordinate in this.Blocks.Keys) {
+            foreach (BlockCoordinate coordinate in Blocks.Keys) {
                 yield return coordinate;
             }
         }
@@ -344,8 +341,8 @@ namespace MinesweeperGameLite {
         /// <returns></returns>
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
-            for (int row = 0; row < this.RowSize; row++) {
-                for (int col = 0; col < this.ColumnSize; col++) {
+            for (int row = 0; row < RowSize; row++) {
+                for (int col = 0; col < ColumnSize; col++) {
                     BlockCoordinate coordinate = new BlockCoordinate(row, col);
                     sb.Append($"{(this[coordinate].IsMineBlock ? 1 : 0)} ");
                 }

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Common {
+namespace GridGameHOS.Common {
     /// <summary>
     /// UserControl1.xaml 的交互逻辑
     /// </summary>
@@ -56,16 +56,16 @@ namespace Common {
             if (currentLabelIndex < 0) {
                 currentLabelIndex = AllowedLabels.Count - 1;
             }
-            this.CurrentLabel = AllowedLabels[currentLabelIndex];
+            CurrentLabel = AllowedLabels[currentLabelIndex];
             RoutedEventArgs args = new RoutedEventArgs(LabelSwitchedEvent, this);
             RaiseEvent(args);
         }
         private void RArrow_Click(object sender, MouseButtonEventArgs e) {
             ++currentLabelIndex;
-            if (currentLabelIndex >= this.AllowedLabels.Count) {
+            if (currentLabelIndex >= AllowedLabels.Count) {
                 currentLabelIndex = 0;
             }
-            this.CurrentLabel = AllowedLabels[currentLabelIndex];
+            CurrentLabel = AllowedLabels[currentLabelIndex];
             RoutedEventArgs args = new RoutedEventArgs(LabelSwitchedEvent, this);
             RaiseEvent(args);
         }

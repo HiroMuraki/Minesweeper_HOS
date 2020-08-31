@@ -1,4 +1,4 @@
-﻿namespace Common {
+﻿namespace GridGameHOS.Common {
     /// <summary>
     /// 可选游戏类型枚举
     /// </summary>

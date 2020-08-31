@@ -1,9 +1,9 @@
-﻿using Common;
+﻿using GridGameHOS.Common;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace MinesweeperGameLite {
+namespace GridGameHOS.Minesweeper {
     /// <summary>
     /// MineBlock.xaml 的交互逻辑
     /// </summary>

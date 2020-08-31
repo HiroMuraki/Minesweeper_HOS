@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Xml;
 
-namespace MinesweeperGameLite {
+namespace GridGameHOS.Minesweeper {
     public struct LayoutSetting {
         public int RowSize;
         public int ColumnSize;
         public int MineSize;
         public string LayoutDataArray;
         public LayoutSetting(int rowSize, int columnSize, int mineSize, string layoutDataArray) {
-            this.RowSize = rowSize;
-            this.ColumnSize = columnSize;
-            this.MineSize = mineSize;
-            this.LayoutDataArray = layoutDataArray;
+            RowSize = rowSize;
+            ColumnSize = columnSize;
+            MineSize = mineSize;
+            LayoutDataArray = layoutDataArray;
         }
     }
     public static class GameLayoutLoader {

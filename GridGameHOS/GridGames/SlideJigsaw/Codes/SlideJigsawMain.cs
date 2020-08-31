@@ -1,15 +1,14 @@
-﻿using Common;
+﻿using GridGameHOS.Common;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 
-namespace SlideJigsawGameLite {
+namespace GridGameHOS.SlideJigsaw {
     public class SlideJigsawMain : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName) {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #region 后备字段
         private int rowSize;
@@ -46,22 +45,22 @@ namespace SlideJigsawGameLite {
         }
         public BlockCoordinate NullBlockCoordiante {
             get {
-                return this.nullBlockCoordinate;
+                return nullBlockCoordinate;
             }
             private set {
-                this.nullBlockCoordinate = value;
+                nullBlockCoordinate = value;
                 OnPropertyChanged(nameof(NullBlockCoordiante));
             }
         }
         public bool IsGameCompleted {
             get {
-                List<IGameBlock> blocksArray = new List<IGameBlock>(this.Blocks.Values);
-                for (int i = 0; i < this.GameSize - 1; i++) {
+                List<IGameBlock> blocksArray = new List<IGameBlock>(Blocks.Values);
+                for (int i = 0; i < GameSize - 1; i++) {
                     if (blocksArray[i].BlockID != i + 1) {
                         return false;
                     }
                 }
-                if (blocksArray[this.GameSize - 1].BlockID != 0) {
+                if (blocksArray[GameSize - 1].BlockID != 0) {
                     return false;
                 }
                 return true;
@@ -72,10 +71,10 @@ namespace SlideJigsawGameLite {
         public Dictionary<BlockCoordinate, IGameBlock> Blocks;
         public IGameBlock this[BlockCoordinate coordinate] {
             get {
-                return this.Blocks[coordinate];
+                return Blocks[coordinate];
             }
             private set {
-                this.Blocks[coordinate] = value;
+                Blocks[coordinate] = value;
             }
         }
         /// <summary>
@@ -83,7 +82,7 @@ namespace SlideJigsawGameLite {
         /// </summary>
         /// <param name="blockCreateAction">传入一个返回IGameBlock的方法，该方法生成一个方块样式</param>
         public SlideJigsawMain(Func<IGameBlock> blockCreateAction) {
-            this.BlockCreateAction = blockCreateAction;
+            BlockCreateAction = blockCreateAction;
         }
         /// <summary>
         /// 设置游戏的行数和列数
@@ -91,16 +90,16 @@ namespace SlideJigsawGameLite {
         /// <param name="rowSet">行数</param>
         /// <param name="colSet">列数</param>
         public void SetGame(int rowSet, int colSet) {
-            this.RowSize = rowSet;
-            this.ColumnSize = colSet;
-            this.GameSize = this.RowSize * this.ColumnSize;
-            this.Blocks = new Dictionary<BlockCoordinate, IGameBlock>();
-            for (int row = 0; row < this.RowSize; row++) {
-                for (int col = 0; col < this.ColumnSize; col++) {
+            RowSize = rowSet;
+            ColumnSize = colSet;
+            GameSize = RowSize * ColumnSize;
+            Blocks = new Dictionary<BlockCoordinate, IGameBlock>();
+            for (int row = 0; row < RowSize; row++) {
+                for (int col = 0; col < ColumnSize; col++) {
                     BlockCoordinate coordinate = new BlockCoordinate(row, col);
                     this[coordinate] = BlockCreateAction();
                     this[coordinate].Coordinate = coordinate;
-                    this[coordinate].BlockID = row * this.ColumnSize + col;
+                    this[coordinate].BlockID = row * ColumnSize + col;
                 }
             }
         }
@@ -108,23 +107,23 @@ namespace SlideJigsawGameLite {
         /// 开始游戏
         /// </summary>
         public void StartGame() {
-            this.Shuffle();
+            Shuffle();
         }
         /// <summary>
         /// 打乱方块顺序
         /// </summary>
         private void Shuffle() {
             Random random = new Random();
-            for (int i = 0; i < this.GameSize; i++) {
+            for (int i = 0; i < GameSize; i++) {
                 int indexA = i;
-                int indexB = random.Next(i, this.GameSize);
-                BlockCoordinate coordinateA = new BlockCoordinate(indexA / this.ColumnSize, indexA % this.ColumnSize);
-                BlockCoordinate coordinateB = new BlockCoordinate(indexB / this.ColumnSize, indexB % this.ColumnSize);
-                this.Swap(coordinateA, coordinateB);
+                int indexB = random.Next(i, GameSize);
+                BlockCoordinate coordinateA = new BlockCoordinate(indexA / ColumnSize, indexA % ColumnSize);
+                BlockCoordinate coordinateB = new BlockCoordinate(indexB / ColumnSize, indexB % ColumnSize);
+                Swap(coordinateA, coordinateB);
             }
-            foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+            foreach (BlockCoordinate coordinate in GetAllCoordinates()) {
                 if (this[coordinate].BlockID == 0) {
-                    this.NullBlockCoordiante = coordinate;
+                    NullBlockCoordiante = coordinate;
                 }
             }
         }
@@ -148,7 +147,7 @@ namespace SlideJigsawGameLite {
         public void SwapWithNullBlock(BlockCoordinate coordinate) {
             if (IsNullBlockNearby(coordinate)) {
                 if (Swap(coordinate, NullBlockCoordiante)) {
-                    this.NullBlockCoordiante = coordinate;
+                    NullBlockCoordiante = coordinate;
                 }
             }
         }
@@ -157,7 +156,7 @@ namespace SlideJigsawGameLite {
         /// </summary>
         /// <returns>返回一个所有方块位置的迭代器</returns>
         private IEnumerable<BlockCoordinate> GetAllCoordinates() {
-            foreach (BlockCoordinate coordinate in this.Blocks.Keys) {
+            foreach (BlockCoordinate coordinate in Blocks.Keys) {
                 yield return coordinate;
             }
         }
@@ -175,8 +174,8 @@ namespace SlideJigsawGameLite {
                     int nCol = cCol + j;
                     if ((nRow == cRow && nCol == cCol)
                         || (nRow != cRow && nCol != cCol)
-                        || (uint)nRow >= this.RowSize
-                        || (uint)nCol >= this.ColumnSize) {
+                        || (uint)nRow >= RowSize
+                        || (uint)nCol >= ColumnSize) {
                         continue;
                     }
                     yield return new BlockCoordinate(nRow, nCol);
@@ -190,10 +189,10 @@ namespace SlideJigsawGameLite {
         /// <param name="coordinateB"></param>
         /// <returns></returns>
         private bool Swap(BlockCoordinate coordinateA, BlockCoordinate coordinateB) {
-            if ((uint)coordinateA.Row >= this.RowSize
-                || (uint)coordinateA.Col >= this.ColumnSize
-                || (uint)coordinateB.Row >= this.RowSize
-                || (uint)coordinateB.Col >= this.ColumnSize) {
+            if ((uint)coordinateA.Row >= RowSize
+                || (uint)coordinateA.Col >= ColumnSize
+                || (uint)coordinateB.Row >= RowSize
+                || (uint)coordinateB.Col >= ColumnSize) {
                 return false;
             }
             int T = this[coordinateA].BlockID;
@@ -207,8 +206,8 @@ namespace SlideJigsawGameLite {
         /// <returns></returns>
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
-            for (int row = 0; row < this.rowSize; row++) {
-                for (int col = 0; col < this.columnSize; col++) {
+            for (int row = 0; row < rowSize; row++) {
+                for (int col = 0; col < columnSize; col++) {
                     sb.Append($"{this[new BlockCoordinate(row, col)].BlockID} ");
                 }
                 sb.Append("\n");

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using static Common.GeneralAction;
+using static GridGameHOS.Common.GeneralAction;
 
-namespace Common {
+namespace GridGameHOS.Common {
     /// <summary>
     /// 应用载入操作，包括载入资源，读取启动参数
     /// </summary>

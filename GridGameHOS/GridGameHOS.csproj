@@ -55,7 +55,7 @@
     <ApplicationIcon>Resources\ICO.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Common.App</StartupObject>
+    <StartupObject>GridGameHOS.Common.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'X86|AnyCPU'">
     <OutputPath>bin\X86\</OutputPath>
@@ -175,15 +175,15 @@
       <DependentUpon>SelectMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\Codes\GeneralAction.cs" />
-    <Compile Include="GridGames\MinesweeperGame\Codes\GameLayoutLoader.cs" />
-    <Compile Include="GridGames\MinesweeperGame\Codes\IGameBlock.cs" />
-    <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperGame.cs" />
-    <Compile Include="GridGames\MinesweeperGame\ValueConverter\ReverseBoolToVisibility.cs" />
-    <Compile Include="GridGames\MinesweeperGame\ValueConverter\BoolToVisibility.cs" />
-    <Compile Include="GridGames\MinesweeperGame\ValueConverter\NearMinesCountToNumberLabel.cs" />
-    <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawGame.cs" />
-    <Compile Include="GridGames\SlideJigsawGame\Codes\IGameBlock.cs" />
-    <Compile Include="GridGames\SlideJigsawGame\Codes\SlideJigsawMain.cs" />
+    <Compile Include="GridGames\Minesweeper\Codes\GameLayoutLoader.cs" />
+    <Compile Include="GridGames\Minesweeper\Codes\IGameBlock.cs" />
+    <Compile Include="GridGames\Minesweeper\Codes\MinesweeperGame.cs" />
+    <Compile Include="GridGames\Minesweeper\ValueConverter\ReverseBoolToVisibility.cs" />
+    <Compile Include="GridGames\Minesweeper\ValueConverter\BoolToVisibility.cs" />
+    <Compile Include="GridGames\Minesweeper\ValueConverter\NearMinesCountToNumberLabel.cs" />
+    <Compile Include="GridGames\SlideJigsaw\Codes\SlideJigsawGame.cs" />
+    <Compile Include="GridGames\SlideJigsaw\Codes\IGameBlock.cs" />
+    <Compile Include="GridGames\SlideJigsaw\Codes\SlideJigsawMain.cs" />
     <Compile Include="GridGames\TwoZeroFourEight\Codes\DirectionEnum.cs" />
     <Compile Include="GridGames\TwoZeroFourEight\Codes\IGameBlock.cs" />
     <Compile Include="GridGames\TwoZeroFourEight\Codes\TwoZeroFourEightGame.cs" />
@@ -198,7 +198,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="GridGames\MinesweeperGame\UserControls\GameBlock.xaml.cs">
+    <Compile Include="GridGames\Minesweeper\UserControls\GameBlock.xaml.cs">
       <DependentUpon>GameBlock.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -210,7 +210,7 @@
       <DependentUpon>StatusButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GridGames\SlideJigsawGame\UserControls\GameBlock.xaml.cs">
+    <Compile Include="GridGames\SlideJigsaw\UserControls\GameBlock.xaml.cs">
       <DependentUpon>GameBlock.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -231,7 +231,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GridGames\Common\BlockCoordinate.cs" />
-    <Compile Include="GridGames\MinesweeperGame\Codes\MinesweeperMain.cs" />
+    <Compile Include="GridGames\Minesweeper\Codes\MinesweeperMain.cs" />
     <Compile Include="MainGameWindow.xaml.cs">
       <DependentUpon>MainGameWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -248,7 +248,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GridGames\MinesweeperGame\UserControls\GameBlock.xaml">
+    <Page Include="GridGames\Minesweeper\UserControls\GameBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -260,7 +260,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GridGames\SlideJigsawGame\UserControls\GameBlock.xaml">
+    <Page Include="GridGames\SlideJigsaw\UserControls\GameBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

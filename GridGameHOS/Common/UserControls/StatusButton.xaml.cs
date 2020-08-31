@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Common {
+namespace GridGameHOS.Common {
     /// <summary>
     /// StatusButton.xaml 的交互逻辑
     /// </summary>

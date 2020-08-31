@@ -1,14 +1,9 @@
-﻿using Common;
+﻿using GridGameHOS.Common;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Threading;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using static Common.GeneralAction;
+using static GridGameHOS.Common.GeneralAction;
 
-namespace TwoZeroFourEightLite {
+namespace GridGameHOS.TwoZeroFourEightLite {
     public class TwoZeroFourEightMain {
         public int RowSize { get; private set; }
         public int ColumnSize { get; private set; }
@@ -16,8 +11,8 @@ namespace TwoZeroFourEightLite {
         public int Scores { get; private set; }
         public bool IsGameCompleted {
             get {
-                foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
-                    if (this[coordinate].Number == this.TargetNumber) {
+                foreach (BlockCoordinate coordinate in GetAllCoordinates()) {
+                    if (this[coordinate].Number == TargetNumber) {
                         return true;
                     }
                 }
@@ -28,10 +23,10 @@ namespace TwoZeroFourEightLite {
         public Dictionary<BlockCoordinate, IGameBlock> Blocks { get; private set; }
         public IGameBlock this[BlockCoordinate coordinate] {
             get {
-                return this.Blocks[coordinate];
+                return Blocks[coordinate];
             }
             private set {
-                this.Blocks[coordinate] = value;
+                Blocks[coordinate] = value;
             }
         }
         /// <summary>
@@ -39,16 +34,16 @@ namespace TwoZeroFourEightLite {
         /// </summary>
         /// <param name="blockCreateAction">创建游戏方块的方法</param>
         public TwoZeroFourEightMain(Func<IGameBlock> blockCreateAction) {
-            this.BlockCreateAction = blockCreateAction;
+            BlockCreateAction = blockCreateAction;
         }
         //开始游戏
         public void StartGame(int gameSize, int targetNumber) {
-            this.RowSize = this.ColumnSize = gameSize;
-            this.TargetNumber = targetNumber;
-            this.Scores = 0;
-            this.Blocks = new Dictionary<BlockCoordinate, IGameBlock>();
-            for (int row = 0; row < this.RowSize; row++) {
-                for (int col = 0; col < this.ColumnSize; col++) {
+            RowSize = ColumnSize = gameSize;
+            TargetNumber = targetNumber;
+            Scores = 0;
+            Blocks = new Dictionary<BlockCoordinate, IGameBlock>();
+            for (int row = 0; row < RowSize; row++) {
+                for (int col = 0; col < ColumnSize; col++) {
                     BlockCoordinate coordinate = new BlockCoordinate(row, col);
                     this[coordinate] = BlockCreateAction();
                     this[coordinate].Number = 0;
@@ -59,8 +54,8 @@ namespace TwoZeroFourEightLite {
         /// 将所有方块向上/下/左/右移动
         /// </summary>
         public void MoveToNorth() {
-            for (int row = 0; row < this.RowSize; row++) {
-                for (int col = 0; col < this.ColumnSize; col++) {
+            for (int row = 0; row < RowSize; row++) {
+                for (int col = 0; col < ColumnSize; col++) {
                     BlockCoordinate coordinate = new BlockCoordinate(row, col);
                     while (MoveTo(coordinate, DirectionEnum.North)) {
                         coordinate = coordinate.North;
@@ -69,8 +64,8 @@ namespace TwoZeroFourEightLite {
             }
         }
         public void MoveToSouth() {
-            for (int row = this.RowSize - 1; row >= 0; row--) {
-                for (int col = 0; col < this.ColumnSize; col++) {
+            for (int row = RowSize - 1; row >= 0; row--) {
+                for (int col = 0; col < ColumnSize; col++) {
                     BlockCoordinate coordinate = new BlockCoordinate(row, col);
                     while (MoveTo(coordinate, DirectionEnum.South)) {
                         coordinate = coordinate.South;
@@ -79,8 +74,8 @@ namespace TwoZeroFourEightLite {
             }
         }
         public void MoveToWest() {
-            for (int col = 0; col < this.ColumnSize; col++) {
-                for (int row = 0; row < this.RowSize; row++) {
+            for (int col = 0; col < ColumnSize; col++) {
+                for (int row = 0; row < RowSize; row++) {
                     BlockCoordinate coordinate = new BlockCoordinate(row, col);
                     while (MoveTo(coordinate, DirectionEnum.West)) {
                         coordinate = coordinate.West;
@@ -89,8 +84,8 @@ namespace TwoZeroFourEightLite {
             }
         }
         public void MoveToEast() {
-            for (int col = this.ColumnSize - 1; col >= 0; col--) {
-                for (int row = 0; row < this.RowSize; row++) {
+            for (int col = ColumnSize - 1; col >= 0; col--) {
+                for (int row = 0; row < RowSize; row++) {
                     BlockCoordinate coordinate = new BlockCoordinate(row, col);
                     while (MoveTo(coordinate, DirectionEnum.East)) {
                         coordinate = coordinate.East;
@@ -123,8 +118,8 @@ namespace TwoZeroFourEightLite {
                     targetCoordinate = new BlockCoordinate(-1, -1);
                     break;
             }
-            if ((uint)targetCoordinate.Row >= this.RowSize
-                || (uint)targetCoordinate.Col >= this.ColumnSize) {
+            if ((uint)targetCoordinate.Row >= RowSize
+                || (uint)targetCoordinate.Col >= ColumnSize) {
                 return false;
             }
             if (this[targetCoordinate].Number == 0) {
@@ -132,7 +127,7 @@ namespace TwoZeroFourEightLite {
             } else if (this[coordinate].Number == this[targetCoordinate].Number) {
                 this[targetCoordinate].Number = this[targetCoordinate].Number << 1;
                 this[coordinate].Number = 0;
-                this.Scores += this[targetCoordinate].Number;
+                Scores += this[targetCoordinate].Number;
                 PlayScaleTransform((this[targetCoordinate] as GameBlock).NumberIcon, 1.25, 1, 255);
             }
             return true;
@@ -142,7 +137,7 @@ namespace TwoZeroFourEightLite {
         /// </summary>
         public void GenerateNumber() {
             List<BlockCoordinate> blankCoordiantes = new List<BlockCoordinate>();
-            foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+            foreach (BlockCoordinate coordinate in GetAllCoordinates()) {
                 if (this[coordinate].Number == 0) {
                     blankCoordiantes.Add(coordinate);
                 }
@@ -161,7 +156,7 @@ namespace TwoZeroFourEightLite {
         /// </summary>
         /// <param name="targetNumber"></param>
         public void ClearNumber(int targetNumber) {
-            foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+            foreach (BlockCoordinate coordinate in GetAllCoordinates()) {
                 if (this[coordinate].Number == targetNumber) {
                     this[coordinate].Number = 0;
                 }
@@ -171,9 +166,9 @@ namespace TwoZeroFourEightLite {
         /// 将所有4的4N倍除以2
         /// </summary>
         public void TransToNormalType() {
-            foreach (BlockCoordinate coordinate in this.GetAllCoordinates()) {
+            foreach (BlockCoordinate coordinate in GetAllCoordinates()) {
                 int number = this[coordinate].Number;
-                if (number == 4 || number == 16 || number == 64 
+                if (number == 4 || number == 16 || number == 64
                     || number == 256 || number == 1024 || number == 4096) {
                     this[coordinate].Number = number >> 1;
                 }
@@ -194,7 +189,7 @@ namespace TwoZeroFourEightLite {
         /// </summary>
         /// <returns></returns>
         private IEnumerable<BlockCoordinate> GetAllCoordinates() {
-            foreach (BlockCoordinate coordinate in this.Blocks.Keys) {
+            foreach (BlockCoordinate coordinate in Blocks.Keys) {
                 yield return coordinate;
             }
         }

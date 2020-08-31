@@ -1,18 +1,11 @@
-﻿using Common;
-using System;
-using System.Collections.Generic;
+﻿using GridGameHOS.Common;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using static Common.GeneralAction;
+using static GridGameHOS.Common.GeneralAction;
 
-namespace TwoZeroFourEightLite {
+namespace GridGameHOS.TwoZeroFourEightLite {
     public class TwoZeroFourEightGame : IGridGame, INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
         public MainGameWindow GameWindow { get; set; }
@@ -20,44 +13,44 @@ namespace TwoZeroFourEightLite {
         public GameType Type { get; set; } = GameType.Minesweeper;
         public string GameSizeStatus {
             get {
-                return $"{this.GameWindow.RowsSet} x {this.GameWindow.RowsSet} | {GetTargetNumber(this.GameWindow.ColumnsSet)}";
+                return $"{GameWindow.RowsSet} x {GameWindow.RowsSet} | {GetTargetNumber(GameWindow.ColumnsSet)}";
             }
         }
         public string ProcessStatus {
             get {
-                return $"{this.Game.Scores}";
+                return $"{Game.Scores}";
             }
         }
         public int RowSize {
             get {
-                return this.Game.RowSize;
+                return Game.RowSize;
             }
         }
         public int ColumnSize {
             get {
-                return this.Game.ColumnSize;
+                return Game.ColumnSize;
             }
         }
         public ObservableCollection<IBlocks> BlocksArray {
             get {
-                return new ObservableCollection<IBlocks>(this.Game.Blocks.Values);
+                return new ObservableCollection<IBlocks>(Game.Blocks.Values);
             }
         }
         private TwoZeroFourEightGame() {
 
         }
         public TwoZeroFourEightGame(MainGameWindow gameWindow) {
-            this.Game = new TwoZeroFourEightMain(BlockCreateAction);
-            this.GameWindow = gameWindow;
-            this.GameWindow.KeyDown += Window_KeyDown;
-            this.GameWindow.MaximumRows = 6;
-            this.GameWindow.MinimumRows = 4;
-            this.GameWindow.MaximumColumns = 4;
-            this.GameWindow.MinimumColumns = 1;
-            this.GameWindow.SliderMinesSet.Visibility = Visibility.Collapsed;
-            this.GameWindow.LabelProcess.Visibility = Visibility.Visible;
-            this.GameWindow.ToggleDetector.Visibility = Visibility.Visible;
-            this.GameWindow.ToggleDetector.Click += ToggleDetector_Click;
+            Game = new TwoZeroFourEightMain(BlockCreateAction);
+            GameWindow = gameWindow;
+            GameWindow.KeyDown += Window_KeyDown;
+            GameWindow.MaximumRows = 6;
+            GameWindow.MinimumRows = 4;
+            GameWindow.MaximumColumns = 4;
+            GameWindow.MinimumColumns = 1;
+            GameWindow.SliderMinesSet.Visibility = Visibility.Collapsed;
+            GameWindow.LabelProcess.Visibility = Visibility.Visible;
+            GameWindow.ToggleDetector.Visibility = Visibility.Visible;
+            GameWindow.ToggleDetector.Click += ToggleDetector_Click;
         }
         /// <summary>
         /// 游戏技能
@@ -66,22 +59,22 @@ namespace TwoZeroFourEightLite {
         /// <param name="e"></param>
         private void ToggleDetector_Click(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
-            this.GameWindow.ToggleDetector.IsEnabled = false;
-            this.GameWindow.ToggleDetector.IsChecked = false;
-            this.GameWindow.DetectorBox.Visibility = Visibility.Collapsed;
-            this.Game.TransToNormalType();
+            GameWindow.ToggleDetector.IsEnabled = false;
+            GameWindow.ToggleDetector.IsChecked = false;
+            GameWindow.DetectorBox.Visibility = Visibility.Collapsed;
+            Game.TransToNormalType();
         }
         /// <summary>
         /// 开始游戏
         /// </summary>
         public void StartGame() {
-            this.Game.StartGame(GameWindow.RowsSet, GetTargetNumber(GameWindow.ColumnsSet));
-            this.Game.GenerateNumber();
-            this.Game.GenerateNumber();
-            this.GameWindow.ToggleDetector.IsEnabled = true;
+            Game.StartGame(GameWindow.RowsSet, GetTargetNumber(GameWindow.ColumnsSet));
+            Game.GenerateNumber();
+            Game.GenerateNumber();
+            GameWindow.ToggleDetector.IsEnabled = true;
         }
         public void OnPropertyChanged(string propertyName) {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public void QuickGame(int level) {
             switch (level) {
@@ -98,40 +91,40 @@ namespace TwoZeroFourEightLite {
                     GameWindow.ColumnsSet = 4;
                     break;
             }
-            this.StartGame();
+            StartGame();
         }
         public void UnloadGame() {
-            this.GameWindow.ToggleDetector.Click -= ToggleDetector_Click;
-            this.GameWindow.KeyDown -= Window_KeyDown;
+            GameWindow.ToggleDetector.Click -= ToggleDetector_Click;
+            GameWindow.KeyDown -= Window_KeyDown;
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) {
             switch (e.Key) {
                 case Key.W:
                 case Key.Up:
                     PlayFXSound(nameof(BlockClickSound));
-                    this.Game.MoveToNorth();
-                    this.Game.GenerateNumber();
+                    Game.MoveToNorth();
+                    Game.GenerateNumber();
                     break;
                 case Key.S:
                 case Key.Down:
                     PlayFXSound(nameof(BlockClickSound));
-                    this.Game.MoveToSouth();
-                    this.Game.GenerateNumber();
+                    Game.MoveToSouth();
+                    Game.GenerateNumber();
                     break;
                 case Key.A:
                 case Key.Left:
                     PlayFXSound(nameof(BlockClickSound));
-                    this.Game.MoveToWest();
-                    this.Game.GenerateNumber();
+                    Game.MoveToWest();
+                    Game.GenerateNumber();
                     break;
                 case Key.D:
                 case Key.Right:
                     PlayFXSound(nameof(BlockClickSound));
-                    this.Game.MoveToEast();
-                    this.Game.GenerateNumber();
+                    Game.MoveToEast();
+                    Game.GenerateNumber();
                     break;
             }
-            if (this.Game.IsGameCompleted) {
+            if (Game.IsGameCompleted) {
                 GameWindow.CalCurrentGame(true);
             }
             GameWindow.OnPropertyChanged(nameof(ProcessStatus));

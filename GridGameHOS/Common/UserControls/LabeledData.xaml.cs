@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Common {
+namespace GridGameHOS.Common {
     /// <summary>
     /// LabeledData.xaml 的交互逻辑
     /// </summary>

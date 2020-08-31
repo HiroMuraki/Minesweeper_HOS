@@ -1,6 +1,6 @@
-﻿using Common;
+﻿using GridGameHOS.Common;
 
-namespace MinesweeperGameLite {
+namespace GridGameHOS.Minesweeper {
     public interface IGameBlock : IBlocks {
         /// <summary>
         /// 方块是否被标记插旗

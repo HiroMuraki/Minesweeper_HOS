@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="MinesweeperGameLite.GameBlock"
+﻿<UserControl x:Class="GridGameHOS.Minesweeper.GameBlock"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MinesweeperGameLite"
+             xmlns:local="clr-namespace:GridGameHOS.Minesweeper"
              mc:Ignorable="d" 
              DataContext="{Binding ElementName=UserControl}"
              d:DesignHeight="50" d:DesignWidth="50" Name="UserControl">

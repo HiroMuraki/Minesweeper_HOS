@@ -1,17 +1,15 @@
-﻿using MinesweeperGameLite;
-using SlideJigsawGameLite;
+﻿using GridGameHOS.Minesweeper;
+using GridGameHOS.SlideJigsaw;
+using GridGameHOS.TwoZeroFourEightLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media.Effects;
 using System.Windows.Threading;
-using TwoZeroFourEightLite;
-using static Common.GeneralAction;
+using static GridGameHOS.Common.GeneralAction;
 
-namespace Common {
+namespace GridGameHOS.Common {
     /// <summary>
     /// 扫雷游戏
     /// </summary>
@@ -32,52 +30,52 @@ namespace Common {
         #region 常量-用于xaml绑定
         public int MaximumRows {
             get {
-                return this.maximumRows;
+                return maximumRows;
             }
             set {
-                this.maximumRows = value;
+                maximumRows = value;
                 OnPropertyChanged(nameof(MaximumRows));
             }
         }
         public int MinimumRows {
             get {
-                return this.minimumRows;
+                return minimumRows;
             }
             set {
-                this.minimumRows = value;
+                minimumRows = value;
                 OnPropertyChanged(nameof(MinimumRows));
             }
         }
         public int MaximumColumns {
             get {
-                return this.maximumColumns;
+                return maximumColumns;
             }
             set {
-                this.maximumColumns = value;
+                maximumColumns = value;
                 OnPropertyChanged(nameof(MaximumColumns));
             }
         }
         public int MinimumColumns {
             get {
-                return this.minimumColumns;
+                return minimumColumns;
             }
             set {
-                this.minimumColumns = value;
+                minimumColumns = value;
                 OnPropertyChanged(nameof(MinimumColumns));
             }
         }
         public int MinimumMines {
             get {
-                return this.minimumMines;
+                return minimumMines;
             }
             set {
-                this.minimumMines = value;
+                minimumMines = value;
                 OnPropertyChanged(nameof(MinimumMines));
             }
         }
         public int MaximumMines {
             get {
-                return (this.RowsSet * this.ColumnsSet) >> 2;
+                return (RowsSet * ColumnsSet) >> 2;
             }
         }
         #endregion
@@ -85,20 +83,20 @@ namespace Common {
         public event PropertyChangedEventHandler PropertyChanged;
         public IGridGame CurrentGame {
             get {
-                return this.currentGame;
+                return currentGame;
             }
             set {
-                this.currentGame = value;
+                currentGame = value;
                 OnPropertyChanged(nameof(CurrentGame));
             }
         }
         public DispatcherTimer UsingTimeTimer = new DispatcherTimer();
         public int RowsSet {
             get {
-                return this.rowsSet;
+                return rowsSet;
             }
             set {
-                this.rowsSet = value;
+                rowsSet = value;
                 OnPropertyChanged(nameof(RowsSet));
                 OnPropertyChanged(nameof(MinesSet));
                 OnPropertyChanged(nameof(MaximumMines));
@@ -108,10 +106,10 @@ namespace Common {
         }
         public int ColumnsSet {
             get {
-                return this.columnsSet;
+                return columnsSet;
             }
             set {
-                this.columnsSet = value;
+                columnsSet = value;
                 OnPropertyChanged(nameof(ColumnsSet));
                 OnPropertyChanged(nameof(MinesSet));
                 OnPropertyChanged(nameof(MaximumMines));
@@ -121,13 +119,13 @@ namespace Common {
         }
         public int MinesSet {
             get {
-                if (this.minesSet > this.MaximumMines) {
-                    this.minesSet = this.MaximumMines;
+                if (minesSet > MaximumMines) {
+                    minesSet = MaximumMines;
                 }
-                return this.minesSet;
+                return minesSet;
             }
             set {
-                this.minesSet = value;
+                minesSet = value;
                 OnPropertyChanged(nameof(MinesSet));
                 OnPropertyChanged(nameof(MaximumMines));
                 OnPropertyChanged(nameof(ProcessStatus));
@@ -135,22 +133,22 @@ namespace Common {
         }
         public int UsingTime {
             get {
-                return this.usingTime;
+                return usingTime;
             }
             set {
-                this.usingTime = value;
+                usingTime = value;
                 OnPropertyChanged(nameof(UsingTime));
                 OnPropertyChanged(nameof(UsingTimeStatus));
             }
         }
         public string GameSizeStatus {
             get {
-                return this.CurrentGame.GameSizeStatus;
+                return CurrentGame.GameSizeStatus;
             }
         }
         public string ProcessStatus {
             get {
-                return this.CurrentGame.ProcessStatus;
+                return CurrentGame.ProcessStatus;
             }
         }
         public string UsingTimeStatus {
@@ -164,19 +162,19 @@ namespace Common {
         #region 按钮与控件
         private MainGameWindow() {
             InitializeComponent();
-            this.Cursor = NormalCursor;
-            this.DataContext = this;
-            this.UsingTimeTimer.Interval = TimeSpan.FromSeconds(1);
-            this.UsingTimeTimer.Tick += TimerUsingTimer_Tick;
+            Cursor = NormalCursor;
+            DataContext = this;
+            UsingTimeTimer.Interval = TimeSpan.FromSeconds(1);
+            UsingTimeTimer.Tick += TimerUsingTimer_Tick;
             //添加游戏列表
-            this.SelectorGameList.AllowedLabels = new List<string>();
+            SelectorGameList.AllowedLabels = new List<string>();
             foreach (string gameType in GameDictionary.Values) {
-                this.SelectorGameList.AllowedLabels.Add(gameType);
+                SelectorGameList.AllowedLabels.Add(gameType);
             }
         }
         public MainGameWindow(GameType gameType) : this() {
-            this.LoadGame(gameType);
-            this.SelectorGameList.CurrentLabel = GameDictionary[gameType];
+            LoadGame(gameType);
+            SelectorGameList.CurrentLabel = GameDictionary[gameType];
         }
         /// <summary>
         /// 开始游戏按钮
@@ -191,16 +189,16 @@ namespace Common {
             }
             switch (currentButton.Name) {
                 case "btnQuickStartA":
-                    this.currentGame.QuickGame(0);
+                    currentGame.QuickGame(0);
                     break;
                 case "btnQuickStartB":
-                    this.CurrentGame.QuickGame(1);
+                    CurrentGame.QuickGame(1);
                     break;
                 case "btnQuickStartC":
-                    this.CurrentGame.QuickGame(2);
+                    CurrentGame.QuickGame(2);
                     break;
             }
-            this.StartCurrentGame();
+            StartCurrentGame();
         }
         /// <summary>
         /// 右键点击开始游戏按钮
@@ -218,10 +216,10 @@ namespace Common {
         /// <param name="e"></param>
         private void HiddenSettingMenuButton_Click(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
-            if (this.SettingMenu.Visibility == Visibility.Visible) {
-                this.SettingMenu.Visibility = Visibility.Collapsed;
+            if (SettingMenu.Visibility == Visibility.Visible) {
+                SettingMenu.Visibility = Visibility.Collapsed;
             } else {
-                this.SettingMenu.Visibility = Visibility.Visible;
+                SettingMenu.Visibility = Visibility.Visible;
             }
         }
         /// <summary>
@@ -231,10 +229,10 @@ namespace Common {
         /// <param name="e"></param>
         private void DetecotrSwitchButton_Click(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
-            if (this.DetectorBox.Visibility == Visibility.Visible) {
-                this.DetectorBox.Visibility = Visibility.Collapsed;
+            if (DetectorBox.Visibility == Visibility.Visible) {
+                DetectorBox.Visibility = Visibility.Collapsed;
             } else {
-                this.DetectorBox.Visibility = Visibility.Visible;
+                DetectorBox.Visibility = Visibility.Visible;
             }
         }
         /// <summary>
@@ -243,8 +241,8 @@ namespace Common {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SelectorGameList_LabelSwitched(object sender, RoutedEventArgs e) {
-            PlayScaleTransform(this.SelectorGameList.CurrentDisplayLabel, 0, 1, 255);
-            this.CurrentGame.UnloadGame();
+            PlayScaleTransform(SelectorGameList.CurrentDisplayLabel, 0, 1, 255);
+            CurrentGame.UnloadGame();
             switch (SelectorGameList.CurrentLabel) {
                 case "扫雷":
                     LoadGame(GameType.Minesweeper);
@@ -284,23 +282,23 @@ namespace Common {
         /// <param name="e"></param>
         private void Window_Move(object sender, MouseButtonEventArgs e) {
             if (e.ClickCount == 2) {
-                if (this.WindowState == WindowState.Normal) {
-                    this.WindowState = WindowState.Maximized;
+                if (WindowState == WindowState.Normal) {
+                    WindowState = WindowState.Maximized;
                 } else {
-                    this.WindowState = WindowState.Normal;
+                    WindowState = WindowState.Normal;
                 }
             } else {
-                this.DragMove();
+                DragMove();
             }
         }
         private void Window_Minimized(object sender, RoutedEventArgs e) {
-            this.WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;
         }
         private void Window_Maximized(object sender, RoutedEventArgs e) {
-            if (this.WindowState == WindowState.Normal) {
-                this.WindowState = WindowState.Maximized;
+            if (WindowState == WindowState.Normal) {
+                WindowState = WindowState.Maximized;
             } else {
-                this.WindowState = WindowState.Normal;
+                WindowState = WindowState.Normal;
             }
         }
         private void Window_Close(object sender, RoutedEventArgs e) {
@@ -312,19 +310,19 @@ namespace Common {
                     HiddenSettingMenuButton_Click(new object(), new RoutedEventArgs());
                     break;
                 case Key.Space:
-                    btnStartGame_ButtonClick(this.BtnStartGame, new RoutedEventArgs());
+                    btnStartGame_ButtonClick(BtnStartGame, new RoutedEventArgs());
                     break;
                 case Key.F1:
-                    btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
+                    btnStartGame_ButtonClick(btnQuickStartA, new RoutedEventArgs());
                     break;
                 case Key.F2:
-                    btnStartGame_ButtonClick(this.btnQuickStartB, new RoutedEventArgs());
+                    btnStartGame_ButtonClick(btnQuickStartB, new RoutedEventArgs());
                     break;
                 case Key.F3:
-                    btnStartGame_ButtonClick(this.btnQuickStartC, new RoutedEventArgs());
+                    btnStartGame_ButtonClick(btnQuickStartC, new RoutedEventArgs());
                     break;
                 case Key.F5:
-                    btnStartGame_ButtonRightClick(this.BtnStartGame, new RoutedEventArgs());
+                    btnStartGame_ButtonRightClick(BtnStartGame, new RoutedEventArgs());
                     break;
             }
         }
@@ -334,11 +332,11 @@ namespace Common {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
-            this.Cursor = ClickedCursor;
-            this.ToggleDetector.IsChecked = false;
+            Cursor = ClickedCursor;
+            ToggleDetector.IsChecked = false;
         }
         private void Window_MouseUp(object sender, MouseButtonEventArgs e) {
-            this.Cursor = NormalCursor;
+            Cursor = NormalCursor;
         }
         #endregion
 
@@ -348,59 +346,59 @@ namespace Common {
         /// </summary>
         /// <param name="propertyName"></param>
         public void OnPropertyChanged(string propertyName) {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         /// <summary>
         /// 载入游戏时的操作
         /// </summary>
         /// <param name="gameType"></param>
         public void LoadGame(GameType gameType) {
-            this.CurrentGame?.UnloadGame();
+            CurrentGame?.UnloadGame();
             switch (gameType) {
                 case GameType.Minesweeper:
-                    this.CurrentGame = new MinesweeperGame(this);
+                    CurrentGame = new MinesweeperGame(this);
                     break;
                 case GameType.SlideJigsaw:
-                    this.CurrentGame = new SlideJigsawGame(this);
+                    CurrentGame = new SlideJigsawGame(this);
                     break;
                 case GameType.TwoZeroFourEight:
-                    this.CurrentGame = new TwoZeroFourEightGame(this);
+                    CurrentGame = new TwoZeroFourEightGame(this);
                     break;
             }
-            this.btnStartGame_ButtonClick(this.btnQuickStartA, new RoutedEventArgs());
+            btnStartGame_ButtonClick(btnQuickStartA, new RoutedEventArgs());
         }
         /// <summary>
         /// 开始当前游戏，由窗口调用
         /// </summary>
         private void StartCurrentGame() {
-            this.Cursor = LoadingGameCursor;
+            Cursor = LoadingGameCursor;
             //开始游戏
-            this.CurrentGame.StartGame();
+            CurrentGame.StartGame();
             //重置统计
-            this.BorderGamePanelCover.IsHitTestVisible = false;
-            this.GamePlayAreaGrid.Effect = null;
-            this.GameCompleteBarImage.IsEnabled = false;
-            this.ToggleDetector.IsEnabled = true;
-            this.BtnStartGame.IsOn = null;
-            this.UsingTime = 0;
-            this.UsingTimeTimer.Start();
-            this.Cursor = NormalCursor;
-            this.OnPropertyChanged(nameof(this.CurrentGame));
+            BorderGamePanelCover.IsHitTestVisible = false;
+            GamePlayAreaGrid.Effect = null;
+            GameCompleteBarImage.IsEnabled = false;
+            ToggleDetector.IsEnabled = true;
+            BtnStartGame.IsOn = null;
+            UsingTime = 0;
+            UsingTimeTimer.Start();
+            Cursor = NormalCursor;
+            OnPropertyChanged(nameof(CurrentGame));
         }
         public void StartCustomGame(Action gameStartAction) {
-            this.Cursor = LoadingGameCursor;
+            Cursor = LoadingGameCursor;
             //开始游戏
             gameStartAction?.Invoke();
             //重置统计
-            this.BorderGamePanelCover.IsHitTestVisible = false;
-            this.GamePlayAreaGrid.Effect = null;
-            this.GameCompleteBarImage.IsEnabled = false;
-            this.ToggleDetector.IsEnabled = true;
-            this.BtnStartGame.IsOn = null;
-            this.UsingTime = 0;
-            this.UsingTimeTimer.Start();
-            this.Cursor = NormalCursor;
-            this.OnPropertyChanged(nameof(this.CurrentGame));
+            BorderGamePanelCover.IsHitTestVisible = false;
+            GamePlayAreaGrid.Effect = null;
+            GameCompleteBarImage.IsEnabled = false;
+            ToggleDetector.IsEnabled = true;
+            BtnStartGame.IsOn = null;
+            UsingTime = 0;
+            UsingTimeTimer.Start();
+            Cursor = NormalCursor;
+            OnPropertyChanged(nameof(CurrentGame));
         }
         /// <summary>
         /// 结算游戏，由游戏调用，若传入null，则无其它操作，传入false，仅关闭隐藏开始蒙版与计时器，传入true，正常结算
@@ -410,12 +408,12 @@ namespace Common {
             if (isGameCompleted == null) {
                 return;
             }
-            this.UsingTimeTimer.Stop();
-            this.BorderGamePanelCover.IsHitTestVisible = true;
+            UsingTimeTimer.Stop();
+            BorderGamePanelCover.IsHitTestVisible = true;
             if (isGameCompleted == true) {
-                this.BtnStartGame.IsOn = true;
-                this.GameCompleteBarImage.IsEnabled = true;
-                PlayBlurTransfrom(this.GamePlayAreaGrid, 0, 15, 200);
+                BtnStartGame.IsOn = true;
+                GameCompleteBarImage.IsEnabled = true;
+                PlayBlurTransfrom(GamePlayAreaGrid, 0, 15, 200);
                 //MessageBox.Show("YZTXDY"); ;
             } else {
                 //
@@ -426,9 +424,9 @@ namespace Common {
         /// </summary>
         private void RandomMode() {
             Random rnd = new Random();
-            this.RowsSet = rnd.Next(MinimumRows, MaximumRows);
-            this.ColumnsSet = rnd.Next(MinimumColumns, MaximumColumns);
-            this.MinesSet = rnd.Next(MinimumMines, MaximumMines);
+            RowsSet = rnd.Next(MinimumRows, MaximumRows);
+            ColumnsSet = rnd.Next(MinimumColumns, MaximumColumns);
+            MinesSet = rnd.Next(MinimumMines, MaximumMines);
             StartCurrentGame();
         }
         /// <summary>

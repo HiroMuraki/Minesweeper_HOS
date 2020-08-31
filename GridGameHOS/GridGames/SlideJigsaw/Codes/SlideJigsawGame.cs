@@ -1,33 +1,32 @@
-﻿using Common;
+﻿using GridGameHOS.Common;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Effects;
-using static Common.GeneralAction;
+using static GridGameHOS.Common.GeneralAction;
 
-namespace SlideJigsawGameLite {
-    class SlideJigsawGame : IGridGame, INotifyPropertyChanged {
+namespace GridGameHOS.SlideJigsaw {
+    internal class SlideJigsawGame : IGridGame, INotifyPropertyChanged {
         public GameType Type { get; private set; } = GameType.SlideJigsaw;
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName) {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public MainGameWindow GameWindow { get; set; }
         public SlideJigsawMain Game { get; set; }
         public int RowSize {
             get {
-                return this.Game.RowSize;
+                return Game.RowSize;
             }
         }
         public int ColumnSize {
             get {
-                return this.Game.ColumnSize;
+                return Game.ColumnSize;
             }
         }
         public ObservableCollection<IBlocks> BlocksArray {
             get {
-                return new ObservableCollection<IBlocks>(this.Game.Blocks.Values);
+                return new ObservableCollection<IBlocks>(Game.Blocks.Values);
             }
         }
         public string GameSizeStatus {
@@ -44,8 +43,8 @@ namespace SlideJigsawGameLite {
         /// </summary>
         /// <param name="gameWindow">关联的游戏窗口</param>
         public SlideJigsawGame(MainGameWindow gameWindow) {
-            this.Game = new SlideJigsawMain(BlockCreatAction);
-            this.GameWindow = gameWindow;
+            Game = new SlideJigsawMain(BlockCreatAction);
+            GameWindow = gameWindow;
             GameWindow.ToggleDetector.Visibility = Visibility.Collapsed;
             GameWindow.SliderMinesSet.Visibility = Visibility.Collapsed;
             GameWindow.LabelProcess.Visibility = Visibility.Collapsed;
@@ -54,7 +53,7 @@ namespace SlideJigsawGameLite {
             GameWindow.MaximumColumns = 10;
             GameWindow.MinimumColumns = 3;
             GameWindow.MinimumMines = 0;
-            GameWindow.KeyDown += this.Window_KeyDown;
+            GameWindow.KeyDown += Window_KeyDown;
         }
         /// <summary>
         /// 点击方块时的操作
@@ -63,8 +62,8 @@ namespace SlideJigsawGameLite {
         /// <param name="e"></param>
         private void GameBlock_ButtonClick(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(BlockClickSound));
-            this.Game.SwapWithNullBlock((sender as IGameBlock).Coordinate);
-            if (this.Game.IsGameCompleted) {
+            Game.SwapWithNullBlock((sender as IGameBlock).Coordinate);
+            if (Game.IsGameCompleted) {
                 CalGame();
             }
         }
@@ -78,25 +77,25 @@ namespace SlideJigsawGameLite {
                 case Key.Up:
                 case Key.W:
                     PlayFXSound(nameof(BlockClickSound));
-                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.South);
+                    Game.SwapWithNullBlock(Game.NullBlockCoordiante.South);
                     break;
                 case Key.Down:
                 case Key.S:
                     PlayFXSound(nameof(BlockClickSound));
-                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.North);
+                    Game.SwapWithNullBlock(Game.NullBlockCoordiante.North);
                     break;
                 case Key.Left:
                 case Key.A:
                     PlayFXSound(nameof(BlockClickSound));
-                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.East);
+                    Game.SwapWithNullBlock(Game.NullBlockCoordiante.East);
                     break;
                 case Key.Right:
                 case Key.D:
                     PlayFXSound(nameof(BlockClickSound));
-                    this.Game.SwapWithNullBlock(this.Game.NullBlockCoordiante.West);
+                    Game.SwapWithNullBlock(Game.NullBlockCoordiante.West);
                     break;
             }
-            if (this.Game.IsGameCompleted) {
+            if (Game.IsGameCompleted) {
                 CalGame();
             }
         }
@@ -117,8 +116,8 @@ namespace SlideJigsawGameLite {
         /// 开始当前游戏
         /// </summary>
         public void StartGame() {
-            this.Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet);
-            this.Game.StartGame();
+            Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet);
+            Game.StartGame();
         }
         /// <summary>
         /// 快速游戏
@@ -144,13 +143,13 @@ namespace SlideJigsawGameLite {
         /// 卸载游戏时进行的操作，由游戏主窗口调用
         /// </summary>
         public void UnloadGame() {
-            GameWindow.KeyDown -= this.Window_KeyDown;
+            GameWindow.KeyDown -= Window_KeyDown;
         }
         /// <summary>
         /// 结算游戏
         /// </summary>
         private void CalGame() {
-            this.GameWindow.CalCurrentGame();
+            GameWindow.CalCurrentGame();
             //MessageBox.Show("yztxdy");
             //MessageBox.Show("YZTXDY"); ;
         }

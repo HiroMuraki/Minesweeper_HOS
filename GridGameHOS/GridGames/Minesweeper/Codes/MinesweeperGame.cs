@@ -1,44 +1,43 @@
-﻿using Common;
+﻿using GridGameHOS.Common;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Media.Effects;
-using static Common.GeneralAction;
+using static GridGameHOS.Common.GeneralAction;
 
-namespace MinesweeperGameLite {
+namespace GridGameHOS.Minesweeper {
     public class MinesweeperGame : IGridGame, INotifyPropertyChanged {
         public GameType Type { get; private set; } = GameType.Minesweeper;
         public MinesweeperMain Game { get; set; }
         public int RowSize {
             get {
-                return this.Game.RowSize;
+                return Game.RowSize;
             }
         }
         public int ColumnSize {
             get {
-                return this.Game.ColumnSize;
+                return Game.ColumnSize;
             }
         }
         public ObservableCollection<IBlocks> BlocksArray {
             get {
-                return new ObservableCollection<IBlocks>(this.Game.Blocks.Values);
+                return new ObservableCollection<IBlocks>(Game.Blocks.Values);
             }
         }
         public MainGameWindow GameWindow { get; set; }
         public string GameSizeStatus {
             get {
-                return $"{this.GameWindow.RowsSet} x {this.GameWindow.ColumnsSet}";
+                return $"{GameWindow.RowsSet} x {GameWindow.ColumnsSet}";
             }
         }
         public string ProcessStatus {
             get {
-                return $"{this.Game.FlagsCount} | {this.GameWindow.MinesSet}";
+                return $"{Game.FlagsCount} | {GameWindow.MinesSet}";
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(string propertyName) {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         private void GameBlock_OpenBlock(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(BlockClickSound));
@@ -48,34 +47,34 @@ namespace MinesweeperGameLite {
                 GameWindow.ToggleDetector.IsChecked = false;
                 GameWindow.ToggleDetector.IsEnabled = false;
                 GameWindow.DetectorBox.Visibility = Visibility.Collapsed;
-                if (this.Game[coordinate].IsMineBlock) {
-                    this.Game.FlagBlock(coordinate);
+                if (Game[coordinate].IsMineBlock) {
+                    Game.FlagBlock(coordinate);
                 } else {
-                    this.Game.OpenBlock(coordinate);
+                    Game.OpenBlock(coordinate);
                 }
-                this.Game.IsGameStarted = true;
-                this.CalGame(this.Game.IsGameCompleted);
+                Game.IsGameStarted = true;
+                CalGame(Game.IsGameCompleted);
                 return;
             }
             //首开保护
-            if (!this.Game.IsGameStarted) {
-                this.Game.ResetLayout(coordinate);
-                this.OnPropertyChanged(nameof(BlocksArray));
-                this.Game.IsGameStarted = true;
+            if (!Game.IsGameStarted) {
+                Game.ResetLayout(coordinate);
+                OnPropertyChanged(nameof(BlocksArray));
+                Game.IsGameStarted = true;
             }
             //普通打开
-            this.Game.OpenBlock(coordinate);
-            CalGame(this.Game.IsGameCompleted);
+            Game.OpenBlock(coordinate);
+            CalGame(Game.IsGameCompleted);
         }
         private void GameBlock_FlagBlock(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(BlockFlagSound));
-            this.Game.FlagBlock((sender as GameBlock).Coordinate);
+            Game.FlagBlock((sender as GameBlock).Coordinate);
             GameWindow.OnPropertyChanged(nameof(GameWindow.ProcessStatus));
         }
         private void GameBlock_QuickOpen(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(BlockClickSound));
-            this.Game.OpenNearBlocks((sender as GameBlock).Coordinate);
-            CalGame(this.Game.IsGameCompleted);
+            Game.OpenNearBlocks((sender as GameBlock).Coordinate);
+            CalGame(Game.IsGameCompleted);
         }
         private void ToggleDetector_Click(object sender, RoutedEventArgs e) {
             PlayFXSound(nameof(MenuButtonClickSound));
@@ -92,8 +91,8 @@ namespace MinesweeperGameLite {
         /// </summary>
         /// <param name="gameWindow">关联的游戏窗口</param>
         public MinesweeperGame(MainGameWindow gameWindow) {
-            this.Game = new MinesweeperMain(BlockCreateAction);
-            this.GameWindow = gameWindow;
+            Game = new MinesweeperMain(BlockCreateAction);
+            GameWindow = gameWindow;
             GameWindow.ToggleDetector.Visibility = Visibility.Visible;
             GameWindow.SliderMinesSet.Visibility = Visibility.Visible;
             GameWindow.LabelProcess.Visibility = Visibility.Visible;
@@ -115,28 +114,28 @@ namespace MinesweeperGameLite {
         private void BorderGamePanelCover_Drop(object sender, DragEventArgs e) {
             string filePath = ((string[])e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
             LayoutSetting setting = GameLayoutLoader.ReadFromFile(filePath);
-            this.GameWindow.StartCustomGame(() => { this.StartCustomGame(setting); });
+            GameWindow.StartCustomGame(() => { StartCustomGame(setting); });
 
-            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover,
-                this.GameWindow.BorderGamePanelCover.Opacity, 0, 150);
-            PlayBlurTransfrom(this.GameWindow.GamePlayAreaGrid, 15, 0, 150);
-            this.GameWindow.BorderGamePanelCover.IsHitTestVisible = false;
+            PlayOpacityTransform(GameWindow.BorderGamePanelCover,
+                GameWindow.BorderGamePanelCover.Opacity, 0, 150);
+            PlayBlurTransfrom(GameWindow.GamePlayAreaGrid, 15, 0, 150);
+            GameWindow.BorderGamePanelCover.IsHitTestVisible = false;
         }
         private void BorderGamePanelCover_DragLeave(object sender, DragEventArgs e) {
-            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover,
-                this.GameWindow.BorderGamePanelCover.Opacity, 0, 150);
-            PlayBlurTransfrom(this.GameWindow.GamePlayAreaGrid, 15, 0, 150);
+            PlayOpacityTransform(GameWindow.BorderGamePanelCover,
+                GameWindow.BorderGamePanelCover.Opacity, 0, 150);
+            PlayBlurTransfrom(GameWindow.GamePlayAreaGrid, 15, 0, 150);
         }
         private void BorderGamePanelCover_DragEnter(object sender, DragEventArgs e) {
-            PlayOpacityTransform(this.GameWindow.BorderGamePanelCover,
-                this.GameWindow.BorderGamePanelCover.Opacity, 0.65, 150);
-            PlayBlurTransfrom(this.GameWindow.GamePlayAreaGrid, 0, 15, 150);
+            PlayOpacityTransform(GameWindow.BorderGamePanelCover,
+                GameWindow.BorderGamePanelCover.Opacity, 0.65, 150);
+            PlayBlurTransfrom(GameWindow.GamePlayAreaGrid, 0, 15, 150);
         }
         private void GameWindow_DragLeave(object sender, DragEventArgs e) {
-            this.GameWindow.BorderGamePanelCover.IsHitTestVisible = false;
+            GameWindow.BorderGamePanelCover.IsHitTestVisible = false;
         }
         private void GameWindow_DragEnter(object sender, DragEventArgs e) {
-            this.GameWindow.BorderGamePanelCover.IsHitTestVisible = true;
+            GameWindow.BorderGamePanelCover.IsHitTestVisible = true;
         }
 
         /// <summary>
@@ -156,31 +155,31 @@ namespace MinesweeperGameLite {
         /// </summary>
         /// <param name="isGameCompleted">游戏是否完成</param>
         private void CalGame(bool? isGameCompleted) {
-            this.GameWindow.CalCurrentGame(isGameCompleted);
+            GameWindow.CalCurrentGame(isGameCompleted);
             if (isGameCompleted == false) {
-                this.Game.OpenAllBlocks();
+                Game.OpenAllBlocks();
             }
         }
         /// <summary>
         /// 开始当前游戏
         /// </summary>
         public void StartGame() {
-            if (this.Game.RowSize != this.GameWindow.RowsSet
-                || this.Game.ColumnSize != this.GameWindow.ColumnsSet
-                || this.Game.MineSize != this.GameWindow.MinesSet) {
-                this.Game.SetGame(this.GameWindow.RowsSet, this.GameWindow.ColumnsSet, this.GameWindow.MinesSet);
+            if (Game.RowSize != GameWindow.RowsSet
+                || Game.ColumnSize != GameWindow.ColumnsSet
+                || Game.MineSize != GameWindow.MinesSet) {
+                Game.SetGame(GameWindow.RowsSet, GameWindow.ColumnsSet, GameWindow.MinesSet);
             }
-            this.Game.StartGame();
+            Game.StartGame();
         }
         /// <summary>
         /// 开始自定义游戏
         /// </summary>
         /// <param name="setting"></param>
         public void StartCustomGame(LayoutSetting setting) {
-            this.Game.StartCustomGame(setting);
-            this.GameWindow.RowsSet = this.Game.RowSize;
-            this.GameWindow.ColumnsSet = this.Game.ColumnSize;
-            this.GameWindow.MinesSet = this.Game.MineSize;
+            Game.StartCustomGame(setting);
+            GameWindow.RowsSet = Game.RowSize;
+            GameWindow.ColumnsSet = Game.ColumnSize;
+            GameWindow.MinesSet = Game.MineSize;
         }
         /// <summary>
         /// 快速游戏
@@ -209,14 +208,14 @@ namespace MinesweeperGameLite {
         /// 卸载游戏时的操作，由游戏窗口调用
         /// </summary>
         public void UnloadGame() {
-            this.GameWindow.ToggleDetector.Click -= ToggleDetector_Click;
-            this.GameWindow.AllowDrop = false;
-            this.GameWindow.DragEnter -= GameWindow_DragEnter;
-            this.GameWindow.DragLeave -= GameWindow_DragLeave;
-            this.GameWindow.BorderGamePanelCover.AllowDrop = false;
-            this.GameWindow.BorderGamePanelCover.DragEnter -= BorderGamePanelCover_DragEnter;
-            this.GameWindow.BorderGamePanelCover.DragLeave -= BorderGamePanelCover_DragLeave;
-            this.GameWindow.BorderGamePanelCover.Drop -= BorderGamePanelCover_Drop;
+            GameWindow.ToggleDetector.Click -= ToggleDetector_Click;
+            GameWindow.AllowDrop = false;
+            GameWindow.DragEnter -= GameWindow_DragEnter;
+            GameWindow.DragLeave -= GameWindow_DragLeave;
+            GameWindow.BorderGamePanelCover.AllowDrop = false;
+            GameWindow.BorderGamePanelCover.DragEnter -= BorderGamePanelCover_DragEnter;
+            GameWindow.BorderGamePanelCover.DragLeave -= BorderGamePanelCover_DragLeave;
+            GameWindow.BorderGamePanelCover.Drop -= BorderGamePanelCover_Drop;
         }
     }
 }
